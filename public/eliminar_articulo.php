@@ -1,29 +1,73 @@
 <?php
+// public/eliminar_articulo.php
 session_start();
-require_once("../config/Database.php"); // Ajusta la ruta si es necesario
 
-if (!isset($_SESSION['id_usuario']) || !isset($_POST['id'])) {
-    echo json_encode(['success' => false, 'message' => 'No autorizado']);
+// Habilitar reporte de errores para ver qué falla
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+header('Content-Type: application/json');
+
+// 1. Verificamos sesión y datos
+if (!isset($_SESSION['id_usuario'])) {
+    echo json_encode(['success' => false, 'message' => 'No has iniciado sesión']);
+    exit;
+}
+
+if (!isset($_POST['id'])) {
+    echo json_encode(['success' => false, 'message' => 'No se recibió el ID del artículo']);
+    exit;
+}
+
+// 2. Intentamos cargar la base de datos
+// PRUEBA CON ESTAS RUTAS SI LA TUYA FALLA:
+$rutaDB = "../config/Database.php"; 
+if (!file_exists($rutaDB)) {
+    // Si no está en config, probamos si está en public o src
+    $rutaDB = "Database.php"; 
+}
+
+if (file_exists($rutaDB)) {
+    require_once($rutaDB);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Error: No se encuentra Database.php']);
     exit;
 }
 
 $database = new Database();
 $db = $database->getConnection();
+
 $id_articulo = $_POST['id'];
 $id_usuario = $_SESSION['id_usuario'];
 
 try {
-    // IMPORTANTE: Verificamos que el artículo pertenezca al usuario antes de borrar (seguridad)
-    $sql = "DELETE FROM articulos WHERE id = :id_articulo AND usuario_id = :id_usuario";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([':id_articulo' => $id_articulo, ':id_usuario' => $id_usuario]);
+    // 3. PRIMERO: Verificar que el artículo es del usuario
+    $checkSql = "SELECT id FROM articulos WHERE id = :id AND usuario_id = :usuario_id";
+    $checkStmt = $db->prepare($checkSql);
+    $checkStmt->execute([':id' => $id_articulo, ':usuario_id' => $id_usuario]);
 
-    if ($stmt->rowCount() > 0) {
+    if ($checkStmt->rowCount() == 0) {
+        echo json_encode(['success' => false, 'message' => 'No tienes permiso para borrar este artículo o no existe.']);
+        exit;
+    }
+
+    // 4. SEGUNDO: Borrar las fotos asociadas (Para evitar error de clave foránea)
+    $sqlFotos = "DELETE FROM articulos_fotos WHERE articulo_id = :id_articulo";
+    $stmtFotos = $db->prepare($sqlFotos);
+    $stmtFotos->execute([':id_articulo' => $id_articulo]);
+
+    // 5. TERCERO: Ahora sí, borrar el artículo
+    $sql = "DELETE FROM articulos WHERE id = :id_articulo";
+    $stmt = $db->prepare($sql);
+    
+    if ($stmt->execute([':id_articulo' => $id_articulo])) {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'No se pudo borrar o no es tuyo']);
+        echo json_encode(['success' => false, 'message' => 'Error al borrar el artículo en la BD']);
     }
+
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'Error SQL: ' . $e->getMessage()]);
 }
 ?>

@@ -322,35 +322,44 @@ async function cargarMisProductos() {
         contenedor.innerHTML = ''; 
         
         if (misProductos.length === 0) {
-            contenedor.innerHTML = '<p>No tienes productos.</p>';
+            contenedor.innerHTML = '<p class="text-muted">Aún no has subido ningún artículo.</p>';
             return;
         }
 
         misProductos.forEach(producto => {
             const imagen = producto.ruta_foto ? producto.ruta_foto : '../public/imagenes/default.png';
-
-            // ATENCIÓN A LOS BOTONES ABAJO:
-            // Pasamos todos los datos a abrirModalEditar para no tener que volver a pedirlos
-            // Usamos comillas simples invertidas dentro de las funciones para evitar errores con strings
+            
+            // Preparamos los datos para el botón de editar (evitando errores de comillas)
             const datosProducto = JSON.stringify(producto).replace(/"/g, '&quot;');
 
             const cardHTML = `
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="${imagen}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div style="position: relative;">
+                            <img src="${imagen}" class="card-img-top" alt="${producto.titulo}" style="height: 200px; object-fit: cover;">
+                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">${producto.categoria}</span>
+                        </div>
+
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">${producto.titulo}</h5>
-                            <p class="card-text text-truncate">${producto.descripcion}</p>
+                            <h5 class="card-title text-truncate" title="${producto.titulo}">${producto.titulo}</h5>
+                            <p class="card-text text-truncate text-muted small">${producto.descripcion}</p>
                             
-                            <div class="mt-auto">
-                                <button class="btn btn-warning btn-sm w-100 mb-2" 
-                                    onclick='abrirModalEditar(${datosProducto})'>
-                                    Editar
-                                </button>
-                                <button class="btn btn-danger btn-sm w-100" 
-                                    onclick="eliminarProducto(${producto.articulo_id})">
-                                    Eliminar
-                                </button>
+                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
+                                <span class="badge bg-light text-dark border">${producto.estado}</span>
+                                
+                                <div>
+                                    <button class="btn btn-outline-primary btn-sm me-1" 
+                                            title="Editar"
+                                            onclick='abrirModalEditar(${datosProducto})'>
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </button>
+
+                                    <button class="btn btn-outline-danger btn-sm" 
+                                            title="Eliminar"
+                                            onclick="eliminarProducto(${producto.articulo_id})">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -360,32 +369,9 @@ async function cargarMisProductos() {
         });
 
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error cargando mis productos:', error);
     }
 }
-
-// 2. FUNCIÓN PARA ELIMINAR
-function eliminarProducto(id) {
-    if(!confirm("¿Estás seguro de que quieres eliminar este artículo?")) return;
-
-    const formData = new FormData();
-    formData.append('id', id);
-
-    fetch('../public/eliminar_articulo.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.success) {
-            alert("Artículo eliminado.");
-            cargarMisProductos(); // Recargamos la lista
-        } else {
-            alert("Error al eliminar: " + data.message);
-        }
-    });
-}
-
 // 3. FUNCIÓN PARA ABRIR EL MODAL Y RELLENAR DATOS
 var modalBootstrap; // Variable global para controlar el modal
 
@@ -431,5 +417,38 @@ function guardarCambios() {
         } else {
             alert("Error al actualizar: " + (data.message || 'Error desconocido'));
         }
+    });
+}
+
+function eliminarProducto(id) {
+    if(!confirm("¿Estás seguro de que quieres eliminar este artículo?")) return;
+
+    const formData = new FormData();
+    formData.append('id', id);
+
+    // CAMBIO IMPORTANTE: Intenta usar la ruta sin '../public/'
+    // Si tu archivo JS está cargado en sesionIniciada.php, la ruta relativa es directa:
+    fetch('eliminar_articulo.php', { 
+        method: 'POST',
+        body: formData
+    })
+    .then(res => {
+        // Esto nos ayuda a ver si el archivo existe o da error 404/500
+        if (!res.ok) {
+            throw new Error("Error en la red: " + res.status + " " + res.statusText);
+        }
+        return res.json(); // Intentamos leer el JSON
+    })
+    .then(data => {
+        if(data.success) {
+            alert("Artículo eliminado correctamente.");
+            cargarMisProductos(); // Recargar la lista
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Ocurrió un error al intentar borrar. Abre la consola (F12) para ver más detalles.");
     });
 }

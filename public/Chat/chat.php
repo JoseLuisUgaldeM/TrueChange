@@ -95,6 +95,8 @@ $stmt->execute([$id_comprador, $id_vendedor]);
         #message-form button:hover { background-color: #218838; }
     </style>
 </head>
+
+
 <body>
 
 <div class="chat-container">
