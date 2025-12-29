@@ -286,7 +286,7 @@ if (e.target.classList.contains('btn-enviar-id')) {
     });
 }
 
-    fetch('check_notifications.php')
+    fetch('../public/Chat/check_notifications.php')
     .then(res => res.json())
     .then(data => {
         if(data.count > 0) {

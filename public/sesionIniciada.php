@@ -1,6 +1,5 @@
 <?php
 
-
 require_once "Usuario.php";
 
 require_once "Articulos.php";
@@ -390,21 +389,20 @@ if ($_SESSION['inicioSesion'] == true) {
             </div>
         </div>
 
-        <script src="../src/script.js"></script>
-
+        
         <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Editar Producto</h5>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Producto</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="formEditarProducto">
-            <input type="hidden" id="edit_id"> <div class="mb-3">
-                <label class="form-label">Título</label>
-                <input type="text" class="form-control" id="edit_titulo" required>
-            </div>
+          <form id="formEditarProducto">
+              <input type="hidden" id="edit_id"> <div class="mb-3">
+                  <label class="form-label">Título</label>
+                  <input type="text" class="form-control" id="edit_titulo" required>
+                </div>
             <div class="mb-3">
                 <label class="form-label">Descripción</label>
                 <textarea class="form-control" id="edit_descripcion" rows="3" required></textarea>
@@ -416,7 +414,7 @@ if ($_SESSION['inicioSesion'] == true) {
                     <option value="moda y accesorios">Moda y Accesorios</option>
                     <option value="hogar y jardin">Hogar y Jardín</option>
                     <option value="deportes y ocio">Deportes y Ocio</option>
-                    </select>
+                </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Estado</label>
@@ -426,31 +424,32 @@ if ($_SESSION['inicioSesion'] == true) {
                 </select>
             </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="guardarCambios()">Guardar Cambios</button>
-      </div>
     </div>
-  </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="guardarCambios()">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
 </div>
 </div>
 <footer class="pie">
-
-
-
+    
+    
+    
 
 </footer>
 </body>
 
 
-    </html>
+<script src="../src/script.js"></script>
+</html>
 
 <?php
 } else {
-
+    
     echo "<script>alert('Registrese para acceder.');</script>";
-
+    
     header("Location: index.php");
 }
 ?>
