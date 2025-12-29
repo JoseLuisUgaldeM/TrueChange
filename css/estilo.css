@@ -86,3 +86,40 @@ html {
 .card-efecto {
     overflow: hidden; 
 }
+
+/* --- Estilos del Footer --- */
+.pie {
+    background-color: #1a1a1a !important; /* Un gris muy oscuro casi negro */
+    color: #d1d1d1 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.pie h5 {
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.pie p a {
+    font-size: 0.95rem;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.pie p a:hover {
+    color: #007bff !important; /* El color primario de tu marca */
+    padding-left: 5px; /* Pequeño efecto de desplazamiento */
+}
+
+.pie .fa {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.pie .fa:hover {
+    transform: translateY(-3px);
+    color: #007bff !important;
+}
+
+/* Para asegurar que el footer no se pegue al contenido de arriba */
+main, #resultados {
+    min-height: 60vh; /* Asegura que el footer se mantenga abajo aunque haya pocos artículos */
+}

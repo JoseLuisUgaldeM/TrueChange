@@ -435,7 +435,54 @@ if ($_SESSION['inicioSesion'] == true) {
 </div>
 <footer class="pie">
     
-    
+    <footer class="pie bg-dark text-white pt-5 pb-4 mt-5">
+    <div class="container text-center text-md-start">
+        <div class="row text-center text-md-start">
+            
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-primary">TrueChange</h5>
+                <p>La plataforma líder para el intercambio de artículos. Fomentando la economía circular y el consumo responsable.</p>
+            </div>
+
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Explorar</h5>
+                <p><a href="#" class="text-white text-decoration-none" onclick="mostrarTodos()">Todos los artículos</a></p>
+                <p><a href="#" class="text-white text-decoration-none" onclick="mostrarFavoritos()">Mis Favoritos</a></p>
+                <p><a href="#" class="text-white text-decoration-none" onclick="mostrarMisProductos()">Mis Publicaciones</a></p>
+            </div>
+
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Ayuda</h5>
+                <p><a href="#" class="text-white text-decoration-none">Cómo funciona</a></p>
+                <p><a href="#" class="text-white text-decoration-none">Reglas de intercambio</a></p>
+                <p><a href="#" class="text-white text-decoration-none">Contacto</a></p>
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Síguenos</h5>
+                <div class="d-flex justify-content-center justify-content-md-start">
+                    <a href="#" class="text-white me-4"><i class="fa fa-facebook fa-lg"></i></a>
+                    <a href="#" class="text-white me-4"><i class="fa fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-white me-4"><i class="fa fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fa fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mb-4 mt-5">
+
+        <div class="row align-items-center">
+            <div class="col-md-7 col-lg-8">
+                <p>© 2025 Copyright: <strong class="text-primary">TrueChange.com</strong> - Dale una segunda vida a tus cosas.</p>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="text-center text-md-end">
+                   <small class="text-muted">Desarrollado con <i class="fa fa-heart text-danger"></i> para un mundo sostenible.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
     
 
 </footer>
