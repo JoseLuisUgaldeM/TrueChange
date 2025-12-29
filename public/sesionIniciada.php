@@ -373,11 +373,7 @@ if ($_SESSION['inicioSesion'] == true) {
         </div>
 
 
-        <div class="container my-5 contenedor2">
-            <h1 id=titulo2>Articulos encontrados </h1>
-            <div class="row" id="resultadosFiltrados">
-            </div>
-        </div>
+       
 
         <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
             <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
@@ -438,14 +434,15 @@ if ($_SESSION['inicioSesion'] == true) {
     </div>
   </div>
 </div>
-
-        <footer class="pie">
-
-
+</div>
+<footer class="pie">
 
 
-        </footer>
-    </body>
+
+
+</footer>
+</body>
+
 
     </html>
 

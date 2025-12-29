@@ -4,9 +4,7 @@ html {
     margin: 0;
 }
 
-body {
-    padding: 20px; /* Pasarlo al body si quieres mantener ese margen, o quitarlo del todo */
-}
+
 
 .header{
 

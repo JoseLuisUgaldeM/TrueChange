@@ -13,8 +13,9 @@
         "titulo": "Ordenador sobremesa",
         "descripcion": "Ordenador antiguo de sobremesa",
         "categoria": "tecnologia y electronica",
-        "estado": "usado",
+        "estado": "nuevo",
         "fecha_publicacion": "2025-12-29 05:35:07",
+        "estadoArticulo": "disponible",
         "articulo_id": 95,
         "ruta_foto": "..\/public\/imagenes\/uploads\/695204fb4752f.jpg"
     },
@@ -34,6 +35,7 @@
         "categoria": "tecnologia y electronica",
         "estado": "como nuevo",
         "fecha_publicacion": "2025-12-11 18:09:34",
+        "estadoArticulo": "disponible",
         "articulo_id": 88,
         "ruta_foto": "..\/public\/imagenes\/uploads\/693aface6ef6f.jpg"
     },
@@ -53,6 +55,7 @@
         "categoria": "ni\u00f1os y bebes",
         "estado": "nuevo",
         "fecha_publicacion": "2025-12-11 19:21:05",
+        "estadoArticulo": "disponible",
         "articulo_id": 91,
         "ruta_foto": "..\/public\/imagenes\/uploads\/693b0b9127e20.jpg"
     },
@@ -72,6 +75,7 @@
         "categoria": "coches",
         "estado": "nuevo",
         "fecha_publicacion": "2025-12-11 19:48:36",
+        "estadoArticulo": "disponible",
         "articulo_id": 92,
         "ruta_foto": "..\/public\/imagenes\/uploads\/693b120401b6b.jpg"
     },
@@ -91,6 +95,7 @@
         "categoria": "construccion y reformas",
         "estado": "usado",
         "fecha_publicacion": "2025-12-26 19:41:37",
+        "estadoArticulo": "disponible",
         "articulo_id": 94,
         "ruta_foto": "..\/public\/imagenes\/uploads\/694ed6e200479.jpg"
     },
@@ -110,6 +115,7 @@
         "categoria": null,
         "estado": "nuevo",
         "fecha_publicacion": "2025-12-26 11:26:04",
+        "estadoArticulo": "disponible",
         "articulo_id": 93,
         "ruta_foto": "..\/public\/imagenes\/uploads\/694e62bc37cbb.jpg"
     }
