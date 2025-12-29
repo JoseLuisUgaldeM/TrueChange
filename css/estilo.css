@@ -1,10 +1,12 @@
-html{
-
+html {
     box-sizing: border-box;
-    padding: 20px;
-    margin:0;
+    padding: 0; /* Quitar el padding global */
+    margin: 0;
 }
 
+body {
+    padding: 20px; /* Pasarlo al body si quieres mantener ese margen, o quitarlo del todo */
+}
 
 .header{
 
@@ -61,4 +63,28 @@ html{
     display: flex;
     margin: auto;
     height: 300px;
+}
+
+/* --- Efecto Hover Universal para Tarjetas --- */
+
+.card-efecto {
+    transition: all 0.3s ease; 
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.card-efecto:hover {
+    transform: translateY(-10px); /* Levitar */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; /* Sombra profunda */
+    cursor: pointer;
+    border-color: transparent;
+}
+
+.card-efecto:hover .card-img-top {
+    transform: scale(1.03); /* Zoom suave */
+    transition: transform 0.3s ease;
+}
+
+/* Evitar que la imagen se salga al hacer zoom */
+.card-efecto {
+    overflow: hidden; 
 }

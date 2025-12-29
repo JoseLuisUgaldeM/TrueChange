@@ -91,7 +91,7 @@ if ($_SESSION['inicioSesion'] == true) {
                                 <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
 
 
-                            <ul class="dropdown-menu text-small shadow">
+                            <ul class="dropdown-menu text-small shadow" style="z-index: 2000;">
                                 <li><a class="btn dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#avatarModal">Cambiar foto de perfil</a></li>
                                 <li><a class="btn dropdown-item" data-bs-toggle="modal"
@@ -232,7 +232,7 @@ if ($_SESSION['inicioSesion'] == true) {
         </header>
 
         <!-- Barra de navegación-->
-        <div class="barraNavegacion mx-auto ">
+     <div class="barraNavegacion mx-auto sticky-top bg-white">
 
             <nav class="navbar navbar-expand-lg ">
                 <div class="container-fluid">
@@ -285,6 +285,7 @@ if ($_SESSION['inicioSesion'] == true) {
                             </li>
                         </ul>
                     </div>
+                    
                     <form class="d-flex col-lg-5 col-md-8 col-sm-9" role="search">
                         <input id="campoFiltro" class="form-control me-2 text-primary" type="search" placeholder="Ej.Iphone" aria-label="Search">
                         <button onclick="aplicarFiltro(event)" class="btn btn-outline-primary" type="submit">Buscar</button>
@@ -304,14 +305,31 @@ if ($_SESSION['inicioSesion'] == true) {
 
         <div class="d-flex bg-body-tertiary ">
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12">
+<div class="container mb-4">
+    <div class="row g-3 align-items-center bg-light p-3 rounded shadow-sm">
+        
+        <div class="col-md-4">
+            <label class="form-label fw-bold small">¿Qué buscas?</label>
+            <input type="text" id="buscador-general" class="form-control" placeholder="Ej: Bicicleta, Móvil...">
+        </div>
 
-                <button onclick="misProductos(event)" class="btn btn-outline-primary p-3 m-3">Mis productos</button>
+        <div class="col-md-4">
+            <label class="form-label fw-bold small">¿Qué ofreces a cambio?</label>
+            <input type="text" id="buscador-cambio" class="form-control" placeholder="Ej: Busco gente que quiera una Guitarra...">
+            <small class="text-muted" style="font-size: 0.8em;">Filtra por lo que el vendedor pide.</small>
+        </div>
 
-                <button onclick="misProductos(event)" class="btn btn-outline-primary p-3 m-3">Favoritos</button>
-
-                <button onclick="misProductos(event)" class="btn btn-outline-primary p-3 m-3">Mis mensajes</button>
-
-                <button onclick="misProductos(event)" class="btn btn-outline-primary p-3 m-3">Vendedores guardados</button>
+        <div class="col-md-4">
+            <label class="form-label fw-bold small">Ordenar por:</label>
+            <select id="filtro-orden" class="form-select">
+                <option value="reciente" selected>Más recientes (Nuevos primero)</option>
+                <option value="antiguo">Más antiguos</option>
+                <option value="nombre_asc">Nombre: A - Z</option>
+                <option value="nombre_desc">Nombre: Z - A</option>
+            </select>
+        </div>
+    </div>
+</div>
 
                 <hr>
             </div>

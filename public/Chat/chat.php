@@ -22,6 +22,10 @@ require 'db_config.php';
 
 $id_comprador = CURRENT_USER_ID;
 $id_vendedor = $_SESSION['vendedor_chat_id'];
+$sql = "UPDATE messages SET is_read = 1 
+        WHERE receiver_id = ? AND sender_id = ? AND is_read = 0";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$id_comprador, $id_vendedor]);
 
 // --- NUEVA CONSULTA: Obtener el nombre del partner ---
 $stmtNombre = $pdo->prepare("SELECT nombre FROM usuarios WHERE id = ?");
@@ -30,10 +34,6 @@ $usuarioPartner = $stmtNombre->fetch();
 $nombrePartner = $usuarioPartner ? $usuarioPartner['nombre'] : "Chat";
 
 // Marcar como leído
-$sql = "UPDATE messages SET is_read = 1 
-        WHERE receiver_id = ? AND sender_id = ? AND is_read = 0";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([$id_comprador, $id_vendedor]);
 ?>
 <!DOCTYPE html>
 <html lang="es">
