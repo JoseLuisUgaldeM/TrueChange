@@ -123,3 +123,114 @@ html {
 main, #resultados {
     min-height: 60vh; /* Asegura que el footer se mantenga abajo aunque haya pocos artículos */
 }
+
+/* --- Estilo del buscador centrado --- */
+.buscador-unificado {
+    transition: all 0.3s ease;
+    border: 1px solid #eee !important;
+}
+
+.buscador-unificado:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08) !important;
+}
+
+.buscador-unificado .form-control, 
+.buscador-unificado .form-select {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+}
+
+.buscador-unificado .form-control:focus, 
+.buscador-unificado .form-select:focus {
+    background-color: #fff !important;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+    outline: none;
+    border: 1px solid #0d6efd !important;
+}
+
+/* Ajuste para que los labels no queden pegados al borde en móvil */
+@media (max-width: 768px) {
+    .buscador-unificado {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+/* Estilos para el sobre de notificaciones */
+.nav-item .fa-envelope-o {
+    transition: color 0.3s ease;
+}
+
+.nav-item:hover .fa-envelope-o {
+    color: #007bff; /* Color azul al pasar el ratón */
+}
+
+#notif-badge {
+    /* Asegura que el badge sea un círculo perfecto si hay pocos números */
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white; /* Un borde blanco lo hace resaltar sobre el fondo */
+}
+
+/* Difuminar ligeramente la imagen si está vendido */
+.card-vendido img {
+    filter: grayscale(1) opacity(0.6);
+}
+
+.badge {
+    z-index: 10;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+}
+
+/* --- Estilos para las Etiquetas de Estado --- */
+.badge-estado {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 50px; /* Bordes muy redondeados */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    backdrop-filter: blur(4px); /* Efecto cristal */
+}
+
+/* Colores personalizados */
+.badge-disponible {
+    background-color: rgba(40, 167, 69, 0.85) !important; /* Verde */
+    color: white;
+}
+
+.badge-reservado {
+    background-color: rgba(255, 193, 7, 0.9) !important; /* Ámbar */
+    color: #212529;
+}
+
+.badge-vendido {
+    background-color: rgba(220, 53, 69, 0.85) !important; /* Rojo */
+    color: white;
+}
+
+/* Efecto para la tarjeta cuando está vendido */
+.card-vendido {
+    filter: grayscale(0.4);
+}
+
+.card-vendido img {
+    filter: sepia(0.2) opacity(0.7);
+}
+
+/* Estilo para la botonera de gestión (dueño) */
+.gestion-container {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 10px;
+    border: 1px dashed #dee2e6;
+}
+
+.btn-check:checked + .btn-outline-success { background-color: #28a745; color: white; }
+.btn-check:checked + .btn-outline-warning { background-color: #ffc107; color: black; }
+.btn-check:checked + .btn-outline-danger { background-color: #dc3545; color: white; }

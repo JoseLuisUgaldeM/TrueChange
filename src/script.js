@@ -5,7 +5,7 @@ const contenedorResultadosFiltrados = document.getElementById('resultadosFiltrad
 var contador = 0;
 // Variable para evitar notificaciones repetidas
 // Consultar cada 10 segundos
-setInterval(verificarNuevosMensajes , 5000);
+setInterval(verificarNuevosMensajes, 5000);
 let mensajesDetectados = 0;
 
 function verificarNuevosMensajes() {
@@ -14,13 +14,13 @@ function verificarNuevosMensajes() {
         .then(data => {
             const badge = document.getElementById('notif-badge');
             // CAMBIO AQUÍ: de data.nuevos a data.count
-            if (data.count > 0) { 
-                if(badge) {
+            if (data.count > 0) {
+                if (badge) {
                     badge.innerText = data.count;
                     badge.style.display = 'block';
                 }
                 document.title = `(${data.count}) Mensajes nuevos`;
-            } else if(badge) {
+            } else if (badge) {
                 badge.style.display = 'none';
                 document.title = "TrueChange";
             }
@@ -37,13 +37,13 @@ async function inicializarDatos() {
     try {
         contenedorResultados.innerHTML = `<p>Cargando datos...</p>`;
         const respuesta = await fetch('datos_usuario.json');
-        
+
         if (!respuesta.ok) {
             throw new Error(`Error HTTP: ${respuesta.status}`);
         }
-        
+
         todosLosDatos = await respuesta.json();
-        
+
         // Muestra todos los datos al inicio
         mostrarDatos(todosLosDatos, contenedorResultados);
         aplicarFiltros();
@@ -65,7 +65,7 @@ function filtrarPorCategoria(event) {
 
     // El filtro de texto debe ser insensible a mayúsculas/minúsculas
     const valorLowerCase = campoFiltro.toLowerCase();
-    
+
     // 1. Aplicar el filtro a los datos cargados previamente
     const datosFiltrados = todosLosDatos.filter(item => {
         const itemValue = item[valorFiltro];
@@ -95,16 +95,16 @@ function aplicarFiltro(event) {
     event.preventDefault();
     const campoFiltro = document.getElementById('campoFiltro').value;
     const valorFiltro = 'titulo';
-    
-    
-    
+
+
+
     // El filtro de texto debe ser insensible a mayúsculas/minúsculas
     const valorLowerCase = campoFiltro.toLowerCase();
-    
+
     // 1. Aplicar el filtro a los datos cargados previamente
     const datosFiltrados = todosLosDatos.filter(item => {
         const itemValue = item[valorFiltro];
-        
+
         if (typeof itemValue === 'string') {
             // Filtrado de texto (insensible a mayúsculas/minúsculas y busca subcadenas)
             return itemValue.toLowerCase().includes(valorLowerCase);
@@ -113,12 +113,12 @@ function aplicarFiltro(event) {
             // Esto busca coincidencias exactas con el número introducido.
             return itemValue === parseFloat(valorLowerCase);
         }
-        
-        
+
+
         // Si no es un string ni un número (o si el campo no existe), no lo incluimos
         return false;
     });
-    
+
     // 2. Mostrar los resultados
     mostrarDatos(datosFiltrados, contenedorResultadosFiltrados, campoFiltro, valorFiltro);
 }
@@ -143,7 +143,7 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
 
     // 1. Limpiar el contenedor de tarjetas
     contenedor.innerHTML = "";
-    
+
     // 2. Buscar o crear el contenedor EXCLUSIVO para los modales
     // Esto asegura que los modales vivan fuera de las cards y no se vean afectados por el 'transform'
     let contenedorModales = document.getElementById('contenedor-modales-dinamicos');
@@ -175,8 +175,25 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
 
         if (intervalo > 1) imprimir = `Publicado hace ${intervalo} dias `;
         if (intervalo == 1) imprimir = `Publicado hace ${intervalo} dia `;
-        
+
         const imagen = item.ruta_foto ? item.ruta_foto : '../public/imagenes/default.png';
+        // --- PROCESAR EL ESTADO PARA DARLE ESTILO ---
+const estado = item.estadoArticulo || 'disponible'; // Valor por defecto
+let badgeHtml = '';
+
+if (estado === 'vendido') {
+    badgeHtml = `<span class="badge-estado badge-vendido position-absolute top-0 start-0 m-2">
+                    <i class="fa fa-handshake-o"></i> Vendido
+                 </span>`;
+} else if (estado === 'reservado') {
+    badgeHtml = `<span class="badge-estado badge-reservado position-absolute top-0 start-0 m-2">
+                    <i class="fa fa-clock-o"></i> Reservado
+                 </span>`;
+} else {
+    badgeHtml = `<span class="badge-estado badge-disponible position-absolute top-0 start-0 m-2">
+                    <i class="fa fa-check-circle"></i> Disponible
+                 </span>`;
+}
 
         // --- PARTE A: SOLO LA TARJETA ---
         // Nota: Mantenemos 'card-efecto' aquí para la animación
@@ -188,9 +205,9 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
                     <h5 class="card-title">${item.titulo}</h5>
                     <p class="card-text text-truncate">${item.descripcion}</p>
                     <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
-                    
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalArticulo${contador}">
-                        Ver articulo
+                    Ver articulo
+                    ${badgeHtml}
                     </button>
                 </div>
             </div>
@@ -207,6 +224,7 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-3">
+                    ${badgeHtml}
                         <img src="${imagen}" class="card-img-top mb-3" alt="${item.titulo}">
                         <div class="border p-3 m-2">
                             <h6>Descripción del articulo</h6>
@@ -225,6 +243,7 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
                             <p class="text-primary fw-bold mt-auto">${imprimir}</p>
                         </div>
                     </div>
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary btn-chat btn-enviar-id" data-id="${item.usuario_id}">Enviar mensaje</button>
@@ -232,11 +251,11 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
                 </div>
             </div>
         </div>`;
-                                            
+
         // Insertamos cada parte en su contenedor correspondiente
         contenedor.innerHTML += cardHtml;           // La tarjeta va al grid
         contenedorModales.innerHTML += modalHtml;   // El modal va al fondo del body
-        
+
         contador++;
     });
 }
@@ -258,43 +277,43 @@ function reproducirSonido() {
 
 
 // 1. Detectar el clic en el botón de la card
-document.addEventListener('click', function(e) {
-if (e.target.classList.contains('btn-enviar-id')) {
-    // 1. Obtener el ID del vendedor
-    const vendedorId = e.target.getAttribute('data-id');
-    
-    // 2. Enviar el ID a PHP
-    fetch('../public/Chat/db_config.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'id_vendedor=' + encodeURIComponent(vendedorId)
-    })
-    .then(response => {
-        if (!response.ok) throw new Error('Error en la respuesta del servidor');
-        return response.text();
-    })
-    .then(data => {
-        console.log('Sesión actualizada:', data);
-        // 3. AHORA SÍ, redirigimos después de confirmar el éxito
-        window.location.href = '../public/Chat/chat.php';
-    })
-    .catch(error => {
-        console.error('Error al guardar sesión:', error);
-        alert('No se pudo iniciar el chat. Intentalo de nuevo.');
-    });
-}
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('btn-enviar-id')) {
+        // 1. Obtener el ID del vendedor
+        const vendedorId = e.target.getAttribute('data-id');
+
+        // 2. Enviar el ID a PHP
+        fetch('../public/Chat/db_config.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'id_vendedor=' + encodeURIComponent(vendedorId)
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Error en la respuesta del servidor');
+                return response.text();
+            })
+            .then(data => {
+                console.log('Sesión actualizada:', data);
+                // 3. AHORA SÍ, redirigimos después de confirmar el éxito
+                window.location.href = '../public/Chat/chat.php';
+            })
+            .catch(error => {
+                console.error('Error al guardar sesión:', error);
+                alert('No se pudo iniciar el chat. Intentalo de nuevo.');
+            });
+    }
 
     fetch('../public/Chat/check_notifications.php')
-    .then(res => res.json())
-    .then(data => {
-        if(data.count > 0) {
-            // Mostrar el Toast que ya tienes en tu HTML o un punto rojo en el icono de mensajes
-            const toast = new bootstrap.Toast(document.getElementById('liveToast'));
-            toast.show();
-        }
-    });
+        .then(res => res.json())
+        .then(data => {
+            if (data.count > 0) {
+                // Mostrar el Toast que ya tienes en tu HTML o un punto rojo en el icono de mensajes
+                const toast = new bootstrap.Toast(document.getElementById('liveToast'));
+                toast.show();
+            }
+        });
 });
 // --- PEGAR AL FINAL DE script.js ---
 
@@ -305,14 +324,14 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. MODIFICAMOS LA FUNCIÓN DE CARGAR PARA AÑADIR BOTONES REALES
 async function cargarMisProductos() {
     const contenedor = document.getElementById('contenedor-mis-productos');
-    if (!contenedor) return; 
+    if (!contenedor) return;
 
     try {
         const respuesta = await fetch('../public/api_mis_productos.php');
         const misProductos = await respuesta.json();
-        
-        contenedor.innerHTML = ''; 
-        
+
+        contenedor.innerHTML = '';
+
         if (misProductos.length === 0) {
             contenedor.innerHTML = '<p class="text-muted">Aún no has subido ningún artículo.</p>';
             return;
@@ -320,16 +339,64 @@ async function cargarMisProductos() {
 
         misProductos.forEach(producto => {
             const imagen = producto.ruta_foto ? producto.ruta_foto : '../public/imagenes/default.png';
+            // Aseguramos que el estado exista
+            const estado = producto.estadoArticulo || 'disponible';
             
-            // Preparamos los datos para el botón de editar (evitando errores de comillas)
+            // Preparamos datos para editar
             const datosProducto = JSON.stringify(producto).replace(/"/g, '&quot;');
+            
+            // 1. GENERAR EL BADGE (Etiqueta superior izquierda)
+            let badgeHtml = '';
+            if (estado === 'vendido') {
+                badgeHtml = `<span class="badge-estado badge-vendido position-absolute top-0 start-0 m-2"><i class="fa fa-handshake-o"></i> Vendido</span>`;
+            } else if (estado === 'reservado') {
+                badgeHtml = `<span class="badge-estado badge-reservado position-absolute top-0 start-0 m-2"><i class="fa fa-clock-o"></i> Reservado</span>`;
+            } else {
+                badgeHtml = `<span class="badge-estado badge-disponible position-absolute top-0 start-0 m-2"><i class="fa fa-check-circle"></i> Disponible</span>`;
+            }
 
+            // 2. GENERAR LOS BOTONES DE ESTADO (O EL CANDADO)
+            let htmlBotonesEstado = '';
+            
+            if (estado === 'vendido') {
+                // CASO A: Si está vendido, mostramos el candado y BLOQUEAMOS acciones
+                htmlBotonesEstado = `
+                <div class="mt-2 text-center w-100">
+                    <div class="alert alert-secondary mb-0 py-1 shadow-sm" style="font-size: 0.8rem;">
+                        <i class="fa fa-lock"></i> <strong>Venta Cerrada</strong>
+                    </div>
+                </div>`;
+            } else {
+                // CASO B: Si no está vendido, mostramos los botones para cambiar estado
+                htmlBotonesEstado = `
+                <div>
+                    <button class="btn btn-outline-primary btn-sm me-1" title="Editar" onclick='abrirModalEditar(${datosProducto})'>
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm" title="Eliminar" onclick="eliminarProducto(${producto.articulo_id})">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+                <div class="btn-group btn-group-sm ms-2" role="group">
+                    <button type="button" class="btn btn-outline-success ${estado === 'disponible' ? 'active' : ''}" 
+                    onclick="cambiarEstadoArticulo(${producto.articulo_id}, 'disponible')">Disponible</button>
+                    <button type="button" class="btn btn-outline-warning ${estado === 'reservado' ? 'active' : ''}" 
+                            onclick="cambiarEstadoArticulo(${producto.articulo_id}, 'reservado')">Reservado</button>
+                    <button type="button" class="btn btn-outline-danger ${estado === 'vendido' ? 'active' : ''}" 
+                            onclick="cambiarEstadoArticulo(${producto.articulo_id}, 'vendido')">Cambiado</button>
+                </div>`;
+            }
+
+            // 3. HTML DE LA TARJETA
+            // Nota: He aplicado filtro gris a la imagen si está vendido
             const cardHTML = `
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm border-0 card-efecto">
                         <div style="position: relative;">
-                            <img src="${imagen}" class="card-img-top" alt="${producto.titulo}" style="height: 200px; object-fit: cover;">
-                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">${producto.categoria}</span>
+                           ${badgeHtml}
+                           <img src="${imagen}" class="card-img-top" alt="${producto.titulo}" 
+                                style="height: 200px; object-fit: cover; opacity: ${estado === 'vendido' ? '0.6' : '1'};">
+                           <span class="badge bg-primary position-absolute top-0 end-0 m-2">${producto.categoria}</span>
                         </div>
 
                         <div class="card-body d-flex flex-column">
@@ -337,31 +404,21 @@ async function cargarMisProductos() {
                             <p class="card-text text-truncate text-muted small">${producto.descripcion}</p>
                             
                             <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="badge bg-light text-dark border">${producto.estado}</span>
                                 
-                                <div>
-                                    <button class="btn btn-outline-primary btn-sm me-1" 
-                                            title="Editar"
-                                            onclick='abrirModalEditar(${datosProducto})'>
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </button>
 
-                                    <button class="btn btn-outline-danger btn-sm" 
-                                            title="Eliminar"
-                                            onclick="eliminarProducto(${producto.articulo_id})">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </div>
+                                ${htmlBotonesEstado}
+        
                             </div>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
+            
             contenedor.innerHTML += cardHTML;
         });
 
     } catch (error) {
-        console.error('Error cargando mis productos:', error);
+        console.error("Error cargando mis productos:", error);
+        contenedor.innerHTML = '<p class="text-danger">Error al cargar tus productos.</p>';
     }
 }
 // 3. FUNCIÓN PARA ABRIR EL MODAL Y RELLENAR DATOS
@@ -504,3 +561,157 @@ if (selectOrden) selectOrden.addEventListener('change', aplicarFiltros);
 
 // Opcional: Ejecutar filtro inicial al cargar (para que salga ordenado por reciente)
 // setTimeout(() => { aplicarFiltros(); }, 500); // Pequeño retardo para asegurar que los datos cargaron
+
+// Variable global para saber qué artículo estamos puntuando
+let idArticuloParaReseña = null;
+
+// 1. La función que ya conoces, pero ahora activa el modal
+let idArticuloEnProceso = null;
+
+// 1. Modificamos la función principal
+function cambiarEstadoArticulo(idArticulo, nuevoEstado) {
+    if (nuevoEstado === 'vendido') {
+        // PASO A: Si es venta, paramos y pedimos el comprador
+        idArticuloEnProceso = idArticulo;
+        cargarPosiblesCompradores(); // Función nueva (ver abajo)
+        const modalComprador = new bootstrap.Modal(document.getElementById('modalSeleccionarComprador'));
+        modalComprador.show();
+    } else {
+        // Si es "reservado" o "disponible", lo hacemos directo como antes
+        procesarCambioEstado(idArticulo, nuevoEstado, null);
+    }
+}
+
+// 2. Función para llenar el select con usuarios
+function cargarPosiblesCompradores() {
+    const select = document.getElementById('select-comprador');
+    select.innerHTML = '<option disabled selected>Cargando...</option>';
+    
+    // Llamamos a un PHP que nos devuelva los usuarios (idealmente solo con los que hay chats abiertos)
+    fetch('../public/obtener_usuarios_chat.php') 
+        .then(res => res.json())
+        .then(usuarios => {
+            console.log(usuarios);
+            select.innerHTML = '<option disabled selected>Selecciona al comprador</option>';
+            usuarios.forEach(u => {
+                select.innerHTML += `<option value="${u.id}">${u.nombre}</option>`;
+            });
+        });
+}
+
+// 3. Función al pulsar "Confirmar Venta" en el modal
+function confirmarVenta() {
+    const compradorId = document.getElementById('select-comprador').value;
+    
+    if (!compradorId) return alert("Debes seleccionar un comprador.");
+
+    // Cerramos modal de comprador
+    const modalComprador = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarComprador'));
+    modalComprador.hide();
+
+    // Procesamos la venta enviando el ID del comprador
+    procesarCambioEstado(idArticuloEnProceso, 'vendido', compradorId);
+}
+
+// 4. La función que finalmente habla con el servidor
+function procesarCambioEstado(id, estado, compradorId) {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('estadoArticulo', estado);
+    if (compradorId) formData.append('comprador_id', compradorId);
+
+    fetch('../public/cambiar_estado.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            if (estado === 'vendido') {
+                // Ahora sí, abrimos la reseña
+                idArticuloParaReseña = id; 
+                // Guardamos también el ID del comprador en una variable global por si la reseña lo necesita
+                receptorReseñaId = compradorId; 
+                
+                const modalResena = new bootstrap.Modal(document.getElementById('modalReseña'));
+                modalResena.show();
+            } else {
+                inicializarDatos();
+            }
+        }
+    });
+}
+
+// Lógica para pintar las estrellas al hacer clic
+document.querySelectorAll('.estrellas-rating i').forEach(estrella => {
+    estrella.addEventListener('click', function() {
+        const valorSeleccionado = this.getAttribute('data-value');
+        
+        // Guardamos el valor (ej: 4) en el input oculto
+        document.getElementById('puntuacion-valor').value = valorSeleccionado;
+        
+        // Recorremos todas las estrellas para pintarlas o despintarlas
+        document.querySelectorAll('.estrellas-rating i').forEach(s => {
+            if (s.getAttribute('data-value') <= valorSeleccionado) {
+                // Si es menor o igual a la que pulsé, la pongo rellena (fa-star)
+                s.classList.remove('fa-star-o');
+                s.classList.add('fa-star');
+            } else {
+                // Si es mayor, la pongo vacía (fa-star-o)
+                s.classList.remove('fa-star');
+                s.classList.add('fa-star-o');
+            }
+        });
+    });
+});
+
+function enviarResena() {
+    // 1. Capturamos los valores del Modal
+    const puntuacionInput = document.getElementById('puntuacion-valor');
+    const comentarioInput = document.getElementById('comentario-reseña');
+    
+    const puntuacion = puntuacionInput.value;
+    const comentario = comentarioInput.value.trim(); // .trim() quita espacios vacíos al inicio y final
+
+    // 2. Validación de seguridad: Obligar a poner estrellas
+    if (puntuacion == 0 || puntuacion === "") {
+        alert("¡Por favor, selecciona una puntuación de estrellas antes de enviar!");
+        return; // Detenemos la función aquí
+    }
+
+    // 3. Preparamos los datos para enviar (FormData)
+    const formData = new FormData();
+    // 'idArticuloEnProceso' es la variable global que guardamos cuando pulsaste "Vender"
+    formData.append('articulo_id', idArticuloEnProceso); 
+    formData.append('puntuacion', puntuacion);
+    formData.append('comentario', comentario);
+
+    // 4. Enviamos al servidor (guardar_resena.php)
+    fetch('../public/guardar_resena.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // ÉXITO:
+            alert("¡Gracias! Tu valoración se ha guardado correctamente.");
+            
+            // Cerramos el modal limpiamente
+            const modalEl = document.getElementById('modalReseña');
+            const modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (modalInstance) modalInstance.hide();
+
+            // Recargamos la página para ver los cambios (artículo vendido y reputación actualizada)
+            location.reload(); 
+        } else {
+            // ERROR:
+            alert("Hubo un error al guardar la reseña. Inténtalo de nuevo.");
+            console.error(data);
+        }
+    })
+    .catch(error => {
+        console.error('Error de conexión:', error);
+        alert("Error de conexión con el servidor.");
+    });
+}

@@ -1,52 +1,41 @@
 <?php
 // public/cambiar_estado.php
-
-// 1. Incluye tu configuración de base de datos
-require 'Chat/db_config.php'; 
+require_once "Usuario.php";
+require_once "../src/crearFicheroJson.php";
 session_start();
 
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Verificamos que el usuario esté logueado
-    if (!isset($_SESSION['user_id'])) {
-        echo json_encode(["success" => false, "message" => "No estás logueado"]);
-        exit;
-    }
-
-    $idArticulo = $_POST['id'];
-    $nuevoEstado = $_POST['estadoArticulo']; // <--- Aquí usamos el nombre nuevo
-    $usuarioLogueado = $_SESSION['user_id'];
-
-    // 2. Verificación de seguridad: ¿Es el usuario dueño del artículo?
-    // Ajusta el nombre de la tabla 'articulos' si es necesario
-    $check = $conn->prepare("SELECT usuario_id FROM articulos WHERE id = ?");
-    $check->bind_param("i", $idArticulo);
-    $check->execute();
-    $result = $check->get_result();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['id_usuario'])) {
+    $database = new Database();
+    $db = $database->getConnection();
     
-    if ($row = $result->fetch_assoc()) {
-        if ($row['usuario_id'] == $usuarioLogueado) {
-            
-            // 3. Actualizamos el campo 'estadoArticulo'
-            $sql = "UPDATE articulos SET estadoArticulo = ? WHERE id = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("si", $nuevoEstado, $idArticulo);
-            
-            if ($stmt->execute()) {
-                // Opcional: Si tienes un archivo JSON cache, aquí deberías regenerarlo
-                // require_once "../src/crearFicheroJson.php"; 
-                // (Lógica para regenerar JSON si la usas)
-                
-                echo json_encode(["success" => true]);
-            } else {
-                echo json_encode(["success" => false, "message" => "Error al actualizar BD"]);
-            }
-        } else {
-            echo json_encode(["success" => false, "message" => "No eres el dueño de este artículo"]);
-        }
+    $idArticulo = $_POST['id'];
+    $nuevoEstado = $_POST['estadoArticulo'];
+    $idUsuario = $_SESSION['id_usuario'];
+
+    // --- CAMBIO 1: Recoger el comprador (si no viene, es null) ---
+    $compradorId = !empty($_POST['comprador_id']) ? $_POST['comprador_id'] : null;
+
+    // --- CAMBIO 2: Añadir 'comprador_id = ?' a la consulta ---
+    $query = "UPDATE articulos SET estadoArticulo = ?, comprador_id = ? WHERE id = ? AND usuario_id = ?";
+    $stmt = $db->prepare($query);
+    
+    // --- CAMBIO 3: Añadir $compradorId al array de ejecución ---
+    if ($stmt->execute([$nuevoEstado, $compradorId, $idArticulo, $idUsuario])) {
+
+    // 1. Verificar que el artículo pertenece al usuario logueado
+    $query = "UPDATE articulos SET estadoArticulo = ? WHERE id = ? AND usuario_id = ?";
+    $stmt = $db->prepare($query);
+    
+    if ($stmt->execute([$nuevoEstado, $idArticulo, $idUsuario])) {
+        // 2. Regenerar los ficheros JSON para que el cambio se vea en la web
+        $usuarioObj = new Usuario($database);
+        creaYactualiza($usuarioObj); 
+        
+        echo json_encode(["success" => true]);
     } else {
-        echo json_encode(["success" => false, "message" => "Artículo no encontrado"]);
+        echo json_encode(["success" => false, "message" => "No se pudo actualizar"]);
     }
 }
-?>
+}

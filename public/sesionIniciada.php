@@ -81,14 +81,13 @@ if ($_SESSION['inicioSesion'] == true) {
                         <img src="imagenes/icono_proyecto.png" alt="icono de la aplicacion" width="100" height="100">
                         <!-- Ejemplo en PHP -->
 
-
-
-
-
+                        
+                        
+                        
                         <div class="dropdown"> <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src=<?php print($_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
-                                <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
-
+                            <img src=<?php print($_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
+                            <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
+                            
 
                             <ul class="dropdown-menu text-small shadow" style="z-index: 2000;">
                                 <li><a class="btn dropdown-item" data-bs-toggle="modal"
@@ -101,6 +100,7 @@ if ($_SESSION['inicioSesion'] == true) {
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
+                                
                             </ul>
                         </div>
 
@@ -291,10 +291,17 @@ if ($_SESSION['inicioSesion'] == true) {
 
                     </form>
                 </div>
- <a href="Chat/listado_chats.php" class="nav-link">
-    Mensajes 
-    <span id="notif-badge" class="badge bg-danger" style="display:none;">0</span>
-</a>
+               
+                <div class="nav-item me-3" style="list-style: none; position: relative; display: inline-block;">
+                                   <a class="nav-link" href="Chat/listado_chats.php" title="Mensajes">
+                                       <i class="fa fa-envelope-o" style="font-size: 1.5rem; color: #333;"></i>
+                                       <span id="notif-badge" 
+                                           class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+                                           style="display: none; font-size: 0.7rem; padding: 0.35em 0.6em;">
+                                           0
+                                       </span>
+                                   </a>
+                               </div>
             </nav>
 
         </div>
@@ -304,10 +311,10 @@ if ($_SESSION['inicioSesion'] == true) {
 
         <div class="d-flex bg-body-tertiary ">
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12">
-<div class="container mb-4">
-    <div class="row g-3 align-items-center bg-light p-3 rounded shadow-sm">
+<div class="container mb-4 ">
+    <div class="row g-3 align-items-center bg-light p-3 rounded shadow-sm ">
         
-        <div class="col-md-4">
+        <div class="col-md-4 ">
             <label class="form-label fw-bold small">¿Qué buscas?</label>
             <input type="text" id="buscador-general" class="form-control" placeholder="Ej: Bicicleta, Móvil...">
         </div>
@@ -433,6 +440,31 @@ if ($_SESSION['inicioSesion'] == true) {
 </div>
 </div>
 </div>
+<div class="modal fade" id="modalSeleccionarComprador" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">¡Enhorabuena por el intercambio!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Para cerrar el trato, indícanos quién fue el afortunado:</p>
+                
+                <div class="mb-3">
+                    <label for="select-comprador" class="form-label fw-bold">Comprador:</label>
+                    <select class="form-select" id="select-comprador">
+                        <option value="" selected disabled>Cargando usuarios...</option>
+                    </select>
+                </div>
+                <p class="small text-muted"><i class="fa fa-info-circle"></i> Esto servirá para que podáis intercambiar reseñas.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" onclick="confirmarVenta()">Confirmar Venta</button>
+            </div>
+        </div>
+    </div>
+</div>
 <footer class="pie">
     
     <footer class="pie bg-dark text-white pt-5 pb-4 mt-5">
@@ -484,11 +516,43 @@ if ($_SESSION['inicioSesion'] == true) {
     </div>
 </footer>
     
+<div class="modal fade" id="modalReseña" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">¡Valora el intercambio!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="fw-bold">¿Cuántas estrellas le das?</p>
+                
+                <div class="estrellas-rating mb-3" style="font-size: 2.5rem; color: #ffc107; cursor: pointer;">
+                    <i class="fa fa-star-o" data-value="1"></i>
+                    <i class="fa fa-star-o" data-value="2"></i>
+                    <i class="fa fa-star-o" data-value="3"></i>
+                    <i class="fa fa-star-o" data-value="4"></i>
+                    <i class="fa fa-star-o" data-value="5"></i>
+                </div>
+                
+                <input type="hidden" id="puntuacion-valor" value="0">
 
-</footer>
+                <div class="form-group">
+                    <textarea id="comentario-reseña" class="form-control" rows="3" placeholder="Escribe tu opinión aquí..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary w-50" onclick="enviarResena()">Enviar Opinión</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 
-
+<script>
+    // Pasamos el ID del usuario de la sesión PHP a una variable Global de JS
+    const usuarioLogueadoId = "<?php echo $_SESSION['id_usuario']; ?>";
+</script>
 <script src="../src/script.js"></script>
 </html>
 

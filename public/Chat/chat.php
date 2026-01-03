@@ -93,6 +93,41 @@ $nombrePartner = $usuarioPartner ? $usuarioPartner['nombre'] : "Chat";
             color: white; border: none; border-radius: 4px; cursor: pointer;
         }
         #message-form button:hover { background-color: #218838; }
+        /* Este es el selector principal para el fondo del chat */
+#chat-box {
+    position: relative;
+    background-color: #e5ddd5; /* Color de seguridad */
+    background-image: url('../imagenes/fondoChat.png'); /* Asegúrate de que la ruta sea correcta */
+    background-repeat: repeat;   /* La imagen se repite como un mosaico */
+    background-size: 350px;      /* Esto controla el tamaño de los dibujos. 
+                                    Bájalo a 200px si los quieres más pequeños 
+                                    o súbelo si los quieres más grandes. */
+    
+    background-position: top left;
+    background-attachment: local; /* El fondo se mueve con el scroll de los mensajes */
+    
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    min-height: 500px;
+    z-index: 1;
+}
+
+/* Opcional: Si quieres que el fondo tenga un toque texturizado o sea más suave */
+#chat-box::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(255, 255, 255, 0.2); /* Capa blanquecina muy transparente */
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Asegúrate de que los mensajes individuales estén por encima del fondo */
+.message {
+    position: relative;
+    z-index: 1;
+}
     </style>
 </head>
 
