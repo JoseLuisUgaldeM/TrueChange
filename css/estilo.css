@@ -234,3 +234,18 @@ main, #resultados {
 .btn-check:checked + .btn-outline-success { background-color: #28a745; color: white; }
 .btn-check:checked + .btn-outline-warning { background-color: #ffc107; color: black; }
 .btn-check:checked + .btn-outline-danger { background-color: #dc3545; color: white; }
+
+/* Esto asegura que si hay varios modales, el fondo oscuro no se duplique 
+   y que el último modal siempre esté encima */
+.modal-backdrop.show {
+    z-index: 1040;
+}
+.modal.show {
+    z-index: 1050;
+}
+
+/* Si abres un segundo modal, Bootstrap le dará automáticamente un z-index más alto con este parche */
+body.modal-open .modal {
+    display: flex !important;
+    align-items: center;
+}

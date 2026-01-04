@@ -18,7 +18,8 @@
         "estadoArticulo": "vendido",
         "comprador_id": 30,
         "articulo_id": 95,
-        "ruta_foto": "..\/public\/imagenes\/uploads\/695204fb4752f.jpg"
+        "ruta_foto": "..\/public\/imagenes\/uploads\/695204fb4752f.jpg",
+        "valoracion_media": "0.0000"
     },
     {
         "id": 81,
@@ -39,7 +40,8 @@
         "estadoArticulo": "vendido",
         "comprador_id": 31,
         "articulo_id": 96,
-        "ruta_foto": "..\/public\/imagenes\/uploads\/69594b64d037e.jpg"
+        "ruta_foto": "..\/public\/imagenes\/uploads\/69594b64d037e.jpg",
+        "valoracion_media": "0.0000"
     },
     {
         "id": 82,
@@ -60,7 +62,8 @@
         "estadoArticulo": "reservado",
         "comprador_id": null,
         "articulo_id": 97,
-        "ruta_foto": "..\/public\/imagenes\/uploads\/69594c537e12e.jpg"
+        "ruta_foto": "..\/public\/imagenes\/uploads\/69594c537e12e.jpg",
+        "valoracion_media": "0.0000"
     },
     {
         "id": 73,
@@ -81,7 +84,8 @@
         "estadoArticulo": "disponible",
         "comprador_id": null,
         "articulo_id": 88,
-        "ruta_foto": "..\/public\/imagenes\/uploads\/693aface6ef6f.jpg"
+        "ruta_foto": "..\/public\/imagenes\/uploads\/693aface6ef6f.jpg",
+        "valoracion_media": "5.0000"
     },
     {
         "id": 76,
@@ -102,7 +106,8 @@
         "estadoArticulo": "disponible",
         "comprador_id": null,
         "articulo_id": 91,
-        "ruta_foto": "..\/public\/imagenes\/uploads\/693b0b9127e20.jpg"
+        "ruta_foto": "..\/public\/imagenes\/uploads\/693b0b9127e20.jpg",
+        "valoracion_media": "5.0000"
     },
     {
         "id": 77,
@@ -123,7 +128,8 @@
         "estadoArticulo": "disponible",
         "comprador_id": null,
         "articulo_id": 92,
-        "ruta_foto": "..\/public\/imagenes\/uploads\/693b120401b6b.jpg"
+        "ruta_foto": "..\/public\/imagenes\/uploads\/693b120401b6b.jpg",
+        "valoracion_media": "5.0000"
     },
     {
         "id": 79,
@@ -144,7 +150,8 @@
         "estadoArticulo": "disponible",
         "comprador_id": null,
         "articulo_id": 94,
-        "ruta_foto": "..\/public\/imagenes\/uploads\/694ed6e200479.jpg"
+        "ruta_foto": "..\/public\/imagenes\/uploads\/694ed6e200479.jpg",
+        "valoracion_media": "5.0000"
     },
     {
         "id": 78,
@@ -165,6 +172,7 @@
         "estadoArticulo": "disponible",
         "comprador_id": null,
         "articulo_id": 93,
-        "ruta_foto": "..\/public\/imagenes\/uploads\/694e62bc37cbb.jpg"
+        "ruta_foto": "..\/public\/imagenes\/uploads\/694e62bc37cbb.jpg",
+        "valoracion_media": "5.0000"
     }
 ]

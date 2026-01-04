@@ -195,9 +195,11 @@ if (estado === 'vendido') {
                  </span>`;
 }
 
+        const estrellasHTML = generarEstrellasHTML(item.valoracion_media);
         // --- PARTE A: SOLO LA TARJETA ---
         // Nota: Mantenemos 'card-efecto' aquí para la animación
         const cardHtml = `
+        
         <div class="col-xl-2 col-lg-3 col-sm-12 col mb-4">
             <div class="card h-100 shadow-sm card-efecto">
                 <img src="${imagen}" class="card-img-top" alt="${item.titulo}">
@@ -205,6 +207,13 @@ if (estado === 'vendido') {
                     <h5 class="card-title">${item.titulo}</h5>
                     <p class="card-text text-truncate">${item.descripcion}</p>
                     <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
+                    <div class="border p-3 m-2">
+                    <h6>Vendedor</h6>
+                    <div class="d-flex align-items-center mb-2" onclick="verOpiniones(${item.usuario_id})" style="cursor:pointer;">
+                     <i class="fa fa-user-circle-o text-primary me-2" style="font-size: 1.5rem;"></i>Opiniones
+                     </div>
+                            <p class="text-primary fw-bold mt-auto">${item.nombre}${estrellasHTML}</p>
+                        </div> 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalArticulo${contador}">
                     Ver articulo
                     ${badgeHtml}
@@ -235,8 +244,9 @@ if (estado === 'vendido') {
                             <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
                         </div>
                         <div class="border p-3 m-2">
+         
                             <h6>Vendedor</h6>
-                            <p class="text-primary fw-bold mt-auto">${item.nombre}</p>
+                            <p class="text-primary fw-bold mt-auto">${item.nombre}${estrellasHTML}</p>
                         </div> 
                         <div class="border p-3 m-2">
                             <h6>Fecha publicación</h6>
@@ -714,4 +724,69 @@ function enviarResena() {
         console.error('Error de conexión:', error);
         alert("Error de conexión con el servidor.");
     });
+}
+
+function generarEstrellasHTML(puntuacion) {
+    let html = '<div class="text-warning" style="font-size: 0.8rem;">';
+    
+    // Convertimos null o undefined a 0
+    let nota = parseFloat(puntuacion) || 0; 
+    
+    // Pintamos 5 estrellas
+    for (let i = 1; i <= 5; i++) {
+        if (nota >= i) {
+            // Estrella llena
+            html += '<i class="fa fa-star"></i>'; 
+        } else if (nota >= i - 0.5) {
+            // Media estrella (opcional, si usas FontAwesome 4.7 usa star-half-o)
+            html += '<i class="fa fa-star-half-o"></i>'; 
+        } else {
+            // Estrella vacía
+            html += '<i class="fa fa-star-o"></i>'; 
+        }
+    }
+    
+    // Añadimos el número en texto pequeño al lado (ej: 4.5)
+    if(nota > 0) {
+        html += ` <span class="text-muted small">(${nota})</span>`;
+    } else {
+        html += ` <span class="text-muted small py-1" style="font-size:0.7rem">Nuevo</span>`;
+    }
+
+    html += '</div>';
+    return html;
+}
+
+function verOpiniones(usuarioId) {
+    // 1. Abrimos el modal
+    const modal = new bootstrap.Modal(document.getElementById('modalVerOpiniones'));
+    modal.show();
+
+    const contenedor = document.getElementById('lista-opiniones');
+    contenedor.innerHTML = '<div class="text-center p-3"><i class="fa fa-spinner fa-spin"></i> Cargando experiencias...</div>';
+
+    // 2. Pedimos las reseñas al servidor
+    fetch(`obtener_opiniones_vendedor.php?id=${usuarioId}`)
+        .then(res => res.json())
+        .then(opiniones => {
+            if (opiniones.length === 0) {
+                contenedor.innerHTML = '<p class="text-center p-4">Este usuario aún no tiene valoraciones. ¡Sé el primero en intercambiar con él!</p>';
+                return;
+            }
+
+            // 3. Dibujamos cada reseña
+            contenedor.innerHTML = opiniones.map(op => `
+                <div class="list-group-item border-0 border-bottom py-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <strong class="text-primary">${op.nombre_emisor}</strong>
+                        <span class="small text-muted">${new Date(op.fecha).toLocaleDateString()}</span>
+                    </div>
+                    <div class="mb-2">${generarEstrellasHTML(op.puntuacion)}</div>
+                    <p class="mb-0 text-secondary italic">"${op.comentario || 'Sin comentario'}"</p>
+                </div>
+            `).join('');
+        })
+        .catch(err => {
+            contenedor.innerHTML = '<p class="text-danger">Error al cargar las opiniones.</p>';
+        });
 }

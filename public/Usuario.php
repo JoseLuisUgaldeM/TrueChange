@@ -68,20 +68,21 @@ class Usuario {
         return false; // credenciales inválidas
     }
 
-      
-        public function crearFichero(){
-
-            $sql = 'SELECT *  from usuarios
+public function crearFichero() {
+    // Añadimos una subconsulta para calcular la media de reseñas del dueño del artículo
+    // COALESCE(..., 0) sirve para que si no tiene reseñas, devuelva 0 en lugar de nada (NULL)
+    $sql = 'SELECT *, 
+            (SELECT COALESCE(AVG(puntuacion), 0) 
+             FROM reseñas 
+             WHERE receptor_id = usuarios.id) as valoracion_media
+            FROM usuarios
             INNER JOIN articulos ON articulos.usuario_id = usuarios.id 
-            INNER JOIN articulos_fotos ON articulos_fotos.articulo_id = articulos.id 
-            ';
+            INNER JOIN articulos_fotos ON articulos_fotos.articulo_id = articulos.id';
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-         return $stmt->fetchAll();
-
-        }
-
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
          public function crearFicheroMisProductos($id){
 
             $sql = 'SELECT *  from usuarios
@@ -96,5 +97,16 @@ class Usuario {
         }
     
     
+
+        public function obtenerValoracionMedia($idUsuario) {
+            // Calculamos la media de la columna 'puntuacion' para este usuario
+            $sql = "SELECT AVG(puntuacion) as media FROM reseñas WHERE receptor_id = ?";
+            $stmt = $this->db->prepare($sql); // Asumiendo que usas $this->conn
+            $stmt->execute([$idUsuario]);
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // Si no tiene reseñas, devolvemos 0. Si tiene, devolvemos el número con 1 decimal (ej: 4.5)
+            return $resultado['media'] ? round($resultado['media'], 1) : 0;
+}
 }
 ?>

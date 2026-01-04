@@ -547,6 +547,21 @@ if ($_SESSION['inicioSesion'] == true) {
     </div>
 </div>
 
+<div class="modal fade" id="modalVerOpiniones" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title"><i class="fa fa-comments-o"></i> Opiniones sobre el vendedor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="lista-opiniones" class="list-group list-group-flush">
+                    <p class="text-center text-muted">Cargando opiniones...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 <script>
