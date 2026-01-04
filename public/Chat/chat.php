@@ -76,7 +76,7 @@ $nombrePartner = $usuarioPartner ? $usuarioPartner['nombre'] : "Chat";
             border-bottom-right-radius: 4px;
         }
         .message-received { 
-            background-color: #e6e6e6; color: #333; align-self: flex-start; 
+            background-color: #494c4aff; color: #f6f1f1ff; align-self: flex-start; 
             border-bottom-left-radius: 4px;
         }
         .chat-message .time { 
