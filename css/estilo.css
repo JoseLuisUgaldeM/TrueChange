@@ -237,14 +237,14 @@ main, #resultados {
 
 /* Esto asegura que si hay varios modales, el fondo oscuro no se duplique 
    y que el último modal siempre esté encima */
-.modal-backdrop.show {
+/*.modal-backdrop.show {
     z-index: 1040;
 }
 .modal.show {
     z-index: 1050;
 }
 
-/* Si abres un segundo modal, Bootstrap le dará automáticamente un z-index más alto con este parche */
+/* Si abres un segundo modal, Bootstrap le dará automáticamente un z-index más alto con este parche 
 body.modal-open .modal {
     display: flex !important;
     align-items: center;

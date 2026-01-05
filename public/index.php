@@ -143,35 +143,7 @@ header('Content-Type: text/html; charset=utf-8');
 
                     <!-- Modal inicio de sesión-->
 
-                    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">¡¡Bienvenido/a a TrueChange!!</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post" action="login.php" class="row g-3">
-                                        <div class="col-md-12">
-                                            <label for="usuario" class="form-label">Usuario</label>
-                                            <input type="text" name="usuario" class="form-control" id="usuario" pattern="^[a-zA-Z\s]+$" required>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="contrasena" class="form-label">Contraseña</label>
-                                            <input type="password" name="pass" class="form-control" id="contrasena" required>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <button class="btn btn-primary" type="submit" name="iniciarSesion">Entrar</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -195,25 +167,25 @@ header('Content-Type: text/html; charset=utf-8');
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-item nav-underline">
                         <li class="nav-item">
                             <select class="form-select " name="categoria" id="campoCategoria" onclick="filtrarPorCategoria(event)">
-                                <option selected disabled>Categoria</option>
-                                <option value="coches">Coches</option>
-                                <option value="motos">Motos</option>
-                                <option value="motor y accesorios">Motor y accesorios</option>
-                                <option value="moda y accesorios">Moda y accesorios</option>
+                                <option selected disabled>Categoría</option>
+                                <option value="Coches">Coches</option>
+                                <option value="Motos">Motos</option>
+                                <option value="Motor y accesorios">Motor y accesorios</option>
+                                <option value="Moda y accesorios">Moda y accesorios</option>
                                 <option value="inmobiliaria">Inmobiliaria</option>
-                                <option value="tecnologia y electronica">Tecnología y electrónica</option>
-                                <option value="deporte y ocio">Deporte y ocio</option>
-                                <option value="bicicletas">Bicicletas</option>
-                                <option value="hogar y jardin">Hogar y jardin</option>
-                                <option value="electrodomesticos">Electrodomésticos</option>
-                                <option value="cine libros y musica">Cine libros y música</option>
-                                <option value="niños y bebes">Niños y bebés</option>
-                                <option value="coleccionismo">Coleccionismo</option>
-                                <option value="construccion y reformas">Construccion y reformas</option>
-                                <option value="industria  agricultura">Industria y agricultura</option>
-                                <option value="empleo">Empleo</option>
-                                <option value="servicios">Servicios</option>
-                                <option value="otros">Otros...</option>
+                                <option value="Tecnología y electrónica">Tecnología y electrónica</option>
+                                <option value="Deporte y ocio">Deporte y ocio</option>
+                                <option value="Bicicletas">Bicicletas</option>
+                                <option value="Hogar y jardín">Hogar y jardin</option>
+                                <option value="Electrodomésticos">Electrodomésticos</option>
+                                <option value="Cine libros y música">Cine libros y música</option>
+                                <option value="Niños y bebés">Niños y bebés</option>
+                                <option value="Coleccionismo">Coleccionismo</option>
+                                <option value="Construcción y reformas">Construccion y reformas</option>
+                                <option value="Industria  agricultura">Industria y agricultura</option>
+                                <option value="Empleo">Empleo</option>
+                                <option value="Servicios">Servicios</option>
+                                <option value="Otros">Otros...</option>
 
                             </select>
                         </li>
@@ -346,6 +318,8 @@ header('Content-Type: text/html; charset=utf-8');
             </div>
         </div>
     </div>
+
+    
 </footer>
 
     <script>
@@ -362,7 +336,35 @@ header('Content-Type: text/html; charset=utf-8');
     </script>
     <script src="../src/script.js"></script>
 
+ <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">¡¡Bienvenido/a a TrueChange!!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="login.php" class="row g-3">
+                                        <div class="col-md-12">
+                                            <label for="usuario" class="form-label">Usuario</label>
+                                            <input type="text" name="usuario" class="form-control" id="usuario" pattern="^[a-zA-Z\s]+$" required>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="contrasena" class="form-label">Contraseña</label>
+                                            <input type="password" name="pass" class="form-control" id="contrasena" required>
+                                        </div>
 
+                                        <div class="col-12">
+                                            <button class="btn btn-primary" type="submit" name="iniciarSesion">Entrar</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
 </body>
 
 </html>

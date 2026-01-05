@@ -139,7 +139,7 @@ function mostrarTodos() {
  * CORREGIDA: Separa el Modal de la Card para evitar parpadeos con el efecto hover.
  */
 function mostrarDatos(datos, contenedor, campo = null, valor = null) {
-    console.log(datos);
+    
 
     // 1. Limpiar el contenedor de tarjetas
     contenedor.innerHTML = "";
@@ -175,6 +175,27 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
 
         if (intervalo > 1) imprimir = `Publicado hace ${intervalo} dias `;
         if (intervalo == 1) imprimir = `Publicado hace ${intervalo} dia `;
+
+        // Dentro del bucle donde recorres los artículos (ej: items.forEach(item => { ... }))
+
+// 1. Detectar si el artículo es del usuario logueado
+const esMio = (String(item.usuario_id) === String(usuarioLogueadoId));
+
+// 2. Definir el HTML del botón de mensaje condicionalmente
+let botonMensajeHtml = "";
+
+if (esMio) {
+    // Si es mío, mostramos un botón deshabilitado o un texto indicativo
+    botonMensajeHtml = `
+        <button class="btn btn-secondary btn-sm w-100" disabled>
+            <i class="fa fa-user"></i> Tu anuncio
+        </button>`;
+} else {
+    // Si NO es mío, mostramos el botón de enviar mensaje normal
+    botonMensajeHtml = `
+    <button type="button" class="btn btn-primary btn-chat btn-enviar-id" data-id="${item.usuario_id}">Enviar mensaje</button>`
+}
+
 
         const imagen = item.ruta_foto ? item.ruta_foto : '../public/imagenes/default.png';
         // --- PROCESAR EL ESTADO PARA DARLE ESTILO ---
@@ -223,7 +244,7 @@ if (estado === 'vendido') {
         </div>`;
 
         // --- PARTE B: EL MODAL (SEPARADO) ---
-        // Este HTML se inyectará al final del body, lejos de la tarjeta animada
+        
         const modalHtml = `
         <div class="modal fade" id="exampleModalArticulo${contador}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1055;">
             <div class="modal-dialog">
@@ -256,7 +277,7 @@ if (estado === 'vendido') {
                     
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary btn-chat btn-enviar-id" data-id="${item.usuario_id}">Enviar mensaje</button>
+                       ${botonMensajeHtml}
                     </div>
                 </div>
             </div>
@@ -589,6 +610,7 @@ function cambiarEstadoArticulo(idArticulo, nuevoEstado) {
     } else {
         // Si es "reservado" o "disponible", lo hacemos directo como antes
         procesarCambioEstado(idArticulo, nuevoEstado, null);
+      
     }
 }
 
@@ -647,6 +669,7 @@ function procesarCambioEstado(id, estado, compradorId) {
                 modalResena.show();
             } else {
                 inicializarDatos();
+                cargarMisProductos();
             }
         }
     });
