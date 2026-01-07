@@ -5,7 +5,10 @@ const contenedorResultadosFiltrados = document.getElementById('resultadosFiltrad
 var contador = 0;
 // Variable para evitar notificaciones repetidas
 // Consultar cada 10 segundos
-setInterval(verificarNuevosMensajes, 5000);
+if (usuarioLogueadoId !== null) {
+verificarNuevosMensajes();
+setInterval(verificarNuevosMensajes, 10000);
+}
 let mensajesDetectados = 0;
 
 function verificarNuevosMensajes() {
@@ -179,21 +182,34 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
         // Dentro del bucle donde recorres los artículos (ej: items.forEach(item => { ... }))
 
 // 1. Detectar si el artículo es del usuario logueado
-const esMio = (String(item.usuario_id) === String(usuarioLogueadoId));
+// Dentro de tu bucle de artículos en script.js
 
-// 2. Definir el HTML del botón de mensaje condicionalmente
+// 1. Solo comparamos si el usuarioLogueadoId no es nulo
+const esMio = (usuarioLogueadoId !== null) && (String(item.usuario_id) === String(usuarioLogueadoId));
+
+// 2. Definimos el botón según el estado
 let botonMensajeHtml = "";
 
-if (esMio) {
-    // Si es mío, mostramos un botón deshabilitado o un texto indicativo
+if (usuarioLogueadoId === null) {
+    // CASO A: Nadie está logueado (Invitado en index.php)
+    // Mostramos el botón pero que abra el modal de login
+    botonMensajeHtml = `
+        <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#Modal">
+            <i class="fa fa-envelope"></i> Inicia sesión para contactar
+        </button>`;
+} else if (esMio) {
+    // CASO B: Es mi propio anuncio
     botonMensajeHtml = `
         <button class="btn btn-secondary btn-sm w-100" disabled>
             <i class="fa fa-user"></i> Tu anuncio
         </button>`;
 } else {
-    // Si NO es mío, mostramos el botón de enviar mensaje normal
+    // CASO C: Estoy logueado y el anuncio es de otro
     botonMensajeHtml = `
-    <button type="button" class="btn btn-primary btn-chat btn-enviar-id" data-id="${item.usuario_id}">Enviar mensaje</button>`
+        <button class="btn btn-outline-primary btn-sm w-100" 
+                onclick="abrirChat(${item.usuario_id}, '${item.titulo}')">
+            <i class="fa fa-envelope"></i> Enviar mensaje
+        </button>`;
 }
 
 

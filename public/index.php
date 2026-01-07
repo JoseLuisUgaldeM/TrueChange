@@ -333,6 +333,7 @@ header('Content-Type: text/html; charset=utf-8');
                 loader.remove();
             }, 500);
         };
+        const usuarioLogueadoId = <?php echo isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : 'null'; ?>;
     </script>
     <script src="../src/script.js"></script>
 
