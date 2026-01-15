@@ -1,9 +1,20 @@
 
-
-
-CREATE DATABASE IF NOT EXISTS `bdtruechange` 
+CREATE DATABASE IF NOT EXISTS `bdtruechange` ;
 USE `bdtruechange`;
 
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `apellido1` varchar(150) NOT NULL,
+  `apellido2` varchar(150) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `avatar` varchar(255) NOT NULL DEFAULT 'imagenes/uploads/default.png',
+  `ciudad` varchar(255) DEFAULT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `articulos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -44,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `favoritos` (
   CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`id_articulo`) REFERENCES `articulos` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 CREATE TABLE IF NOT EXISTS `intercambios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -107,20 +119,4 @@ CREATE TABLE IF NOT EXISTS `reseñas` (
   CONSTRAINT `reseñas_ibfk_2` FOREIGN KEY (`emisor_id`) REFERENCES `usuarios` (`id`),
   CONSTRAINT `reseñas_ibfk_3` FOREIGN KEY (`receptor_id`) REFERENCES `usuarios` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) NOT NULL,
-  `apellido1` varchar(150) NOT NULL,
-  `apellido2` varchar(150) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `avatar` varchar(255) NOT NULL DEFAULT 'imagenes/uploads/default.png',
-  `ciudad` varchar(255) DEFAULT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
