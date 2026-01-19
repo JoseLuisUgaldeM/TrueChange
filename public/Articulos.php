@@ -16,9 +16,9 @@ class Articulos
 
     // Creamos la funcion encargada de subir el producto
 
-    public function subirArticulo($usuario_id, $titulo, $descripcion, $categoria, $estado)
+    public function subirArticulo($usuario_id, $titulo, $descripcion, $categoria, $estado, $cambio)
     {
-        $sql = "INSERT INTO articulos ( usuario_id, titulo, descripcion , categoria, estado ) VALUES ( :usuario_id, :titulo, :descripcion ,:categoria, :estado)";
+        $sql = "INSERT INTO articulos ( usuario_id, titulo, descripcion , categoria, estado, cambio ) VALUES ( :usuario_id, :titulo, :descripcion ,:categoria, :estado, :cambio)";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
 
@@ -26,7 +26,8 @@ class Articulos
             ':titulo' => $titulo,
             ':descripcion' => $descripcion,
             ':categoria' => $categoria,
-            ':estado' => $estado
+            ':estado' => $estado,
+            ':cambio' => $cambio
 
         ]);
     }

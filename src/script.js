@@ -134,13 +134,6 @@ function mostrarTodos() {
 }
 
 
-/**
- * Función auxiliar para generar el HTML y mostrar los datos.
-*/
-/**
- * Función auxiliar para generar el HTML y mostrar los datos.
- * CORREGIDA: Separa el Modal de la Card para evitar parpadeos con el efecto hover.
- */
 function mostrarDatos(datos, contenedor, campo = null, valor = null) {
     
 
@@ -206,10 +199,8 @@ if (usuarioLogueadoId === null) {
 } else {
     // CASO C: Estoy logueado y el anuncio es de otro
     botonMensajeHtml = `
-        <button class="btn btn-outline-primary btn-sm w-100" 
-                onclick="abrirChat(${item.usuario_id}, '${item.titulo}')">
-            <i class="fa fa-envelope"></i> Enviar mensaje
-        </button>`;
+     -    <button type="button" class="btn btn-primary btn-chat btn-enviar-id" data-id="${item.usuario_id}">Enviar mensaje</button>`
+
 }
 
 
@@ -244,6 +235,10 @@ if (estado === 'vendido') {
                     <h5 class="card-title">${item.titulo}</h5>
                     <p class="card-text text-truncate">${item.descripcion}</p>
                     <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
+                    <div class="border p-3 m-2 bg-dark bg-gradient">
+                    <h6 class="text-white">Cambio por...</h6>
+                      <p class="text-white fw-bold mt-auto">${item.cambio}</p>
+                      </div>
                     <div class="border p-3 m-2">
                     <h6>Vendedor</h6>
                     <div class="d-flex align-items-center mb-2" onclick="verOpiniones(${item.usuario_id})" style="cursor:pointer;">
@@ -259,7 +254,7 @@ if (estado === 'vendido') {
             </div>
         </div>`;
 
-        // --- PARTE B: EL MODAL (SEPARADO) ---
+        // --- PARTE B: EL MODAL ---
         
         const modalHtml = `
         <div class="modal fade" id="exampleModalArticulo${contador}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1055;">
@@ -576,7 +571,7 @@ function aplicarFiltros() {
         resultados = resultados.filter(item => {
             // Buscamos palabras clave como "cambio por", "busco", o si tienes un campo 'preferencia_cambio'
             // Si tienes un campo especifico en tu JSON úsalo aquí: item.preferencia_cambio
-            const contenido = (item.descripcion + " " + (item.preferencia_cambio || "")).toLowerCase();
+            const contenido = item.cambio.toLowerCase();
             return contenido.includes(textoCambio);
         });
     }
@@ -829,3 +824,4 @@ function verOpiniones(usuarioId) {
             contenedor.innerHTML = '<p class="text-danger">Error al cargar las opiniones.</p>';
         });
 }
+

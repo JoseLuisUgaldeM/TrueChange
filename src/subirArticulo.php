@@ -24,12 +24,13 @@ if(isset($_POST['publicar'])){
     $categoria = $_POST['categoria'];
     $descripcion = $_POST['descripcion'];
     $estado = $_POST['estado'];
+    $cambio = $_POST['cambio'];
 
     $id_usuario = $_SESSION['id_usuario'];
     
     $articulo = new Articulos($database);
 
-    $articulo->subirArticulo($id_usuario, $titulo,$descripcion,$categoria, $estado);
+    $articulo->subirArticulo($id_usuario, $titulo,$descripcion,$categoria, $estado, $cambio);
 
     $articulo_id = $articulo->idUltimoArticulo();
 

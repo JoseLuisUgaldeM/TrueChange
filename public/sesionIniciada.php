@@ -203,7 +203,7 @@ if ($_SESSION['inicioSesion'] == true) {
                                             </div>
                                             <div class="col-md-12">
                                                 <label for="cambio" class="form-label">Quiero cambiar por...</label>
-                                                <input type="text" class="form-control" id="cambio" name="cambio" required>
+                                                <input type="text" class="form-control" id="cambio" name="cambio">
                                             </div>
 
                                             <label for="foto">Selecciona una imagen:</label><br>
@@ -311,21 +311,21 @@ if ($_SESSION['inicioSesion'] == true) {
 
         <div class="d-flex bg-body-tertiary ">
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12">
-<div class="container mb-4 ">
+<div class="container mb-4 p-5 ">
     <div class="row g-3 align-items-center bg-light p-3 rounded shadow-sm ">
         
-        <div class="col-md-4 ">
+        <div class="col-md-12 ">
             <label class="form-label fw-bold small">¿Qué buscas?</label>
             <input type="text" id="buscador-general" class="form-control" placeholder="Ej: Bicicleta, Móvil...">
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-12">
             <label class="form-label fw-bold small">¿Qué ofreces a cambio?</label>
             <input type="text" id="buscador-cambio" class="form-control" placeholder="Ej: Busco gente que quiera una Guitarra...">
             <small class="text-muted" style="font-size: 0.8em;">Filtra por lo que el vendedor pide.</small>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-12">
             <label class="form-label fw-bold small">Ordenar por:</label>
             <select id="filtro-orden" class="form-select">
                 <option value="reciente" selected>Más recientes (Nuevos primero)</option>
