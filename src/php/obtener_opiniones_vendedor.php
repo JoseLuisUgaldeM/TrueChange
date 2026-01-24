@@ -1,6 +1,6 @@
 <?php
 
-require_once "Usuario.php";
+require_once "../clases/Usuario.php";
 header('Content-Type: application/json');
 
 if (isset($_GET['id'])) {

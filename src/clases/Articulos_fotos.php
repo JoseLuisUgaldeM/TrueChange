@@ -1,6 +1,6 @@
 <?php
 
-require "../config/Database.php";
+require "Database.php";
     
 
  class Articulos_fotos{

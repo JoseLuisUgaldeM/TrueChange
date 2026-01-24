@@ -22,9 +22,9 @@ if (!isset($_POST['id'])) {
 
 // 2. Intentamos cargar la base de datos
 // PRUEBA CON ESTAS RUTAS SI LA TUYA FALLA:
-$rutaDB = "../config/Database.php"; 
+$rutaDB = "../clases/Database.php"; 
 if (!file_exists($rutaDB)) {
-    // Si no está en config, probamos si está en public o src
+    // Si no existe probamos en 
     $rutaDB = "Database.php"; 
 }
 

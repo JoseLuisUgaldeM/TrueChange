@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/../clases/Usuario.php";
+
 
 
 function creaYactualiza($usuario)
@@ -9,7 +11,6 @@ function creaYactualiza($usuario)
 
 
 
-    require_once("../public/Usuario.php");
 
 
 
@@ -26,7 +27,7 @@ function creaYactualiza($usuario)
 
     $json_string = json_encode($datos, JSON_PRETTY_PRINT);
 
-    $fichero = '../public/datos_usuario.json';
+    $fichero = 'datos_usuario.json';
 
     if (file_put_contents($fichero, $json_string, LOCK_EX) !== false) {
 
@@ -44,7 +45,6 @@ function creaYactualiza2($id , $usuario)
 
 
 
-    require_once("../public/Usuario.php");
 
    
 
@@ -61,7 +61,7 @@ function creaYactualiza2($id , $usuario)
 
     $json_string = json_encode($datos, JSON_PRETTY_PRINT);
 
-    $fichero = '../public/datos_usuario_mis_productos.json';
+    $fichero = 'datos_usuario_mis_productos.json';
 
     if (file_put_contents($fichero, $json_string, LOCK_EX) !== false) {
 

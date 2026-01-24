@@ -1,7 +1,7 @@
 <?php
 // guardar_resena.php
 session_start();
-require_once "Usuario.php";
+require_once "../clases/Usuario.php";
 $db = (new Database())->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

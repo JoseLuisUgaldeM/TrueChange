@@ -2,9 +2,9 @@
 
 
 
-require_once ("../public/Articulos_fotos.php");
+require_once ("../clases/Articulos_fotos.php");
 
-require_once ("../public/Articulos.php");
+require_once ("../clases/Articulos.php");
 
 
 session_start(); // Iniciamos la sesión y traemos las variables globales del usuario
@@ -34,7 +34,7 @@ if(isset($_POST['publicar'])){
 
     $articulo_id = $articulo->idUltimoArticulo();
 
-    $directorioSubidas = "../public/imagenes/uploads/";
+    $directorioSubidas = "../imagenes/uploads/";
 
      $nombreOriginal = $_FILES["foto"]["name"];
     $tempArchivo = $_FILES["foto"]["tmp_name"];
@@ -80,7 +80,7 @@ if(isset($_POST['publicar'])){
 
 }
 
-header("Location:../public/sesionIniciada.php");
+header("Location:sesionIniciada.php");
 
 ?>
 

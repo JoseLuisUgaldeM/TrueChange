@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("../config/Database.php");
+require_once("../clases/Database.php");
 
 if (!isset($_SESSION['id_usuario']) || !isset($_POST['id'])) {
     echo json_encode(['success' => false, 'message' => 'No autorizado']);

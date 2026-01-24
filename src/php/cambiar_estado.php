@@ -1,7 +1,7 @@
 <?php
 // public/cambiar_estado.php
-require_once "Usuario.php";
-require_once "../src/crearFicheroJson.php";
+require_once "../clases/Usuario.php";
+require_once "crearFicheroJson.php";
 session_start();
 
 header('Content-Type: application/json');

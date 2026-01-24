@@ -1,13 +1,13 @@
 
 <?php
-require("../public/Usuario.php");
+require("../clases/Usuario.php");
 
 $database = new Database();
 
 $db = $database->getConnection();
 
 session_start();
-$target_dir = "../public/imagenes/uploads"; // Directorio donde se guardarán las imágenes
+$target_dir = "../imagenes/uploads"; // Directorio donde se guardarán las imágenes
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -63,7 +63,7 @@ if ($uploadOk == 0) {
 }
 
 
-header("Location:../public/sesionIniciada.php");
+header("Location:sesionIniciada.php");
 
 ?>
 

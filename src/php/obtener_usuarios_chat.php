@@ -12,8 +12,8 @@ try {
     // (Según tu estructura puede estar en la misma carpeta o en ../src/)
     if (file_exists("Usuario.php")) {
         require_once "Usuario.php";
-    } elseif (file_exists("../src/Usuario.php")) {
-        require_once "../src/Usuario.php";
+    } elseif (file_exists("../clases/Usuario.php")) {
+        require_once "../clases/Usuario.php";
     } else {
         throw new Exception("No se encuentra el archivo Usuario.php. Revisa la ruta.");
     }

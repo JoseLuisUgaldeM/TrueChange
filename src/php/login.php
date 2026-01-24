@@ -2,7 +2,7 @@
 
 session_start();
 
-require "Usuario.php";
+require "../clases/Usuario.php";
 
 $database = new Database();
 

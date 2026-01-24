@@ -2,7 +2,7 @@
 
 
 
-require "Usuario.php";
+require "../clases/Usuario.php";
 
 $database = new Database();
 
@@ -29,7 +29,7 @@ if(isset($_POST['enviar'])){
 
 }
 
-if ($usuario->crearUsuario($nombre, $apellido1, $apellido2,$email, $password, $avatar, $ciudad )){
+if ($usuario->crearUsuario($nombre, $apellido1, $apellido2,$email, $password, $ciudad )){
 
     $_SESSION['usuario'] = $usuario;
 

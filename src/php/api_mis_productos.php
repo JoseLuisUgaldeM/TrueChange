@@ -3,8 +3,8 @@
 header('Content-Type: application/json; charset=utf-8');
 session_start();
 
-require_once("Usuario.php");
-require_once("../config/Database.php"); // Asegúrate que la ruta a Database es correcta
+require_once("../clases/Usuario.php");
+require_once("../clases/Database.php"); // Asegúrate que la ruta a Database es correcta
 
 // 1. Seguridad: Si no está logueado, devolvemos lista vacía
 if (!isset($_SESSION['id_usuario'])) {

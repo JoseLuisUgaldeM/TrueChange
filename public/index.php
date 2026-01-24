@@ -2,11 +2,11 @@
 
 
 
-require_once "Usuario.php";
+require_once "../src/clases/Usuario.php";
 
-require_once "Articulos.php";
+require_once "../src/clases/Articulos.php";
 
-require_once "../src/crearFicheroJson.php";
+require_once "../src/php/crearFicheroJson.php";
 
 session_start();
 
@@ -30,11 +30,11 @@ header('Content-Type: text/html; charset=utf-8');
 
 <head>
 
-    <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="stylesheet" href="../src/css/estilo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../css/estilo.css">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -61,7 +61,7 @@ header('Content-Type: text/html; charset=utf-8');
         <div class="px-2 py-1 bg-opacity-30 bg-info bg-gradient text-white contenedor">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-around">
-                    <img src="imagenes/icono_proyecto.png" alt="icono de la aplicacion" width="100" height="100">
+                    <img src="../src/imagenes/icono_proyecto.png" alt="icono de la aplicacion" width="100" height="100">
 
 
                     <div class="botones">
@@ -84,22 +84,22 @@ header('Content-Type: text/html; charset=utf-8');
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="row g-3" action="registro.php" method="post">
+                                    <form class="row g-3" action="../src/php/registro.php" method="post">
                                         <div class="col-md-12">
                                             <label for="nombre" class="form-label">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre" pattern="[a-zA-Z\s]+" required>
+                                            <input type="text" class="form-control" id="nombre" name="nombre" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ ]+$" required>
                                         </div>
                                         <div class="col-md-12">
                                             <label for="primerApellido" class="form-label">Primer pellido</label>
-                                            <input type="text" class="form-control" id="primerApellido" name="primerApellido" pattern="[a-zA-Z\s]+" required>
+                                            <input type="text" class="form-control" id="primerApellido" name="primerApellido" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ ]+$" required>
                                         </div>
                                         <div class="col-md-12">
                                             <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-                                            <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" pattern="[a-zA-Z\s]+" required>
+                                            <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ ]+$" required>
                                         </div>
                                         <div class="col-md-12">
                                             <label for="usuarioNombre" class="form-label">Nombre de usuario</label>
-                                            <input type="text" class="form-control" id="usuarioNombre" name="usuarioNombre" pattern="[a-zA-Z\s]+">
+                                            <input type="text" class="form-control" id="usuarioNombre" name="usuarioNombre" pattern="^[a-zA-Z0-9]+$">
                                         </div>
                                         <div class="col-md-12">
                                             <label for="pass" class="form-label">Contraseña</label>
@@ -209,7 +209,7 @@ header('Content-Type: text/html; charset=utf-8');
                     </ul>
                 </div>
                 <form class="d-flex col-lg-5 col-md-8 col-sm-9" role="search">
-                    <input id="campoFiltro" class="form-control me-2 text-primary" type="search" placeholder="Ej.Iphone" aria-label="Search">
+                    <input id="campoFiltro" class="form-control me-2 text-primary" type="search" placeholder="Ej: Iphone" aria-label="Search">
                     <button onclick="aplicarFiltro(event)" class="btn btn-outline-primary" type="submit">Buscar</button>
 
                 </form>
@@ -230,13 +230,13 @@ header('Content-Type: text/html; charset=utf-8');
             <div id="carouselExampleInterval" class="carousel slide d-flex flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12" data-bs-ride="carousel">
                 <div class="carousel-inner text-center">
                     <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="imagenes/manos.jpg" class="d-block w-100 img-fluid " alt="Foto de ROMAN ODINTSOV: https://www.pexels.com/es-es/foto/manos-sujetando-cartulina-carton-12725405/">
+                        <img src="../src/imagenes/manos.jpg" class="d-block w-100 img-fluid " alt="Foto de ROMAN ODINTSOV: https://www.pexels.com/es-es/foto/manos-sujetando-cartulina-carton-12725405/">
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
-                        <img src="imagenes/electronica.jpg" class="d-block w-100 img-fluid" alt="Foto de ATC Comm Photo: https://www.pexels.com/es-es/foto/primer-plano-de-la-camara-sobre-fondo-negro-306763/">
+                        <img src="../src/imagenes/electronica.jpg" class="d-block w-100 img-fluid" alt="Foto de ATC Comm Photo: https://www.pexels.com/es-es/foto/primer-plano-de-la-camara-sobre-fondo-negro-306763/">
                     </div>
                     <div class="carousel-item">
-                        <img src="imagenes/moto.jpg" class="d-block w-100 img-fluid" alt="Foto de Pragyan Bezbaruah: https://www.pexels.com/es-es/foto/motocicleta-en-medio-de-la-carretera-1715193/">
+                        <img src="../src/imagenes/moto.jpg" class="d-block w-100 img-fluid" alt="Foto de Pragyan Bezbaruah: https://www.pexels.com/es-es/foto/motocicleta-en-medio-de-la-carretera-1715193/">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -335,7 +335,7 @@ header('Content-Type: text/html; charset=utf-8');
         };
         const usuarioLogueadoId = <?php echo isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : 'null'; ?>;
     </script>
-    <script src="../src/script.js"></script>
+    <script src="../src/scripts/script.js"></script>
 
  <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -346,7 +346,7 @@ header('Content-Type: text/html; charset=utf-8');
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post" action="login.php" class="row g-3">
+                                    <form method="post" action="../src/php/login.php" class="row g-3">
                                         <div class="col-md-12">
                                             <label for="usuario" class="form-label">Usuario</label>
                                             <input type="text" name="usuario" class="form-control" id="usuario" pattern="^[a-zA-Z\s]+$" required>

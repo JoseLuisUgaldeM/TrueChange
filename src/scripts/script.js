@@ -12,7 +12,7 @@ setInterval(verificarNuevosMensajes, 10000);
 let mensajesDetectados = 0;
 
 function verificarNuevosMensajes() {
-    fetch('../public/Chat/check_notifications.php')
+    fetch('../../public/Chat/check_notifications.php')
         .then(res => res.json())
         .then(data => {
             const badge = document.getElementById('notif-badge');
@@ -204,7 +204,7 @@ if (usuarioLogueadoId === null) {
 }
 
 
-        const imagen = item.ruta_foto ? item.ruta_foto : '../public/imagenes/default.png';
+        const imagen = item.ruta_foto ? item.ruta_foto : '..//imagenes/default.png';
         // --- PROCESAR EL ESTADO PARA DARLE ESTILO ---
 const estado = item.estadoArticulo || 'disponible'; // Valor por defecto
 let badgeHtml = '';
@@ -325,7 +325,7 @@ document.addEventListener('click', function (e) {
         const vendedorId = e.target.getAttribute('data-id');
 
         // 2. Enviar el ID a PHP
-        fetch('../public/Chat/db_config.php', {
+        fetch('../../public/Chat/db_config.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -347,7 +347,7 @@ document.addEventListener('click', function (e) {
             });
     }
 
-    fetch('../public/Chat/check_notifications.php')
+    fetch('../../public/Chat/check_notifications.php')
         .then(res => res.json())
         .then(data => {
             if (data.count > 0) {
@@ -369,7 +369,7 @@ async function cargarMisProductos() {
     if (!contenedor) return;
 
     try {
-        const respuesta = await fetch('../public/api_mis_productos.php');
+        const respuesta = await fetch('../php/api_mis_productos.php');
         const misProductos = await respuesta.json();
 
         contenedor.innerHTML = '';
@@ -380,7 +380,7 @@ async function cargarMisProductos() {
         }
 
         misProductos.forEach(producto => {
-            const imagen = producto.ruta_foto ? producto.ruta_foto : '../public/imagenes/default.png';
+            const imagen = producto.ruta_foto ? producto.ruta_foto : '../imagenes/default.png';
             // Aseguramos que el estado exista
             const estado = producto.estadoArticulo || 'disponible';
             
@@ -495,7 +495,7 @@ function guardarCambios() {
     formData.append('categoria', categoria);
     formData.append('estado', estado);
 
-    fetch('../public/editar_articulo.php', {
+    fetch('../php/editar_articulo.php', {
         method: 'POST',
         body: formData
     })
@@ -519,7 +519,7 @@ function eliminarProducto(id) {
 
     // CAMBIO IMPORTANTE: Intenta usar la ruta sin '../public/'
     // Si tu archivo JS está cargado en sesionIniciada.php, la ruta relativa es directa:
-    fetch('eliminar_articulo.php', { 
+    fetch('../php/eliminar_articulo.php', { 
         method: 'POST',
         body: formData
     })
@@ -631,7 +631,7 @@ function cargarPosiblesCompradores() {
     select.innerHTML = '<option disabled selected>Cargando...</option>';
     
     // Llamamos a un PHP que nos devuelva los usuarios (idealmente solo con los que hay chats abiertos)
-    fetch('../public/obtener_usuarios_chat.php') 
+    fetch('../php/obtener_usuarios_chat.php') 
         .then(res => res.json())
         .then(usuarios => {
             console.log(usuarios);
@@ -663,7 +663,7 @@ function procesarCambioEstado(id, estado, compradorId) {
     formData.append('estadoArticulo', estado);
     if (compradorId) formData.append('comprador_id', compradorId);
 
-    fetch('../public/cambiar_estado.php', {
+    fetch('../php/cambiar_estado.php', {
         method: 'POST',
         body: formData
     })
@@ -731,7 +731,7 @@ function enviarResena() {
     formData.append('comentario', comentario);
 
     // 4. Enviamos al servidor (guardar_resena.php)
-    fetch('../public/guardar_resena.php', {
+    fetch('../php/guardar_resena.php', {
         method: 'POST',
         body: formData
     })
