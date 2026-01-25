@@ -204,7 +204,7 @@ if (usuarioLogueadoId === null) {
 }
 
 
-        const imagen = item.ruta_foto ? item.ruta_foto : '..//imagenes/default.png';
+        const imagen = item.ruta_foto ? item.ruta_foto : '../imagenes/default.png';
         // --- PROCESAR EL ESTADO PARA DARLE ESTILO ---
 const estado = item.estadoArticulo || 'disponible'; // Valor por defecto
 let badgeHtml = '';
@@ -240,7 +240,7 @@ if (estado === 'vendido') {
                       <p class="text-white fw-bold mt-auto">${item.cambio}</p>
                       </div>
                     <div class="border p-3 m-2">
-                    <h6>Vendedor</h6>
+                    <h6>Articulo subido por: </h6>
                     <div class="d-flex align-items-center mb-2" onclick="verOpiniones(${item.usuario_id})" style="cursor:pointer;">
                      <i class="fa fa-user-circle-o text-primary me-2" style="font-size: 1.5rem;"></i>Opiniones
                      </div>
@@ -339,7 +339,7 @@ document.addEventListener('click', function (e) {
             .then(data => {
                 console.log('Sesión actualizada:', data);
                 // 3. AHORA SÍ, redirigimos después de confirmar el éxito
-                window.location.href = '../public/Chat/chat.php';
+                window.location.href = '../../public/Chat/chat.php';
             })
             .catch(error => {
                 console.error('Error al guardar sesión:', error);
@@ -430,7 +430,7 @@ async function cargarMisProductos() {
             }
 
             // 3. HTML DE LA TARJETA
-            // Nota: He aplicado filtro gris a la imagen si está vendido
+            // Filtro gris a la imagen si está vendido
             const cardHTML = `
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm border-0 card-efecto">
@@ -464,7 +464,7 @@ async function cargarMisProductos() {
     }
 }
 // 3. FUNCIÓN PARA ABRIR EL MODAL Y RELLENAR DATOS
-var modalBootstrap; // Variable global para controlar el modal
+var modalBootstrap; 
 
 function abrirModalEditar(producto) {
     // Rellenamos los inputs con los datos actuales
@@ -517,8 +517,7 @@ function eliminarProducto(id) {
     const formData = new FormData();
     formData.append('id', id);
 
-    // CAMBIO IMPORTANTE: Intenta usar la ruta sin '../public/'
-    // Si tu archivo JS está cargado en sesionIniciada.php, la ruta relativa es directa:
+  
     fetch('../php/eliminar_articulo.php', { 
         method: 'POST',
         body: formData
@@ -543,7 +542,7 @@ function eliminarProducto(id) {
         alert("Ocurrió un error al intentar borrar. Abre la consola (F12) para ver más detalles.");
     });
 }
-// --- LÓGICA DE FILTRADO UNIFICADO ---
+
 
 // 1. Seleccionamos los elementos del DOM
 const inputGeneral = document.getElementById('buscador-general');
@@ -630,23 +629,23 @@ function cargarPosiblesCompradores() {
     const select = document.getElementById('select-comprador');
     select.innerHTML = '<option disabled selected>Cargando...</option>';
     
-    // Llamamos a un PHP que nos devuelva los usuarios (idealmente solo con los que hay chats abiertos)
+    
     fetch('../php/obtener_usuarios_chat.php') 
         .then(res => res.json())
         .then(usuarios => {
             console.log(usuarios);
-            select.innerHTML = '<option disabled selected>Selecciona al comprador</option>';
+            select.innerHTML = '<option disabled selected>Selecciona al usuario </option>';
             usuarios.forEach(u => {
                 select.innerHTML += `<option value="${u.id}">${u.nombre}</option>`;
             });
         });
 }
 
-// 3. Función al pulsar "Confirmar Venta" en el modal
+// 3. Función al pulsar "Confirmar intercambio" en el modal
 function confirmarVenta() {
     const compradorId = document.getElementById('select-comprador').value;
     
-    if (!compradorId) return alert("Debes seleccionar un comprador.");
+    if (!compradorId) return alert("Debes seleccionar un usuario.");
 
     // Cerramos modal de comprador
     const modalComprador = bootstrap.Modal.getInstance(document.getElementById('modalSeleccionarComprador'));

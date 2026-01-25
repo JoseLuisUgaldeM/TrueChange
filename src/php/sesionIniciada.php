@@ -59,52 +59,48 @@ if ($_SESSION['inicioSesion'] == true) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"></script>
-        <title>TrueChange</title>
-    </head>
-
-    <body>
-
-
-
-
-
-
-        <header class="header">
-
-            <div class="px-2 py-1 bg-opacity-30 bg-info bg-gradient text-white contenedor">
+            <title>TrueChange</title>
+        </head>
+        
+        <body>
+            
+            
+            
+            
+            
+            
+            <header class="header">
+                
+                <div class="px-2 py-1 bg-opacity-30 bg-info bg-gradient text-white contenedor">
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-between">
                         <img src="../imagenes/icono_proyecto.png" alt="icono de la aplicacion" width="100" height="100">
-                        <!-- Ejemplo en PHP -->
-
-
-
-
+                       
+                        
                         <div class="dropdown"> <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src=<?php print($_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
-                                <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
-
-
+                            <img src=<?php print($_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
+                            <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
+                            
+                           
                             <ul class="dropdown-menu text-small shadow" style="z-index: 2000;">
                                 <li><a class="btn dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#avatarModal">Cambiar foto de perfil</a></li>
-                                <li><a class="btn dropdown-item" data-bs-toggle="modal"
+                                        <li><a class="btn dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#subirModal">Subir producto</a></li>
-                                <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                                <li><a class="dropdown-item" href="#">Eliminar articulo</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
+                                        <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                                        <li><a class="dropdown-item" href="#">Eliminar articulo</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
+                                        
+                                    </ul>
 
-                            </ul>
                         </div>
-
-
                         <!-- Modal de cambio de avatar -->
 
                         <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -313,7 +309,7 @@ if ($_SESSION['inicioSesion'] == true) {
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12">
                 <div class="container mb-4 p-5 ">
                     <div class="row g-3 align-items-center bg-light p-3 rounded shadow-sm ">
-
+                        <h3 class="col-md-12 ">Búsqueda avanzada</h3>  
                         <div class="col-md-12 ">
                             <label class="form-label fw-bold small">¿Qué buscas?</label>
                             <input type="text" id="buscador-general" class="form-control" placeholder="Ej: Bicicleta, Móvil...">
@@ -552,7 +548,7 @@ if ($_SESSION['inicioSesion'] == true) {
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header bg-light">
-                            <h5 class="modal-title"><i class="fa fa-comments-o"></i> Opiniones sobre el vendedor</h5>
+                            <h5 class="modal-title"><i class="fa fa-comments-o"></i> Opiniones sobre el usuario</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">

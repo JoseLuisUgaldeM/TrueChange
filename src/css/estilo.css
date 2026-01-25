@@ -1,7 +1,8 @@
 html {
     box-sizing: border-box;
-    padding: 0; /* Quitar el padding global */
+    padding: 0; 
     margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
@@ -60,10 +61,10 @@ html {
     width: 100%;
     display: flex;
     margin: auto;
-    height: 300px;
+    height: auto;
 }
 
-/* --- Efecto Hover Universal para Tarjetas --- */
+
 
 .card-efecto {
     transition: all 0.3s ease; 
@@ -89,7 +90,7 @@ html {
 
 /* --- Estilos del Footer --- */
 .pie {
-    background-color: #1a1a1a !important; /* Un gris muy oscuro casi negro */
+    background-color: #1a1a1a !important; 
     color: #d1d1d1 !important;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
