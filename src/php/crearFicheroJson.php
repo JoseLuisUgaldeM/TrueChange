@@ -66,6 +66,7 @@ function creaYactualiza2($id , $usuario)
     if (file_put_contents($fichero, $json_string, LOCK_EX) !== false) {
 
         $datosCopiados = true;
+        
     } else {
         echo "<script> alert ('Error al escribir el archivo.')</script>";
     }

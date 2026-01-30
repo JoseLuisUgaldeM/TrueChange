@@ -123,7 +123,7 @@ function aplicarFiltro(event) {
     });
 
     // 2. Mostrar los resultados
-    mostrarDatos(datosFiltrados, contenedorResultadosFiltrados, campoFiltro, valorFiltro);
+    mostrarDatos(datosFiltrados, contenedorResultados, campoFiltro, valorFiltro);
 }
 
 /**
@@ -204,7 +204,7 @@ if (usuarioLogueadoId === null) {
 }
 
 
-        const imagen = item.ruta_foto ? item.ruta_foto : '../imagenes/default.png';
+        const imagen = item.ruta_foto ? item.ruta_foto : '../imagenes/uploads/default.png';
         // --- PROCESAR EL ESTADO PARA DARLE ESTILO ---
 const estado = item.estadoArticulo || 'disponible'; // Valor por defecto
 let badgeHtml = '';
@@ -277,7 +277,7 @@ if (estado === 'vendido') {
                         </div>
                         <div class="border p-3 m-2">
          
-                            <h6>Vendedor</h6>
+                            <h6>Usuario</h6>
                             <p class="text-primary fw-bold mt-auto">${item.nombre}${estrellasHTML}</p>
                         </div> 
                         <div class="border p-3 m-2">
@@ -297,7 +297,6 @@ if (estado === 'vendido') {
         // Insertamos cada parte en su contenedor correspondiente
         contenedor.innerHTML += cardHtml;           // La tarjeta va al grid
         contenedorModales.innerHTML += modalHtml;   // El modal va al fondo del body
-
         contador++;
     });
 }
@@ -347,7 +346,7 @@ document.addEventListener('click', function (e) {
             });
     }
 
-    fetch('../../public/Chat/check_notifications.php')
+    fetch('../../public/Chat/verificar_notifications.php')
         .then(res => res.json())
         .then(data => {
             if (data.count > 0) {
@@ -357,7 +356,6 @@ document.addEventListener('click', function (e) {
             }
         });
 });
-// --- PEGAR AL FINAL DE script.js ---
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarMisProductos();
@@ -548,6 +546,7 @@ function eliminarProducto(id) {
 const inputGeneral = document.getElementById('buscador-general');
 const inputCambio = document.getElementById('buscador-cambio');
 const selectOrden = document.getElementById('filtro-orden');
+const inputCiudad = document.getElementById('buscador-ciudad');
 
 // 2. Función Maestra: Aplica todos los filtros a la vez
 function aplicarFiltros() {
@@ -575,6 +574,14 @@ function aplicarFiltros() {
         });
     }
 
+       if (inputCiudad && inputCiudad.value.trim() !== "") {
+        const textoCiudad = inputCiudad.value.toLowerCase();
+        resultados = resultados.filter(item => {
+            const ciudad = item.ciudad.toLowerCase();
+            return ciudad.includes(textoCiudad);
+        });
+    }
+
     // C) ORDENACIÓN
     if (selectOrden) {
         const criterio = selectOrden.value;
@@ -598,6 +605,7 @@ function aplicarFiltros() {
 // 3. Asignar los eventos (Escuchamos cuando el usuario escribe o cambia algo)
 if (inputGeneral) inputGeneral.addEventListener('input', aplicarFiltros);
 if (inputCambio) inputCambio.addEventListener('input', aplicarFiltros);
+if (inputCiudad) inputCiudad.addEventListener('input', aplicarFiltros);
 if (selectOrden) selectOrden.addEventListener('change', aplicarFiltros);
 
 // Opcional: Ejecutar filtro inicial al cargar (para que salga ordenado por reciente)
@@ -824,3 +832,171 @@ function verOpiniones(usuarioId) {
         });
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('btn-valoraciones');
+
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+         const miId = e.target.getAttribute('data-id');
+        verOpiniones(miId);
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const contenedor = document.getElementById('contenedor-busqueda');
+    const carrusel = document.getElementById('carouselExampleInterval');
+    const seccionArticulos = document.getElementById('articulos');
+    const titulo = contenedor.querySelector('h3');
+    const campos = contenedor.querySelectorAll('.campo-busqueda'); 
+    
+    const inputGeneral = document.getElementById('buscador-general');
+    const inputCambio = document.getElementById('buscador-cambio');
+    const inputCiudad = document.getElementById('buscador-ciudad');
+    const selectOrden = document.getElementById('filtro-orden');
+
+    const padreOriginal = contenedor.parentNode;
+    const siguienteHermanoOriginal = contenedor.nextSibling;
+
+    let modoCompactoActivo = false;
+
+    function transformarBuscador(inputActivo) {
+        if (modoCompactoActivo) return;
+        
+        // Guardamos la posición del cursor antes de mover el DOM
+        const cursorStart = inputActivo.selectionStart;
+
+        // 1. SOLUCIÓN AL CARRUSEL: Usamos clases en lugar de .style.display
+        if (carrusel) {
+            carrusel.classList.add('d-none');
+            carrusel.classList.remove('d-lg-block');
+        }
+        if (titulo) titulo.classList.add('d-none');
+        
+        contenedor.classList.remove('col-lg-6');
+        contenedor.classList.add('col-12', 'buscador-fijo', 'sticky-top', 'bg-white');
+
+        // 2. Ajuste Responsive: col-md-3 para que los 4 campos quepan en una fila
+        campos.forEach(div => {
+            div.classList.replace('col-12', 'col-md-3'); 
+            const label = div.querySelector('label');
+            if(label) label.classList.add('d-none');
+        });
+
+        // 3. Mover el buscador arriba de los artículos
+        seccionArticulos.parentNode.insertBefore(contenedor, seccionArticulos);
+
+        // 4. Mantenimiento del Foco: delay para que el navegador procese el movimiento del DOM
+        setTimeout(() => {
+            inputActivo.focus();
+            if (cursorStart !== null) inputActivo.setSelectionRange(cursorStart, cursorStart);
+        }, 10);
+
+        modoCompactoActivo = true;
+    }
+
+    function restaurarOriginal() {
+        if (!modoCompactoActivo) return;
+
+        padreOriginal.insertBefore(contenedor, siguienteHermanoOriginal);
+
+        contenedor.classList.remove('col-12', 'buscador-fijo', 'sticky-top', 'bg-white');
+        contenedor.classList.add('col-lg-6');
+        
+        // Restauramos clases del carrusel
+        if (carrusel) {
+            carrusel.classList.remove('d-none');
+            carrusel.classList.add('d-lg-block');
+        }
+        if (titulo) titulo.classList.remove('d-none');
+
+        campos.forEach(div => {
+            div.classList.replace('col-md-3', 'col-12');
+            const label = div.querySelector('label');
+            if(label) label.classList.remove('d-none');
+        });
+
+        modoCompactoActivo = false;
+    }
+
+    // Eventos para todos los inputs de búsqueda
+    [inputGeneral, inputCambio, inputCiudad].forEach(input => {
+        if (input) {
+            input.addEventListener('input', function() {
+                // Comprobamos si alguno de los tres campos tiene texto
+                const tieneTexto = (inputGeneral.value.trim().length > 0) || 
+                                   (inputCambio.value.trim().length > 0) || 
+                                   (inputCiudad.value.trim().length > 0);
+
+                if (tieneTexto) {
+                    transformarBuscador(this);
+                } else {
+                    restaurarOriginal();
+                }
+            });
+        }
+    });
+});
+
+
+const $botonPerfil = document.getElementById('botonPerfil');
+
+$botonPerfil.addEventListener('click',  mostrarPerfil());
+
+function mostrarPerfil() {
+
+    const datos = document.getElementById('idPerfil');
+    fetch('../php/crearPerfilUsuario.php')
+        .then(response => response.json())
+        .then(datosObtenidos =>
+            datosObtenidos.forEach(element => {
+
+
+               const datosPerfil = `
+<div class="container-fluid">
+    <div class="text-center mb-4">
+        <div class="position-relative d-inline-block">
+            <img src="${element.avatar}" 
+                 alt="Foto de perfil" 
+                 class="rounded-circle shadow border border-3 border-white" 
+                 style="width: 120px; height: 120px; object-fit: cover; background-color: #f8f9fa;">
+        </div>
+        <h3 class="mt-3 fw-bold text-primary">${element.nombre} ${element.apellido1} ${element.apellido2}</h3>
+        <span class="badge bg-soft-primary text-primary px-3 py-2 rounded-pill" style="background-color: #e7f1ff;">Usuario Registrado</span>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="p-3 border rounded bg-light shadow-sm h-100">
+                <label class="text-muted d-block small fw-bold text-uppercase mb-1">
+                    <i class="fa fa-envelope-o me-2 text-primary"></i>Correo Electrónico
+                </label>
+                <span class="text-dark fw-medium">${element.email}</span>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="p-3 border rounded bg-light shadow-sm h-100">
+                <label class="text-muted d-block small fw-bold text-uppercase mb-1">
+                    <i class="fa fa-map-marker me-2 text-danger"></i>Ciudad
+                </label>
+                <span class="text-dark fw-medium">${element.ciudad}</span>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="p-3 border rounded bg-light shadow-sm">
+                <label class="text-muted d-block small fw-bold text-uppercase mb-1">
+                    <i class="fa fa-calendar-check-o me-2 text-success"></i>Fecha de registro
+                </label>
+                <span class="text-dark fw-medium">
+                    ${new Date(element.fecha_registro).toLocaleDateString('es-ES', { 
+                        day: '2-digit', month: 'long', year: 'numeric' 
+                    })}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>`;
+
+datos.innerHTML = datosPerfil;
+            }));
+}

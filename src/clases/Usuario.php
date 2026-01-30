@@ -79,6 +79,8 @@ public function crearFichero() {
             INNER JOIN articulos ON articulos.usuario_id = usuarios.id 
             INNER JOIN articulos_fotos ON articulos_fotos.articulo_id = articulos.id';
 
+            
+
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -107,6 +109,25 @@ public function crearFichero() {
             
             // Si no tiene reseñas, devolvemos 0. Si tiene, devolvemos el número con 1 decimal (ej: 4.5)
             return $resultado['media'] ? round($resultado['media'], 1) : 0;
+}
+
+
+public function crearPerfilUsuario($id_usuario) {
+    // Añadimos una subconsulta para calcular la media de reseñas del dueño del artículo
+    // COALESCE(..., 0) sirve para que si no tiene reseñas, devuelva 0 en lugar de nada (NULL)
+   /* $sql = 'SELECT *, 
+            (SELECT COALESCE(AVG(puntuacion), 0) 
+             FROM reseñas 
+             WHERE receptor_id = usuarios.id) as valoracion_media
+            FROM usuarios
+            INNER JOIN articulos ON articulos.usuario_id = usuarios.id 
+            INNER JOIN articulos_fotos ON articulos_fotos.articulo_id = articulos.id';*/
+
+            $sql = 'SELECT * FROM usuarios WHERE usuarios.id = :id_usuario';
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([':id_usuario' => $id_usuario]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 }
 ?>

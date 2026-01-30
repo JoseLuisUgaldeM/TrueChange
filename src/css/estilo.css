@@ -236,17 +236,40 @@ main, #resultados {
 .btn-check:checked + .btn-outline-warning { background-color: #ffc107; color: black; }
 .btn-check:checked + .btn-outline-danger { background-color: #dc3545; color: white; }
 
-/* Esto asegura que si hay varios modales, el fondo oscuro no se duplique 
-   y que el último modal siempre esté encima */
-/*.modal-backdrop.show {
-    z-index: 1040;
-}
-.modal.show {
-    z-index: 1050;
+#contenedor-busqueda {
+    transition: all 0.4s ease;
+    z-index: 1020; /* Para que quede por encima al hacer scroll */
+    background-color: white !important;
+    border-bottom: 1px solid #dee2e6;
 }
 
-/* Si abres un segundo modal, Bootstrap le dará automáticamente un z-index más alto con este parche 
-body.modal-open .modal {
-    display: flex !important;
-    align-items: center;
+/* Efecto para que no ocupe nada de espacio extra */
+.sticky-top {
+    top: 0;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
 }
+
+.form-control-sm, .form-select-sm {
+    height: calc(1.5em + 0.5rem + 2px);
+}
+#carouselExampleInterval, #contenedor-busqueda {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.buscador-fijo {
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    background: white !important;
+    padding: 15px !important;
+    border-bottom: 2px solid #0dcaf0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+
+@media (max-width: 991px) {
+    #carouselExampleInterval {
+        display: none !important;
+    }
+}
+

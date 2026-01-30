@@ -17,15 +17,14 @@ $database = new Database();
 $usuario = new Usuario($database);
 
 // Usamos tu función existente que busca los productos del ID actual
-$misProductos = $usuario->crearFicheroMisProductos($_SESSION['id_usuario']);
+$miPerfil = $usuario->crearPerfilUsuario($_SESSION['id_usuario']);
 
 // 3. LIMPIEZA DE SEGURIDAD (IMPORTANTE)
 // Recorremos los productos para quitar contraseñas antes de enviarlos
 $datosLimpios = array_map(function($item) {
     if(isset($item['password'])) unset($item['password']); // Quitamos la contraseña
-    if(isset($item['email'])) unset($item['email']);       // Quitamos el email (opcional)
     return $item;
-}, $misProductos);
+}, $miPerfil);
 
 // 4. Devolver el JSON
 echo json_encode($datosLimpios);

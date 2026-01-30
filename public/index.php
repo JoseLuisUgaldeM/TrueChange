@@ -263,11 +263,11 @@ header('Content-Type: text/html; charset=utf-8');
 
     <!-- Mostramos los articulos-->
 
-    <div class="container my-5">
-        <h1>Artículos</h1>
-        <div class="row" id="resultados">
-        </div>
-    </div>
+   <div class="container my-5 contenedor1" id="articulos">
+                <h1 id="titulo1">Artículos</h1>
+                <div class="row" id="resultados">
+                </div>
+            </div>
 
    
 
@@ -290,7 +290,7 @@ header('Content-Type: text/html; charset=utf-8');
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
                 <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Ayuda</h5>
                 <p><a href="#" class="text-white text-decoration-none">Cómo funciona</a></p>
-                <p><a href="#" class="text-white text-decoration-none">Reglas de intercambio</a></p>
+                <p><a href="normas.html" class="text-white text-decoration-none">Reglas y normas</a></p>
                 <p><a href="#" class="text-white text-decoration-none">Contacto</a></p>
             </div>
 
@@ -335,37 +335,37 @@ header('Content-Type: text/html; charset=utf-8');
         };
         const usuarioLogueadoId = <?php echo isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : 'null'; ?>;
     </script>
-    <script src="../src/scripts/script.js"></script>
 
- <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">¡¡Bienvenido/a a TrueChange!!</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post" action="../src/php/login.php" class="row g-3">
-                                        <div class="col-md-12">
-                                            <label for="usuario" class="form-label">Usuario</label>
-                                            <input type="text" name="usuario" class="form-control" id="usuario" pattern="^[a-zA-Z\s]+$" required>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="contrasena" class="form-label">Contraseña</label>
-                                            <input type="password" name="pass" class="form-control" id="contrasena" required>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <button class="btn btn-primary" type="submit" name="iniciarSesion">Entrar</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">¡¡Bienvenido/a a TrueChange!!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="../src/php/login.php" class="row g-3">
+                <div class="col-md-12">
+                    <label for="usuario" class="form-label">Usuario</label>
+                    <input type="text" name="usuario" class="form-control" id="usuario" pattern="^[a-zA-Z\s]+$" required>
+                </div>
+                <div class="col-md-12">
+                    <label for="contrasena" class="form-label">Contraseña</label>
+                    <input type="password" name="pass" class="form-control" id="contrasena" required>
+                </div>
+                
+                <div class="col-12">
+                    <button class="btn btn-primary" type="submit" name="iniciarSesion">Entrar</button>
+                </div>
+            </form>
+        </div>
+        
+        
+    </div>
+</div>
+</div>
+<script src="../src/scripts/script.js"></script>
 </body>
 
 </html>

@@ -59,48 +59,74 @@ if ($_SESSION['inicioSesion'] == true) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"></script>
-            <title>TrueChange</title>
-        </head>
-        
-        <body>
-            
-            
-            
-            
-            
-            
-            <header class="header">
-                
-                <div class="px-2 py-1 bg-opacity-30 bg-info bg-gradient text-white contenedor">
+        <title>TrueChange</title>
+    </head>
+
+    <body>
+
+
+
+
+
+
+        <header class="header">
+
+            <div class="px-2 py-1 bg-opacity-30 bg-info bg-gradient text-white contenedor">
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-between">
                         <img src="../imagenes/icono_proyecto.png" alt="icono de la aplicacion" width="100" height="100">
-                       
-                        
+
+
                         <div class="dropdown"> <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src=<?php print($_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
-                            <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
-                            
-                           
+                                <img src=<?php print($_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
+                                <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
+
+
                             <ul class="dropdown-menu text-small shadow" style="z-index: 2000;">
                                 <li><a class="btn dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#avatarModal">Cambiar foto de perfil</a></li>
-                                        <li><a class="btn dropdown-item" data-bs-toggle="modal"
+                                <li><a class="btn dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#subirModal">Subir producto</a></li>
-                                        <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                                        <li><a class="dropdown-item" href="#">Eliminar articulo</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
-                                        
-                                    </ul>
+                                <li><a class="btn dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#perfilUsuario" id="botonPerfil">Mi perfil</a></li>
+                                <li>
+                                    <a class="dropdown-item" data-id="<?php echo $id_usuario ?>" href="javascript:void(0)" id="btn-valoraciones">
+                                        Mis valoraciones
+                                    </a>
+                                </li>
+
+                                <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
+
+                            </ul>
 
                         </div>
+
+                        <!--Modal para mostrar el perfil del usuario-->
+
+                        <div class="modal fade" id="perfilUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Perfil</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" id="idPerfil">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Modal de cambio de avatar -->
 
                         <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -222,7 +248,7 @@ if ($_SESSION['inicioSesion'] == true) {
                         </div>
                     </div>
                 </div>
-                
+
 
         </header>
 
@@ -263,40 +289,27 @@ if ($_SESSION['inicioSesion'] == true) {
                             </li>
 
 
-                            <li class="nav-item ">
-                                <a class="nav-link" href="#">Electronica</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Informática</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Hogar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Coches</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Motos</a>
-                            </li>
+
                         </ul>
                     </div>
 
-                    <form class="d-flex col-lg-5 col-md-8 col-sm-9" role="search">
+                    <form class="d-flex col-lg-5 col-md-8 col-sm-8" role="search">
                         <input id="campoFiltro" class="form-control me-2 text-primary" type="search" placeholder="Ej: Iphone" aria-label="Search">
                         <button onclick="aplicarFiltro(event)" class="btn btn-outline-primary" type="submit">Buscar</button>
 
                     </form>
-                </div>
 
-                <div class="nav-item me-3" style="list-style: none; position: relative; display: inline-block;">
-                    <a class="nav-link" href="../../public/Chat/listado_chats.php" title="Mensajes">
-                        <i class="fa fa-envelope-o" style="font-size: 1.5rem; color: #333;"></i>
-                        <span id="notif-badge"
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            style="display: none; font-size: 0.7rem; padding: 0.35em 0.6em;">
-                            0
-                        </span>
-                    </a>
+
+                    <div class="ms-2 p-3" style="position: relative; display: inline-block; min-width: 40px;">
+                        <a class="nav-link" href="../../public/Chat/listado_chats.php" title="Mensajes">
+                            <i class="fa fa-envelope-o" style="font-size: 1.5rem; color: #333;"></i>
+                            <span id="notif-badge"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                style="display: none; font-size: 0.7rem; padding: 0.35em 0.6em;">
+                                0
+                            </span>
+                        </a>
+                    </div>
                 </div>
             </nav>
 
@@ -306,61 +319,60 @@ if ($_SESSION['inicioSesion'] == true) {
         <!-- Hasta aquí la barra de navegación-->
 
         <div class="d-flex bg-body-tertiary ">
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12">
-                <div class="container mb-4 p-5 ">
-                    <div class="row g-3 align-items-center bg-light p-3 rounded shadow-sm ">
-                        <h3 class="col-md-12 ">Búsqueda avanzada</h3>  
-                        <div class="col-md-12 ">
-                            <label class="form-label fw-bold small">¿Qué buscas?</label>
-                            <input type="text" id="buscador-general" class="form-control" placeholder="Ej: Bicicleta, Móvil...">
-                        </div>
+            <div id="contenedor-busqueda" class="p-3 bg-body-tertiary col-lg-6 col-12 transition-all shadow-sm">
+                <h3 id="titulo-busqueda" class="h5 mb-3">Búsqueda avanzada</h3>
 
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold small">¿Qué ofreces a cambio?</label>
-                            <input type="text" id="buscador-cambio" class="form-control" placeholder="Ej: Busco gente que quiera una Guitarra...">
-                            <small class="text-muted" style="font-size: 0.8em;">Filtra por lo que el vendedor pide.</small>
-                        </div>
-
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold small">Ordenar por:</label>
-                            <select id="filtro-orden" class="form-select">
-                                <option value="reciente" selected>Más recientes (Nuevos primero)</option>
-                                <option value="antiguo">Más antiguos</option>
-                                <option value="nombre_asc">Nombre: A - Z</option>
-                                <option value="nombre_desc">Nombre: Z - A</option>
-                            </select>
-                        </div>
+                <div id="form-layout" class="row g-2">
+                    <div class="col-12 campo-busqueda">
+                        <label class="form-label small fw-bold">¿Qué buscas?</label>
+                        <input type="text" id="buscador-general" class="form-control form-control-sm" placeholder="Ej: Bicicleta...">
+                    </div>
+                    <div class="col-12 campo-busqueda">
+                        <label class="form-label small fw-bold">¿Qué ofreces?</label>
+                        <input type="text" id="buscador-cambio" class="form-control form-control-sm" placeholder="Ej: Guitarra...">
+                    </div>
+                    <div class="col-12 campo-busqueda">
+                        <label class="form-label small fw-bold">¿Lugar donde buscar?</label>
+                        <input type="text" id="buscador-ciudad" class="form-control form-control-sm" placeholder="Ej: Logroño...">
+                    </div>
+                    <div class="col-12 campo-busqueda">
+                        <label class="form-label small fw-bold">Orden:</label>
+                        <select id="filtro-orden" class="form-select form-select-sm">
+                            <option value="reciente">Más recientes</option>
+                            <option value="nombre_asc">A - Z</option>
+                        </select>
                     </div>
                 </div>
+
 
                 <hr>
             </div>
 
 
-            <div id="carouselExampleInterval" class="carousel slide text-center flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12" data-bs-ride="carousel">
+            <div id="carouselExampleInterval" class="carousel slide text-center flex-shrink-0 p-3 bg-body-tertiary col-lg-6 d-none d-lg-block" data-bs-ride="carousel">
                 <div class="carousel-inner text-center">
                     <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="../imagenes/manos.jpg" class="d-block w-100 img-fluid " alt="Foto de ROMAN ODINTSOV: https://www.pexels.com/es-es/foto/manos-sujetando-cartulina-carton-12725405/">
+                        <img src="../imagenes/manos.jpg" class="d-block w-100 img-fluid" alt="Intercambio">
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
-                        <img src="../imagenes/electronica.jpg" class="d-block w-100 img-fluid" alt="Foto de ATC Comm Photo: https://www.pexels.com/es-es/foto/primer-plano-de-la-camara-sobre-fondo-negro-306763/">
+                        <img src="../imagenes/electronica.jpg" class="d-block w-100 img-fluid" alt="Electrónica">
                     </div>
                     <div class="carousel-item">
-                        <img src="../imagenes/moto.jpg" class="d-block w-100 img-fluid" alt="Foto de Pragyan Bezbaruah: https://www.pexels.com/es-es/foto/motocicleta-en-medio-de-la-carretera-1715193/">
+                        <img src="../imagenes/moto.jpg" class="d-block w-100 img-fluid" alt="Motor">
                     </div>
                 </div>
+
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                    <span class="visually-hidden">Anterior</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                    <span class="visually-hidden">Siguiente</span>
                 </button>
             </div>
+
         </div>
-
-
         <!--  Añadimos las cards con los articulos guardados-->
 
         <div class="container my-5 contenedor1" id="articulos">
@@ -370,73 +382,73 @@ if ($_SESSION['inicioSesion'] == true) {
         </div>
 
         <div class="container my-5">
-            <h2>Mis Productos en Venta</h2>
+            <h2>Mis artículos</h2>
             <div id="contenedor-mis-productos" class="row">
             </div>
         </div>
 
 
 
-            <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
-                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header bg-primary text-black">
-                        <strong class="me-auto">Nuevo Mensaje</strong>
-                        <small>Ahora mismo</small>
-                        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="toast" aria-label="Close"></button>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-primary text-black">
+                    <strong class="me-auto">Nuevo Mensaje</strong>
+                    <small>Ahora mismo</small>
+                    <button type="button" class="btn-close btn-close-black" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ¡Tienes un nuevo mensaje sobre un artículo!
+                    <br>
+                    <a href="chat.php" class="btn btn-sm btn-outline-primary mt-2">Ir al chat</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="toast-body">
-                        ¡Tienes un nuevo mensaje sobre un artículo!
-                        <br>
-                        <a href="chat.php" class="btn btn-sm btn-outline-primary mt-2">Ir al chat</a>
+                    <div class="modal-body">
+                        <form id="formEditarProducto">
+                            <input type="hidden" id="edit_id">
+                            <div class="mb-3">
+                                <label class="form-label">Título</label>
+                                <input type="text" class="form-control" id="edit_titulo" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea class="form-control" id="edit_descripcion" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Categoría</label>
+                                <select class="form-select" id="edit_categoria">
+                                    <option value="tecnologia y electronica">Tecnología y Electrónica</option>
+                                    <option value="moda y accesorios">Moda y Accesorios</option>
+                                    <option value="hogar y jardin">Hogar y Jardín</option>
+                                    <option value="deportes y ocio">Deportes y Ocio</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" id="edit_estado">
+                                    <option value="nuevo">Nuevo</option>
+                                    <option value="usado">Usado</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarCambios()">Guardar Cambios</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-
-            <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Editar Producto</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="formEditarProducto">
-                                <input type="hidden" id="edit_id">
-                                <div class="mb-3">
-                                    <label class="form-label">Título</label>
-                                    <input type="text" class="form-control" id="edit_titulo" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Descripción</label>
-                                    <textarea class="form-control" id="edit_descripcion" rows="3" required></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Categoría</label>
-                                    <select class="form-select" id="edit_categoria">
-                                        <option value="tecnologia y electronica">Tecnología y Electrónica</option>
-                                        <option value="moda y accesorios">Moda y Accesorios</option>
-                                        <option value="hogar y jardin">Hogar y Jardín</option>
-                                        <option value="deportes y ocio">Deportes y Ocio</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Estado</label>
-                                    <select class="form-select" id="edit_estado">
-                                        <option value="nuevo">Nuevo</option>
-                                        <option value="usado">Usado</option>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary" onclick="guardarCambios()">Guardar Cambios</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
         <div class="modal fade" id="modalSeleccionarComprador" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -462,104 +474,104 @@ if ($_SESSION['inicioSesion'] == true) {
                 </div>
             </div>
         </div>
-        
 
-            <footer class="pie bg-dark text-white pt-5 pb-4 mt-5">
-                <div class="container text-center text-md-start">
-                    <div class="row text-center text-md-start">
 
-                        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                            <h5 class="text-uppercase mb-4 font-weight-bold text-primary">TrueChange</h5>
-                            <p>La plataforma líder para el intercambio de artículos. Fomentando la economía circular y el consumo responsable.</p>
-                        </div>
+        <footer class="pie bg-dark text-white pt-5 pb-4 mt-5">
+            <div class="container text-center text-md-start">
+                <div class="row text-center text-md-start">
 
-                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-                            <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Explorar</h5>
-                            <p><a href="#" class="text-white text-decoration-none" onclick="mostrarTodos()">Todos los artículos</a></p>
-                            <p><a href="#" class="text-white text-decoration-none" onclick="mostrarFavoritos()">Mis Favoritos</a></p>
-                            <p><a href="#" class="text-white text-decoration-none" onclick="mostrarMisProductos()">Mis Publicaciones</a></p>
-                        </div>
-
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                            <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Ayuda</h5>
-                            <p><a href="#" class="text-white text-decoration-none">Cómo funciona</a></p>
-                            <p><a href="#" class="text-white text-decoration-none">Reglas de intercambio</a></p>
-                            <p><a href="#" class="text-white text-decoration-none">Contacto</a></p>
-                        </div>
-
-                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-                            <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Síguenos</h5>
-                            <div class="d-flex justify-content-center justify-content-md-start">
-                                <a href="#" class="text-white me-4"><i class="fa fa-facebook fa-lg"></i></a>
-                                <a href="#" class="text-white me-4"><i class="fa fa-twitter fa-lg"></i></a>
-                                <a href="#" class="text-white me-4"><i class="fa fa-instagram fa-lg"></i></a>
-                                <a href="#" class="text-white"><i class="fa fa-linkedin fa-lg"></i></a>
-                            </div>
-                        </div>
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h5 class="text-uppercase mb-4 font-weight-bold text-primary">TrueChange</h5>
+                        <p>La plataforma líder para el intercambio de artículos. Fomentando la economía circular y el consumo responsable.</p>
                     </div>
 
-                    <hr class="mb-4 mt-5">
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Explorar</h5>
+                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarTodos()">Todos los artículos</a></p>
+                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarFavoritos()">Mis Favoritos</a></p>
+                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarMisProductos()">Mis Publicaciones</a></p>
+                    </div>
 
-                    <div class="row align-items-center">
-                        <div class="col-md-7 col-lg-8">
-                            <p>© 2025 Copyright: <strong class="text-primary">TrueChange.com</strong> - Dale una segunda vida a tus cosas.</p>
-                        </div>
-                        <div class="col-md-5 col-lg-4">
-                            <div class="text-center text-md-end">
-                                <small class="text-muted">Desarrollado con <i class="fa fa-heart text-danger"></i> para un mundo sostenible.</small>
-                            </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Ayuda</h5>
+                        <p><a href="#" class="text-white text-decoration-none">Cómo funciona</a></p>
+                        <p><a href="../../public/normas.html" class="text-white text-decoration-none">Reglas y normas</a></p>
+                        <p><a href="#" class="text-white text-decoration-none">Contacto</a></p>
+                    </div>
+
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Síguenos</h5>
+                        <div class="d-flex justify-content-center justify-content-md-start">
+                            <a href="#" class="text-white me-4"><i class="fa fa-facebook fa-lg"></i></a>
+                            <a href="#" class="text-white me-4"><i class="fa fa-twitter fa-lg"></i></a>
+                            <a href="#" class="text-white me-4"><i class="fa fa-instagram fa-lg"></i></a>
+                            <a href="#" class="text-white"><i class="fa fa-linkedin fa-lg"></i></a>
                         </div>
                     </div>
                 </div>
-            </footer>
 
-            <div class="modal fade" id="modalReseña" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title">¡Valora el intercambio!</h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <p class="fw-bold">¿Cuántas estrellas le das?</p>
+                <hr class="mb-4 mt-5">
 
-                            <div class="estrellas-rating mb-3" style="font-size: 2.5rem; color: #ffc107; cursor: pointer;">
-                                <i class="fa fa-star-o" data-value="1"></i>
-                                <i class="fa fa-star-o" data-value="2"></i>
-                                <i class="fa fa-star-o" data-value="3"></i>
-                                <i class="fa fa-star-o" data-value="4"></i>
-                                <i class="fa fa-star-o" data-value="5"></i>
-                            </div>
-
-                            <input type="hidden" id="puntuacion-valor" value="0">
-
-                            <div class="form-group">
-                                <textarea id="comentario-reseña" class="form-control" rows="3" placeholder="Escribe tu opinión aquí..."></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-primary w-50" onclick="enviarResena()">Enviar Opinión</button>
+                <div class="row align-items-center">
+                    <div class="col-md-7 col-lg-8">
+                        <p>© 2025 Copyright: <strong class="text-primary">TrueChange.com</strong> - Dale una segunda vida a tus cosas.</p>
+                    </div>
+                    <div class="col-md-5 col-lg-4">
+                        <div class="text-center text-md-end">
+                            <small class="text-muted">Desarrollado con <i class="fa fa-heart text-danger"></i> para un mundo sostenible.</small>
                         </div>
                     </div>
                 </div>
             </div>
+        </footer>
 
-            <div class="modal fade" id="modalVerOpiniones" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header bg-light">
-                            <h5 class="modal-title"><i class="fa fa-comments-o"></i> Opiniones sobre el usuario</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div class="modal fade" id="modalReseña" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">¡Valora el intercambio!</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p class="fw-bold">¿Cuántas estrellas le das?</p>
+
+                        <div class="estrellas-rating mb-3" style="font-size: 2.5rem; color: #ffc107; cursor: pointer;">
+                            <i class="fa fa-star-o" data-value="1"></i>
+                            <i class="fa fa-star-o" data-value="2"></i>
+                            <i class="fa fa-star-o" data-value="3"></i>
+                            <i class="fa fa-star-o" data-value="4"></i>
+                            <i class="fa fa-star-o" data-value="5"></i>
                         </div>
-                        <div class="modal-body">
-                            <div id="lista-opiniones" class="list-group list-group-flush">
-                                <p class="text-center text-muted">Cargando opiniones...</p>
-                            </div>
+
+                        <input type="hidden" id="puntuacion-valor" value="0">
+
+                        <div class="form-group">
+                            <textarea id="comentario-reseña" class="form-control" rows="3" placeholder="Escribe tu opinión aquí..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary w-50" onclick="enviarResena()">Enviar Opinión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalVerOpiniones" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-light">
+                        <h5 class="modal-title"><i class="fa fa-comments-o"></i> Opiniones sobre el usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="lista-opiniones" class="list-group list-group-flush">
+                            <p class="text-center text-muted">Cargando opiniones...</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
+        </div>
+
     </body>
 
     <script>
@@ -572,7 +584,7 @@ if ($_SESSION['inicioSesion'] == true) {
 
 <?php
 } else {
-    // En lugar de echo + header, usa solo JS para avisar y redirigir
+
     echo "<script>
             alert('Regístrese para acceder.');
             window.location.href = '../../public/index.php';

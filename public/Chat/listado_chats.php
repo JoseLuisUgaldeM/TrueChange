@@ -33,12 +33,17 @@ require 'db_config.php'; // Para usar la conexión $pdo y las constantes
 </style>
 </head>
 <body>
-<div class="container mt-5">
+    <div class="container mt-5">
+   
     <h2>Bandeja de Entrada</h2>
     <div id="lista-conversaciones" class="list-group">
         </div>
 </div>
-
+<div class="container mt-5">
+        <a href="../../src/php/sesionIniciada.php" class="btn btn-sm btn-outline-secondary me-3">
+            <i class="fa fa-arrow-left"></i> Volver
+        </a>
+        <div>
 <script>
 // Función para cargar la lista de personas con las que hay chat
 function cargarBandeja() {

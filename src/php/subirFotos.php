@@ -3,7 +3,7 @@
 
 if (isset($_POST["subirFotos"])) {
     // Directorio donde se guardarán las imágenes
-    $target_dir = "../imagenes/uploads";
+    $target_dir = "/TrueChange-main/src/imagenes/uploads";
     $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
