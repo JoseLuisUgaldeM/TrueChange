@@ -48,7 +48,8 @@ header('Content-Type: text/html; charset=utf-8');
 <body>
 
     <div class="loader">
-        <div class="spinner"></div>
+        <div class="spinner">
+        </div>
         <p>Cargando...</p>
     </div>
 
@@ -75,131 +76,152 @@ header('Content-Type: text/html; charset=utf-8');
                     <!-- Modal registro-->
 
 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Completa los campos del formulario</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="row g-3" action="../src/php/registro.php" method="post">
-                                        <div class="col-md-12">
-                                            <label for="nombre" class="form-label">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ ]+$" required>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="primerApellido" class="form-label">Primer pellido</label>
-                                            <input type="text" class="form-control" id="primerApellido" name="primerApellido" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ ]+$" required>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-                                            <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ ]+$" required>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="usuarioNombre" class="form-label">Nombre de usuario</label>
-                                            <input type="text" class="form-control" id="usuarioNombre" name="usuarioNombre" pattern="^[a-zA-Z0-9]+$">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="pass" class="form-label">Contraseña</label>
-                                            <input type="password" class="form-control" id="pass" name="pass" required>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="email" class="form-label">Correo electrónico</label>
-                                            <div class="input-group">
-                                                <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                                                <input type="text" class="form-control" id="email" name="email"
-                                                    pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z]+" aria-describedby="inputGroupPrepend2"
-                                                    required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="ciudad" class="form-label">Ciudad</label>
-                                            <input type="text" class="form-control" id="ciudad" name="ciudad" required>
-                                        </div>
-                                        <div class="col-md-6">
+                   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered"> <div class="modal-content border-0 shadow-lg rounded-4">
+            
+            <div class="modal-header bg-primary text-white rounded-top-4 p-4" style="background: linear-gradient(45deg, #0d6efd, #003d92);">
+                <div class="text-center w-100">
+                    <i class="fa fa-user-plus fa-3x mb-2"></i>
+                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Únete a TrueChange</h5>
+                    <p class="small mb-0 opacity-75">Crea tu cuenta y empieza a intercambiar hoy mismo</p>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-                                        </div>
-
-
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                                                <label class="form-check-label" for="invalidCheck2">
-                                                    Acepta los términos y condiciones
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <button class="btn btn-primary" name="enviar" type="submit">Enviar formulario</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
+            <div class="modal-body p-4">
+                <form class="row g-3" action="../src/php/registro.php" method="post">
+                    
+                    <div class="col-md-6">
+                        <label for="nombre" class="form-label fw-bold text-muted small">NOMBRE</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-primary"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control border-start-0 bg-light" id="nombre" name="nombre" placeholder="Tu nombre" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ ]+$" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="primerApellido" class="form-label fw-bold text-muted small">PRIMER APELLIDO</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-primary"><i class="fa fa-user-o"></i></span>
+                            <input type="text" class="form-control border-start-0 bg-light" id="primerApellido" name="primerApellido" placeholder="Primer apellido" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ ]+$" required>
                         </div>
                     </div>
 
-                    <!-- Modal inicio de sesión-->
+                    <div class="col-md-6">
+                        <label for="segundoApellido" class="form-label fw-bold text-muted small">SEGUNDO APELLIDO</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-primary"><i class="fa fa-user-o"></i></span>
+                            <input type="text" class="form-control border-start-0 bg-light" id="segundoApellido" name="segundoApellido" placeholder="Segundo apellido" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ ]+$" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="usuarioNombre" class="form-label fw-bold text-muted small">NOMBRE DE USUARIO</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-primary"><i class="fa fa-at"></i></span>
+                            <input type="text" class="form-control border-start-0 bg-light" id="usuarioNombre" name="usuarioNombre" placeholder="Usuario123" pattern="^[a-zA-Z0-9]+$" required>
+                        </div>
+                    </div>
 
-                   
-                </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label fw-bold text-muted small">CORREO ELECTRÓNICO</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-primary"><i class="fa fa-envelope"></i></span>
+                            <input type="email" class="form-control border-start-0 bg-light" id="email" name="email" placeholder="correo@ejemplo.com" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="pass" class="form-label fw-bold text-muted small">CONTRASEÑA</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-primary"><i class="fa fa-lock"></i></span>
+                            <input type="password" class="form-control border-start-0 bg-light" id="pass" name="pass" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="ciudad" class="form-label fw-bold text-muted small">CIUDAD</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-primary"><i class="fa fa-map-marker"></i></span>
+                            <input type="text" class="form-control border-start-0 bg-light" id="ciudad" name="ciudad" placeholder="Tu ciudad actual" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <div class="form-check">
+                            <input class="form-check-input border-primary" type="checkbox" value="" id="invalidCheck2" required>
+                            <label class="form-check-label small text-muted" for="invalidCheck2">
+                                Acepto los <a href="#" class="text-primary fw-bold text-decoration-none">términos de uso</a> y la <a href="#" class="text-primary fw-bold text-decoration-none">política de privacidad</a>.
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button class="btn btn-primary w-100 py-3 fw-bold shadow-sm rounded-3 btn-blue-grad" name="enviar" type="submit">
+                            <i class="fa fa-check-circle me-2"></i> FINALIZAR REGISTRO
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
 
-    </header>
+
+</div>
+</div>
+</div>
 
 
-    <!-- Barra de navegación-->
+</header>
 
 
-    <div class="barraNavegacion mx-auto ">
-
-        <nav class="navbar navbar-expand-lg ">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-item nav-underline">
-                        <li class="nav-item">
-                            <select class="form-select " name="categoria" id="campoCategoria" onclick="filtrarPorCategoria(event)">
-                                <option selected disabled>Categoría</option>
-                                <option value="Coches">Coches</option>
-                                <option value="Motos">Motos</option>
-                                <option value="Motor y accesorios">Motor y accesorios</option>
-                                <option value="Moda y accesorios">Moda y accesorios</option>
-                                <option value="inmobiliaria">Inmobiliaria</option>
-                                <option value="Tecnología y electrónica">Tecnología y electrónica</option>
-                                <option value="Deporte y ocio">Deporte y ocio</option>
-                                <option value="Bicicletas">Bicicletas</option>
-                                <option value="Hogar y jardín">Hogar y jardin</option>
-                                <option value="Electrodomésticos">Electrodomésticos</option>
-                                <option value="Cine libros y música">Cine libros y música</option>
-                                <option value="Niños y bebés">Niños y bebés</option>
-                                <option value="Coleccionismo">Coleccionismo</option>
-                                <option value="Construcción y reformas">Construccion y reformas</option>
-                                <option value="Industria  agricultura">Industria y agricultura</option>
-                                <option value="Empleo">Empleo</option>
-                                <option value="Servicios">Servicios</option>
-                                <option value="Otros">Otros...</option>
-
-                            </select>
-                        </li>
+<!-- Barra de navegación-->
 
 
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#">Electronica</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Informática</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hogar</a>
-                        </li>
+<div class="barraNavegacion mx-auto ">
+    
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-item nav-underline">
+                <li class="nav-item">
+                    <select class="form-select " name="categoria" id="campoCategoria" onclick="filtrarPorCategoria(event)">
+                        <option selected disabled>Categoría</option>
+                        <option value="Coches">Coches</option>
+                        <option value="Motos">Motos</option>
+                        <option value="Motor y accesorios">Motor y accesorios</option>
+                        <option value="Moda y accesorios">Moda y accesorios</option>
+                        <option value="inmobiliaria">Inmobiliaria</option>
+                        <option value="Tecnología y electrónica">Tecnología y electrónica</option>
+                        <option value="Deporte y ocio">Deporte y ocio</option>
+                        <option value="Bicicletas">Bicicletas</option>
+                        <option value="Hogar y jardín">Hogar y jardin</option>
+                        <option value="Electrodomésticos">Electrodomésticos</option>
+                        <option value="Cine libros y música">Cine libros y música</option>
+                        <option value="Niños y bebés">Niños y bebés</option>
+                        <option value="Coleccionismo">Coleccionismo</option>
+                        <option value="Construcción y reformas">Construccion y reformas</option>
+                        <option value="Industria  agricultura">Industria y agricultura</option>
+                        <option value="Empleo">Empleo</option>
+                        <option value="Servicios">Servicios</option>
+                        <option value="Otros">Otros...</option>
+                        
+                    </select>
+                </li>
+                
+                
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Electronica</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Informática</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hogar</a>
+                </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Coches</a>
                         </li>
@@ -210,157 +232,188 @@ header('Content-Type: text/html; charset=utf-8');
                 </div>
                 <form class="d-flex col-lg-5 col-md-8 col-sm-9" role="search">
                     <input id="campoFiltro" class="form-control me-2 text-primary" type="search" placeholder="Ej: Iphone" aria-label="Search">
-                    <button onclick="aplicarFiltro(event)" class="btn btn-outline-primary" type="submit">Buscar</button>
-
+                    <button onclick="aplicarFiltro(event)" class="btn btn-outline-primary" type="submit" id="btn-buscar">Buscar</button>
+                    
                 </form>
             </div>
         </nav>
-
+        
     </div>
-    </div>
-    <!-- Hasta aquí la barra de navegación-->
+</div>
+<!-- Hasta aquí la barra de navegación-->
 
 
-    <!-- Mostramos el carrusel de fotos-->
+<!-- Mostramos el carrusel de fotos-->
 
 
-    <div class="container">
-
-        <div class="d-flex bg-body-tertiary container d-flex row text-center my-5">
-            <div id="carouselExampleInterval" class="carousel slide d-flex flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12" data-bs-ride="carousel">
-                <div class="carousel-inner text-center">
-                    <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="../src/imagenes/manos.jpg" class="d-block w-100 img-fluid " alt="Foto de ROMAN ODINTSOV: https://www.pexels.com/es-es/foto/manos-sujetando-cartulina-carton-12725405/">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="2000">
-                        <img src="../src/imagenes/electronica.jpg" class="d-block w-100 img-fluid" alt="Foto de ATC Comm Photo: https://www.pexels.com/es-es/foto/primer-plano-de-la-camara-sobre-fondo-negro-306763/">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="../src/imagenes/moto.jpg" class="d-block w-100 img-fluid" alt="Foto de Pragyan Bezbaruah: https://www.pexels.com/es-es/foto/motocicleta-en-medio-de-la-carretera-1715193/">
-                    </div>
+<div class="container">
+    
+    <div class="d-flex bg-body-tertiary container d-flex row text-center my-5">
+        <div id="carouselExampleInterval" class="carousel slide d-flex flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12" data-bs-ride="carousel">
+            <div class="carousel-inner text-center">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <img src="../src/imagenes/manos.jpg" class="d-block w-100 img-fluid " alt="Foto de ROMAN ODINTSOV: https://www.pexels.com/es-es/foto/manos-sujetando-cartulina-carton-12725405/">
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="../src/imagenes/electronica.jpg" class="d-block w-100 img-fluid" alt="Foto de ATC Comm Photo: https://www.pexels.com/es-es/foto/primer-plano-de-la-camara-sobre-fondo-negro-306763/">
+                </div>
+                <div class="carousel-item">
+                    <img src="../src/imagenes/moto.jpg" class="d-block w-100 img-fluid" alt="Foto de Pragyan Bezbaruah: https://www.pexels.com/es-es/foto/motocicleta-en-medio-de-la-carretera-1715193/">
+                </div>
             </div>
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12">
-
-                <span class="fs-4 text-center">TRUECHANGE</span>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod vel veritatis a, ducimus provident officiis commodi odio at quia officia possimus assumenda architecto itaque unde dolor soluta tempora praesentium fuga!</p>
-
-                <hr>
-            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12">
+            
+            <span class="fs-4 text-center">TRUECHANGE</span>
+            <hr>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod vel veritatis a, ducimus provident officiis commodi odio at quia officia possimus assumenda architecto itaque unde dolor soluta tempora praesentium fuga!</p>
+            
+            <hr>
         </div>
     </div>
-    <!-- Mostramos una introduccion acerca de la aplicacion -->
+</div>
+<!-- Mostramos una introduccion acerca de la aplicacion -->
 
 
     <!-- Mostramos los articulos-->
-
-   <div class="container my-5 contenedor1" id="articulos">
-                <h1 id="titulo1">Artículos</h1>
-                <div class="row" id="resultados">
-                </div>
-            </div>
-
-   
-
-        <footer class="pie bg-dark text-white pt-5 pb-4 mt-5">
-    <div class="container text-center text-md-start">
-        <div class="row text-center text-md-start">
-            
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                <h5 class="text-uppercase mb-4 font-weight-bold text-primary">TrueChange</h5>
-                <p>La plataforma líder para el intercambio de artículos. Fomentando la economía circular y el consumo responsable.</p>
-            </div>
-
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-                <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Explorar</h5>
-                <p><a href="#" class="text-white text-decoration-none" onclick="mostrarTodos()">Todos los artículos</a></p>
-                <p><a href="#" class="text-white text-decoration-none" onclick="mostrarFavoritos()">Mis Favoritos</a></p>
-                <p><a href="#" class="text-white text-decoration-none" onclick="mostrarMisProductos()">Mis Publicaciones</a></p>
-            </div>
-
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Ayuda</h5>
-                <p><a href="#" class="text-white text-decoration-none">Cómo funciona</a></p>
-                <p><a href="normas.html" class="text-white text-decoration-none">Reglas y normas</a></p>
-                <p><a href="#" class="text-white text-decoration-none">Contacto</a></p>
-            </div>
-
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-                <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Síguenos</h5>
-                <div class="d-flex justify-content-center justify-content-md-start">
-                    <a href="#" class="text-white me-4"><i class="fa fa-facebook fa-lg"></i></a>
-                    <a href="#" class="text-white me-4"><i class="fa fa-twitter fa-lg"></i></a>
-                    <a href="#" class="text-white me-4"><i class="fa fa-instagram fa-lg"></i></a>
-                    <a href="#" class="text-white"><i class="fa fa-linkedin fa-lg"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <hr class="mb-4 mt-5">
-
-        <div class="row align-items-center">
-            <div class="col-md-7 col-lg-8">
-                <p>© 2025 Copyright: <strong class="text-primary">TrueChange.com</strong> - Dale una segunda vida a tus cosas.</p>
-            </div>
-            <div class="col-md-5 col-lg-4">
-                <div class="text-center text-md-end">
-                   <small class="text-muted">Desarrollado con <i class="fa fa-heart text-danger"></i> para un mundo sostenible.</small>
-                </div>
-            </div>
-        </div>
-    </div>
-
     
-</footer>
-
-    <script>
+    <div class="container my-5 contenedor1" id="articulos">
+        <h1 id="titulo1">Artículos</h1>
+        <div class="row" id="resultados">
+            </div>
+        </div>
+        
+        
+        
+        <footer class="pie bg-dark text-white pt-5 pb-4 mt-5">
+            <div class="container text-center text-md-start">
+                <div class="row text-center text-md-start">
+                    
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h5 class="text-uppercase mb-4 font-weight-bold text-primary">TrueChange</h5>
+                        <p>La plataforma líder para el intercambio de artículos. Fomentando la economía circular y el consumo responsable.</p>
+                    </div>
+                    
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Explorar</h5>
+                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarTodos()">Todos los artículos</a></p>
+                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarFavoritos()">Mis Favoritos</a></p>
+                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarMisProductos()">Mis Publicaciones</a></p>
+                    </div>
+                    
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Ayuda</h5>
+                        <p><a href="#" class="text-white text-decoration-none">Cómo funciona</a></p>
+                        <p><a href="normas.html" class="text-white text-decoration-none">Reglas y normas</a></p>
+                        <p><a href="#" class="text-white text-decoration-none">Contacto</a></p>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Síguenos</h5>
+                        <div class="d-flex justify-content-center justify-content-md-start">
+                            <a href="#" class="text-white me-4"><i class="fa fa-facebook fa-lg"></i></a>
+                            <a href="#" class="text-white me-4"><i class="fa fa-twitter fa-lg"></i></a>
+                            <a href="#" class="text-white me-4"><i class="fa fa-instagram fa-lg"></i></a>
+                            <a href="#" class="text-white"><i class="fa fa-linkedin fa-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="mb-4 mt-5">
+                
+                <div class="row align-items-center">
+                    <div class="col-md-7 col-lg-8">
+                        <p>© 2025 Copyright: <strong class="text-primary">TrueChange.com</strong> - Dale una segunda vida a tus cosas.</p>
+                    </div>
+                    <div class="col-md-5 col-lg-4">
+                        <div class="text-center text-md-end">
+                            <small class="text-muted">Desarrollado con <i class="fa fa-heart text-danger"></i> para un mundo sostenible.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </footer>
+        
+        <script>
         window.onload = function() {
             const loader = document.querySelector('.loader');
             loader.style.transition = 'opacity 0.5s ease'; // Transición para el desvanecimiento
             loader.style.opacity = '0'; // Hace que el loader se desvanezca
-
+            
             // Opcional: Eliminar el loader del DOM después de la transición
             setTimeout(() => {
                 loader.remove();
             }, 500);
         };
         const usuarioLogueadoId = <?php echo isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : 'null'; ?>;
-    </script>
+        </script>
 
-<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">¡¡Bienvenido/a a TrueChange!!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal inicio de sesión-->
+
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"> 
+        <div class="modal-content border-0 shadow-lg rounded-4"> 
+            
+            <div class="modal-header bg-primary text-white rounded-top-4 p-4" style="background: linear-gradient(45deg, #0d6efd, #003d92);">
+                <div class="text-center w-100">
+                    <i class="fa fa-refresh fa-3x mb-2"></i> <h5 class="modal-title fw-bold" id="exampleModalLabel">Bienvenido a TrueChange</h5>
+                    <p class="small mb-0 opacity-75">Tu plataforma de intercambio seguro</p>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body p-4">
+                <form method="post" action="../src/php/login.php" class="row g-3">
+                    
+                    <div class="col-md-12">
+                        <label for="usuario" class="form-label fw-bold text-muted small">USUARIO</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-primary">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <input type="text" name="usuario" class="form-control border-start-0 bg-light" id="usuario" placeholder="Nombre de usuario" pattern="^[a-zA-Z\s]+$" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="contrasena" class="form-label fw-bold text-muted small">CONTRASEÑA</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 text-primary">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                            <input type="password" name="pass" class="form-control border-start-0 bg-light" id="contrasena" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <a href="#" class="text-decoration-none small fw-medium text-primary">¿Problemas para entrar?</a>
+                    </div>
+                    
+                    <div class="col-12 mt-4">
+                        <button class="btn btn-primary w-100 py-2 fw-bold shadow-sm rounded-3 btn-blue-grad" type="submit" name="iniciarSesion">
+                            <i class="fa fa-sign-in me-2"></i> Acceder ahora
+                        </button>
+                    </div>
+
+                    <div class="col-12 text-center mt-3">
+                        <p class="small mb-0 text-muted">¿Eres nuevo aquí? <a href="#" data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal"class="fw-bold text-primary text-decoration-none">Crea una cuenta</a></p>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-            <form method="post" action="../src/php/login.php" class="row g-3">
-                <div class="col-md-12">
-                    <label for="usuario" class="form-label">Usuario</label>
-                    <input type="text" name="usuario" class="form-control" id="usuario" pattern="^[a-zA-Z\s]+$" required>
-                </div>
-                <div class="col-md-12">
-                    <label for="contrasena" class="form-label">Contraseña</label>
-                    <input type="password" name="pass" class="form-control" id="contrasena" required>
-                </div>
-                
-                <div class="col-12">
-                    <button class="btn btn-primary" type="submit" name="iniciarSesion">Entrar</button>
-                </div>
-            </form>
-        </div>
-        
+    </div>
+</div>
         
     </div>
 </div>

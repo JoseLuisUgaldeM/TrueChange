@@ -121,7 +121,7 @@ function aplicarFiltro(event) {
         // Si no es un string ni un número (o si el campo no existe), no lo incluimos
         return false;
     });
-
+    
     // 2. Mostrar los resultados
     mostrarDatos(datosFiltrados, contenedorResultados, campoFiltro, valorFiltro);
 }
@@ -136,10 +136,9 @@ function mostrarTodos() {
 
 function mostrarDatos(datos, contenedor, campo = null, valor = null) {
     
-
     // 1. Limpiar el contenedor de tarjetas
     contenedor.innerHTML = "";
-
+    
     // 2. Buscar o crear el contenedor EXCLUSIVO para los modales
     // Esto asegura que los modales vivan fuera de las cards y no se vean afectados por el 'transform'
     let contenedorModales = document.getElementById('contenedor-modales-dinamicos');
@@ -151,13 +150,13 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
         // Si ya existe, lo limpiamos para no acumular modales viejos de búsquedas anteriores
         contenedorModales.innerHTML = "";
     }
-
+    
     if (datos.length === 0) {
         console.error('No hay articulos que mostrar');
         contenedor.innerHTML = `<div class="alert alert-warning col-12" role="alert">No se encontraron artículos.</div>`;
         return;
     }
-
+    
     datos.forEach(item => {
         // --- Lógica de fechas ---
         const fechaInicio = new Date(item.fecha_publicacion);
@@ -168,137 +167,138 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
         const milisegundosEnUnDia = 1000 * 60 * 60 * 24;
         let imprimir = "Publicado hoy";
         let intervalo = Math.floor(diferenciaMilisegundos / milisegundosEnUnDia);
-
+        
         if (intervalo > 1) imprimir = `Publicado hace ${intervalo} dias `;
         if (intervalo == 1) imprimir = `Publicado hace ${intervalo} dia `;
-
+        
         // Dentro del bucle donde recorres los artículos (ej: items.forEach(item => { ... }))
-
-// 1. Detectar si el artículo es del usuario logueado
-// Dentro de tu bucle de artículos en script.js
-
-// 1. Solo comparamos si el usuarioLogueadoId no es nulo
-const esMio = (usuarioLogueadoId !== null) && (String(item.usuario_id) === String(usuarioLogueadoId));
-
-// 2. Definimos el botón según el estado
-let botonMensajeHtml = "";
-
-if (usuarioLogueadoId === null) {
-    // CASO A: Nadie está logueado (Invitado en index.php)
-    // Mostramos el botón pero que abra el modal de login
-    botonMensajeHtml = `
-        <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#Modal">
+        
+        // 1. Detectar si el artículo es del usuario logueado
+        // Dentro de tu bucle de artículos en script.js
+        
+        // 1. Solo comparamos si el usuarioLogueadoId no es nulo
+        const esMio = (usuarioLogueadoId !== null) && (String(item.usuario_id) === String(usuarioLogueadoId));
+        
+        // 2. Definimos el botón según el estado
+        let botonMensajeHtml = "";
+        
+        if (usuarioLogueadoId === null) {
+            // CASO A: Nadie está logueado (Invitado en index.php)
+            // Mostramos el botón pero que abra el modal de login
+            botonMensajeHtml = `
+            <button class="btn btn-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#Modal">
             <i class="fa fa-envelope"></i> Inicia sesión para contactar
-        </button>`;
-} else if (esMio) {
-    // CASO B: Es mi propio anuncio
-    botonMensajeHtml = `
-        <button class="btn btn-secondary btn-sm w-100" disabled>
+            </button>`;
+        } else if (esMio) {
+            // CASO B: Es mi propio anuncio
+            botonMensajeHtml = `
+            <button class="btn btn-secondary btn-sm w-100" disabled>
             <i class="fa fa-user"></i> Tu anuncio
-        </button>`;
-} else {
-    // CASO C: Estoy logueado y el anuncio es de otro
-    botonMensajeHtml = `
-     -    <button type="button" class="btn btn-primary btn-chat btn-enviar-id" data-id="${item.usuario_id}">Enviar mensaje</button>`
-
-}
-
-
+            </button>`;
+        } else {
+            // CASO C: Estoy logueado y el anuncio es de otro
+            botonMensajeHtml = `
+            -    <button type="button" class="btn btn-primary btn-chat btn-enviar-id" data-id="${item.usuario_id}">Enviar mensaje</button>`
+            
+        }
+        
+        
         const imagen = item.ruta_foto ? item.ruta_foto : '../imagenes/uploads/default.png';
         // --- PROCESAR EL ESTADO PARA DARLE ESTILO ---
-const estado = item.estadoArticulo || 'disponible'; // Valor por defecto
-let badgeHtml = '';
-
-if (estado === 'vendido') {
-    badgeHtml = `<span class="badge-estado badge-vendido position-absolute top-0 start-0 m-2">
-                    <i class="fa fa-handshake-o"></i> Vendido
-                 </span>`;
-} else if (estado === 'reservado') {
-    badgeHtml = `<span class="badge-estado badge-reservado position-absolute top-0 start-0 m-2">
-                    <i class="fa fa-clock-o"></i> Reservado
-                 </span>`;
-} else {
-    badgeHtml = `<span class="badge-estado badge-disponible position-absolute top-0 start-0 m-2">
-                    <i class="fa fa-check-circle"></i> Disponible
-                 </span>`;
-}
-
+        const estado = item.estadoArticulo || 'disponible'; // Valor por defecto
+        let badgeHtml = '';
+        
+        if (estado === 'vendido') {
+            badgeHtml = `<span class="badge-estado badge-vendido position-absolute top-0 start-0 m-2">
+            <i class="fa fa-handshake-o"></i> Vendido
+            </span>`;
+        } else if (estado === 'reservado') {
+            badgeHtml = `<span class="badge-estado badge-reservado position-absolute top-0 start-0 m-2">
+            <i class="fa fa-clock-o"></i> Reservado
+            </span>`;
+        } else {
+            badgeHtml = `<span class="badge-estado badge-disponible position-absolute top-0 start-0 m-2">
+            <i class="fa fa-check-circle"></i> Disponible
+            </span>`;
+        }
+        
         const estrellasHTML = generarEstrellasHTML(item.valoracion_media);
         // --- PARTE A: SOLO LA TARJETA ---
         // Nota: Mantenemos 'card-efecto' aquí para la animación
         const cardHtml = `
         
         <div class="col-xl-2 col-lg-3 col-sm-12 col mb-4">
-            <div class="card h-100 shadow-sm card-efecto">
-                <img src="${imagen}" class="card-img-top" alt="${item.titulo}">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">${item.titulo}</h5>
-                    <p class="card-text text-truncate">${item.descripcion}</p>
-                    <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
-                    <div class="border p-3 m-2 bg-dark bg-gradient">
-                    <h6 class="text-white">Cambio por...</h6>
-                      <p class="text-white fw-bold mt-auto">${item.cambio}</p>
-                      </div>
-                    <div class="border p-3 m-2">
-                    <h6>Articulo subido por: </h6>
-                    <div class="d-flex align-items-center mb-2" onclick="verOpiniones(${item.usuario_id})" style="cursor:pointer;">
-                     <i class="fa fa-user-circle-o text-primary me-2" style="font-size: 1.5rem;"></i>Opiniones
-                     </div>
-                            <p class="text-primary fw-bold mt-auto">${item.nombre}${estrellasHTML}</p>
-                        </div> 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalArticulo${contador}">
-                    Ver articulo
-                    ${badgeHtml}
-                    </button>
-                </div>
-            </div>
+        <div class="card h-100 shadow-sm card-efecto">
+        <img src="${imagen}" class="card-img-top" alt="${item.titulo}">
+        <div class="card-body d-flex flex-column">
+        <h5 class="card-title">${item.titulo}</h5>
+        <p class="card-text text-truncate">${item.descripcion}</p>
+        <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
+        <div class="border p-3 m-2 bg-dark bg-gradient">
+        <h6 class="text-white">Cambio por...</h6>
+        <p class="text-white fw-bold mt-auto">${item.cambio}</p>
+        </div>
+        <div class="border p-3 m-2">
+        <h6>Articulo subido por: </h6>
+        <div class="d-flex align-items-center mb-2" onclick="verOpiniones(${item.usuario_id})" style="cursor:pointer;">
+        <i class="fa fa-user-circle-o text-primary me-2" style="font-size: 1.5rem;"></i>Opiniones
+        </div>
+        <p class="text-primary fw-bold mt-auto">${item.nombre}${estrellasHTML}</p>
+        </div> 
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalArticulo${contador}">
+        Ver articulo
+        ${badgeHtml}
+        </button>
+        </div>
+        </div>
         </div>`;
-
+        
         // --- PARTE B: EL MODAL ---
         
         const modalHtml = `
         <div class="modal fade" id="exampleModalArticulo${contador}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1055;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">${item.titulo}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-3">
-                    ${badgeHtml}
-                        <img src="${imagen}" class="card-img-top mb-3" alt="${item.titulo}">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">${item.titulo}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3">
+        ${badgeHtml}
+        <img src="${imagen}" class="card-img-top mb-3" alt="${item.titulo}">
                         <div class="border p-3 m-2">
-                            <h6>Descripción del articulo</h6>
-                            <p class="card-text">${item.descripcion}</p>
+                        <h6>Descripción del articulo</h6>
+                        <p class="card-text">${item.descripcion}</p>
                         </div>
                         <div class="border p-3 m-2">
-                            <h6>Categoría</h6>
-                            <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
+                        <h6>Categoría</h6>
+                        <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
                         </div>
                         <div class="border p-3 m-2">
-         
-                            <h6>Usuario</h6>
-                            <p class="text-primary fw-bold mt-auto">${item.nombre}${estrellasHTML}</p>
+                        
+                        <h6>Usuario</h6>
+                        <p class="text-primary fw-bold mt-auto">${item.nombre}${estrellasHTML}</p>
                         </div> 
                         <div class="border p-3 m-2">
-                            <h6>Fecha publicación</h6>
-                            <p class="text-primary fw-bold mt-auto">${imprimir}</p>
+                        <h6>Fecha publicación</h6>
+                        <p class="text-primary fw-bold mt-auto">${imprimir}</p>
                         </div>
-                    </div>
-                    
-                    <div class="modal-footer">
+                        </div>
+                        
+                        <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                       ${botonMensajeHtml}
-                    </div>
-                </div>
-            </div>
-        </div>`;
-
-        // Insertamos cada parte en su contenedor correspondiente
-        contenedor.innerHTML += cardHtml;           // La tarjeta va al grid
-        contenedorModales.innerHTML += modalHtml;   // El modal va al fondo del body
-        contador++;
-    });
+                        ${botonMensajeHtml}
+                        </div>
+                        </div>
+                        </div>
+                        </div>`;
+                        
+                        // Insertamos cada parte en su contenedor correspondiente
+                        contenedor.innerHTML += cardHtml;           // La tarjeta va al grid
+                        contenedorModales.innerHTML += modalHtml;   // El modal va al fondo del body
+                        contador++;
+                    });
+                    
 }
 
 // Iniciar la carga de datos al cargar la página
@@ -608,8 +608,8 @@ if (inputCambio) inputCambio.addEventListener('input', aplicarFiltros);
 if (inputCiudad) inputCiudad.addEventListener('input', aplicarFiltros);
 if (selectOrden) selectOrden.addEventListener('change', aplicarFiltros);
 
-// Opcional: Ejecutar filtro inicial al cargar (para que salga ordenado por reciente)
-// setTimeout(() => { aplicarFiltros(); }, 500); // Pequeño retardo para asegurar que los datos cargaron
+// Ejecutar filtro inicial al cargar (para que salga ordenado por reciente)
+ setTimeout(() => { aplicarFiltros(); }, 500); // Pequeño retardo para asegurar que los datos cargaron
 
 // Variable global para saber qué artículo estamos puntuando
 let idArticuloParaReseña = null;
@@ -779,7 +779,7 @@ function generarEstrellasHTML(puntuacion) {
             // Estrella llena
             html += '<i class="fa fa-star"></i>'; 
         } else if (nota >= i - 0.5) {
-            // Media estrella (opcional, si usas FontAwesome 4.7 usa star-half-o)
+            // Media estrella
             html += '<i class="fa fa-star-half-o"></i>'; 
         } else {
             // Estrella vacía
@@ -815,7 +815,7 @@ function verOpiniones(usuarioId) {
                 return;
             }
 
-            // 3. Dibujamos cada reseña
+            // 3. Mostramos cada reseña
             contenedor.innerHTML = opiniones.map(op => `
                 <div class="list-group-item border-0 border-bottom py-3">
                     <div class="d-flex justify-content-between align-items-center mb-1">
@@ -864,7 +864,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Guardamos la posición del cursor antes de mover el DOM
         const cursorStart = inputActivo.selectionStart;
 
-        // 1. SOLUCIÓN AL CARRUSEL: Usamos clases en lugar de .style.display
+        
         if (carrusel) {
             carrusel.classList.add('d-none');
             carrusel.classList.remove('d-lg-block');
@@ -884,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 3. Mover el buscador arriba de los artículos
         seccionArticulos.parentNode.insertBefore(contenedor, seccionArticulos);
 
-        // 4. Mantenimiento del Foco: delay para que el navegador procese el movimiento del DOM
+      
         setTimeout(() => {
             inputActivo.focus();
             if (cursorStart !== null) inputActivo.setSelectionRange(cursorStart, cursorStart);
@@ -1000,3 +1000,4 @@ function mostrarPerfil() {
 datos.innerHTML = datosPerfil;
             }));
 }
+

@@ -101,7 +101,13 @@ if ($_SESSION['inicioSesion'] == true) {
 
                                 <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
+                               <li class="px-3"> <a class="dropdown-item text-center text-danger fw-bold rounded-2 border border-danger-subtle mt-1" 
+           href="javascript:void(0)" 
+           data-bs-toggle="modal" 
+           data-bs-target="#logoutModal">
+            <i class="fa fa-power-off me-1"></i> Cerrar Sesión
+        </a>
+    </li>
 
                             </ul>
 
@@ -518,7 +524,7 @@ if ($_SESSION['inicioSesion'] == true) {
                     </div>
                     <div class="col-md-5 col-lg-4">
                         <div class="text-center text-md-end">
-                            <small class="text-muted">Desarrollado con <i class="fa fa-heart text-danger"></i> para un mundo sostenible.</small>
+                            <small>Desarrollado con <i class="fa fa-heart text-danger"></i> para un mundo sostenible.</small>
                         </div>
                     </div>
                 </div>
@@ -571,6 +577,24 @@ if ($_SESSION['inicioSesion'] == true) {
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm"> <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-body p-4 text-center">
+                <div class="mb-3">
+                    <i class="fa fa-sign-out fa-4x text-primary opacity-25"></i>
+                </div>
+                <h5 class="fw-bold text-dark">¿Cerrar sesión?</h5>
+                <p class="text-muted small">Estás a punto de salir de TrueChange. ¡Esperamos verte pronto!</p>
+                
+                <div class="d-grid gap-2 d-md-block mt-4">
+                    <button type="button" class="btn btn-light px-4 fw-medium border" data-bs-dismiss="modal">Cancelar</button>
+                    <a href="logout.php" class="btn btn-primary px-4 fw-bold btn-blue-grad">Sí, salir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     </body>
 
