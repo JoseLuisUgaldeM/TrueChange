@@ -80,7 +80,19 @@ if ($_SESSION['inicioSesion'] == true) {
                     <div class="d-flex flex-wrap align-items-center justify-content-between">
                         <img src="../imagenes/icono_proyecto.png" alt="icono de la aplicacion" width="100" height="100">
 
-
+                       <div class="header-center-action">
+                    <button type="button"
+                        class="btn-truechange-main"
+                        data-bs-toggle="modal"
+                        data-bs-target="#subirModal">
+                        <div class="btn-content">
+                            <i class="fa fa-refresh me-2 animate-spin-slow"></i>
+                            <span class="text-uppercase fw-bold">Nuevo Intercambio</span>
+                        </div>
+                        <div class="flare"></div>
+                    </button>
+                </div>
+                        
                         <div class="dropdown"> <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src=<?php print($_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
                                 <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
@@ -101,13 +113,13 @@ if ($_SESSION['inicioSesion'] == true) {
 
                                 <hr class="dropdown-divider">
                                 </li>
-                               <li class="px-3"> <a class="dropdown-item text-center text-danger fw-bold rounded-2 border border-danger-subtle mt-1" 
-           href="javascript:void(0)" 
-           data-bs-toggle="modal" 
-           data-bs-target="#logoutModal">
-            <i class="fa fa-power-off me-1"></i> Cerrar Sesión
-        </a>
-    </li>
+                                <li class="px-3"> <a class="dropdown-item text-center text-danger fw-bold rounded-2 border border-danger-subtle mt-1"
+                                        href="javascript:void(0)"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#logoutModal">
+                                        <i class="fa fa-power-off me-1"></i> Cerrar Sesión
+                                    </a>
+                                </li>
 
                             </ul>
 
@@ -163,94 +175,83 @@ if ($_SESSION['inicioSesion'] == true) {
 
                         <!-- Modal subir producto-->
 
-                        <div class="modal" id="subirModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Rellena los datos de tu anuncio</h5>
+                        <div class="modal fade" id="subirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content border-0 shadow-lg">
+
+                                    <div class="modal-header bg-light">
+                                        <h5 class="modal-title fw-bold text-dark" id="exampleModalLabel">
+                                            <i class="bi bi-plus-circle-fill me-2 text-primary"></i>Nuevo Anuncio
+                                        </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form class="row g-3" action="subirArticulo.php" method="post" enctype="multipart/form-data">
-                                            <div class="col-md-12">
-                                                <label for="titulo" class="form-label" name="titulo">Titulo</label>
-                                                <input type="text" class="form-control" id="titulo" name="titulo" required>
+
+                                    <div class="modal-body p-4">
+                                        <form id="formSubir" class="row g-3" action="subirArticulo.php" method="post" enctype="multipart/form-data">
+
+                                            <div class="col-md-8">
+                                                <label for="titulo" class="form-label fw-semibold text-secondary">Título del artículo</label>
+                                                <input type="text" class="form-control form-control-lg shadow-sm" id="titulo" name="titulo" placeholder="Ej: Bicicleta de montaña casi nueva" required>
                                             </div>
 
-                                            <p>Selecciona el estado del artículo:</p>
-                                            <div>
-                                                <input class="form-check-input" type="radio" id="nuevo" name="estado" value="nuevo">
-                                                <label for="nuevo">Nuevo</label>
-                                            </div>
-                                            <div>
-                                                <input class="form-check-input" type="radio" id="como-nuevo" name="estado" value="como nuevo">
-                                                <label for="como-nuevo">Como nuevo</label>
-                                            </div>
-                                            <div>
-                                                <input class="form-check-input" type="radio" id="usado" name="estado" value="usado" checked>
-                                                <label for="usado">Usado</label>
-                                            </div>
-                                            <div>
-                                                <input class="form-check-input" type="radio" id="deteriorado" name="estado" value="deteriorado">
-                                                <label for="deteriorado">Deteriorado</label>
-                                            </div>
-
-                                            <div class="col-md-12">
-
-
-                                                <select class="form-select " name="categoria">
-                                                    <option selected disabled>Categoria</option>
-                                                    <option value="coches">Coches</option>
-                                                    <option value="motos">Motos</option>
-                                                    <option value="motor y accesorios">Motor y accesorios</option>
-                                                    <option value="moda y accesorios">Moda y accesorios</option>
-                                                    <option value="inmobiliaria">Inmobiliaria</option>
-                                                    <option value="tecnologia y electronica">Tecnología y electrónica</option>
-                                                    <option value="deporte y ocio">Deporte y ocio</option>
-                                                    <option value="bicicletas">Bicicletas</option>
-                                                    <option value="hogar y jardin">Hogar y jardin</option>
-                                                    <option value="electrodomesticos">Electrodomésticos</option>
-                                                    <option value="cine libros y musica">Cine libros y música</option>
-                                                    <option value="niños y bebes">Niños y bebés</option>
-                                                    <option value="coleccionismo">Coleccionismo</option>
-                                                    <option value="construccion y reformas">Construccion y reformas</option>
-                                                    <option value="industria  agricultura">Industria y agricultura</option>
-                                                    <option value="empleo">Empleo</option>
-                                                    <option value="servicios">Servicios</option>
+                                            <div class="col-md-4">
+                                                <label class="form-label fw-semibold text-secondary">Categoría</label>
+                                                <select class="form-select form-select-lg shadow-sm" name="categoria" required>
+                                                    <option selected disabled value="">Elegir...</option>
+                                                    <option value="tecnologia y electronica">Tecnología</option>
+                                                    <option value="moda y accesorios">Moda</option>
+                                                    <option value="hogar y jardin">Hogar</option>
                                                     <option value="otros">Otros...</option>
-
                                                 </select>
-
-
-
-                                            </div>
-                                            <div class="col-md-12">
-
-                                                <textarea id="descripcion" class="form-control" name="descripcion" placeholder="Descripción"></textarea>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label for="cambio" class="form-label">Quiero cambiar por...</label>
-                                                <input type="text" class="form-control" id="cambio" name="cambio">
                                             </div>
 
-                                            <label for="foto">Selecciona una imagen:</label><br>
-                                            <!-- El campo de entrada tipo 'file' -->
-                                            <input type="file" name="foto" id="foto" required>
+                                            <div class="col-12 my-3">
+                                                <label class="form-label fw-semibold text-secondary d-block">Estado del artículo</label>
+                                                <div class="btn-group w-100 shadow-sm" role="group" aria-label="Estado del artículo">
+                                                    <input type="radio" class="btn-check" name="estado" id="nuevo" value="nuevo">
+                                                    <label class="btn btn-outline-primary" for="nuevo">Nuevo</label>
 
+                                                    <input type="radio" class="btn-check" name="estado" id="como-nuevo" value="como nuevo">
+                                                    <label class="btn btn-outline-primary" for="como-nuevo">Semi-nuevo</label>
 
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Borrar</button>
-                                                <button type="submit" class="btn btn-primary" name="publicar">Publicar</button>
+                                                    <input type="radio" class="btn-check" name="estado" id="usado" value="usado" checked>
+                                                    <label class="btn btn-outline-primary" for="usado">Usado</label>
+
+                                                    <input type="radio" class="btn-check" name="estado" id="deteriorado" value="deteriorado">
+                                                    <label class="btn btn-outline-primary" for="deteriorado">Deteriorado</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="descripcion" class="form-label fw-semibold text-secondary">Descripción</label>
+                                                <textarea id="descripcion" class="form-control shadow-sm" name="descripcion" rows="3" placeholder="Cuéntanos más sobre el producto..."></textarea>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="cambio" class="form-label fw-semibold text-secondary">¿Qué buscas a cambio?</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-white shadow-sm"><i class="bi bi-arrow-left-right text-primary"></i></span>
+                                                    <input type="text" class="form-control shadow-sm" id="cambio" name="cambio" placeholder="Ej: Una tablet o material de oficina">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 mt-3">
+                                                <label for="foto" class="form-label fw-semibold text-secondary">Imagen del producto</label>
+                                                <div class="upload-container border border-dashed rounded-3 p-4 text-center bg-light shadow-sm">
+                                                    <i class="bi bi-cloud-arrow-up fs-2 text-primary"></i>
+                                                    <input type="file" name="foto" id="foto" class="form-control mt-2" required>
+                                                    <small class="text-muted d-block mt-1">Formatos sugeridos: JPG, PNG (Máx. 5MB)</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer border-0 mt-4 px-0 pb-0">
+                                                <button type="button" class="btn btn-link text-muted text-decoration-none" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary px-5 py-2 fw-bold shadow-sm rounded-pill" name="publicar">Publicar Anuncio</button>
                                             </div>
                                         </form>
-
-
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -579,22 +580,23 @@ if ($_SESSION['inicioSesion'] == true) {
         </div>
 
         <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm"> <div class="modal-content border-0 shadow-lg rounded-4">
-            <div class="modal-body p-4 text-center">
-                <div class="mb-3">
-                    <i class="fa fa-sign-out fa-4x text-primary opacity-25"></i>
-                </div>
-                <h5 class="fw-bold text-dark">¿Cerrar sesión?</h5>
-                <p class="text-muted small">Estás a punto de salir de TrueChange. ¡Esperamos verte pronto!</p>
-                
-                <div class="d-grid gap-2 d-md-block mt-4">
-                    <button type="button" class="btn btn-light px-4 fw-medium border" data-bs-dismiss="modal">Cancelar</button>
-                    <a href="logout.php" class="btn btn-primary px-4 fw-bold btn-blue-grad">Sí, salir</a>
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content border-0 shadow-lg rounded-4">
+                    <div class="modal-body p-4 text-center">
+                        <div class="mb-3">
+                            <i class="fa fa-sign-out fa-4x text-primary opacity-25"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark">¿Cerrar sesión?</h5>
+                        <p class="text-muted small">Estás a punto de salir de TrueChange. ¡Esperamos verte pronto!</p>
+
+                        <div class="d-grid gap-2 d-md-block mt-4">
+                            <button type="button" class="btn btn-light px-4 fw-medium border" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="logout.php" class="btn btn-primary px-4 fw-bold btn-blue-grad">Sí, salir</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
     </body>
 

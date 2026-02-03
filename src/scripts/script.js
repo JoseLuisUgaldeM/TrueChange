@@ -225,73 +225,118 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
         const estrellasHTML = generarEstrellasHTML(item.valoracion_media);
         // --- PARTE A: SOLO LA TARJETA ---
         // Nota: Mantenemos 'card-efecto' aquí para la animación
-        const cardHtml = `
-        
-        <div class="col-xl-2 col-lg-3 col-sm-12 col mb-4">
-        <div class="card h-100 shadow-sm card-efecto">
-        <img src="${imagen}" class="card-img-top" alt="${item.titulo}">
-        <div class="card-body d-flex flex-column">
-        <h5 class="card-title">${item.titulo}</h5>
-        <p class="card-text text-truncate">${item.descripcion}</p>
-        <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
-        <div class="border p-3 m-2 bg-dark bg-gradient">
-        <h6 class="text-white">Cambio por...</h6>
-        <p class="text-white fw-bold mt-auto">${item.cambio}</p>
+// Lógica para determinar si está vendido
+const esVendido = item.estadoArticulo === 'vendido'; 
+const claseVendido = esVendido ? 'card-vendido' : '';
+
+const cardHtml = `
+<div class="col-xl-2 col-lg-3 col-sm-12 col mb-4">
+    <div class="card h-100 shadow-sm card-efecto border-0 ${claseVendido}">
+        <div class="position-relative overflow-hidden">
+            <img src="${imagen}" class="card-img-top" alt="${item.titulo}" style="height: 180px; object-fit: cover;">
         </div>
-        <div class="border p-3 m-2">
-        <h6>Articulo subido por: </h6>
-        <div class="d-flex align-items-center mb-2" onclick="verOpiniones(${item.usuario_id})" style="cursor:pointer;">
-        <i class="fa fa-user-circle-o text-primary me-2" style="font-size: 1.5rem;"></i>Opiniones
+
+        <div class="card-body d-flex flex-column p-3">
+            <h5 class="card-title fw-bold text-dark mb-1">${item.titulo}</h5>
+            <p class="card-text text-truncate text-muted small mb-3">${item.descripcion}</p>
+            
+            <p class="text-primary fw-bold mt-auto mb-2 small text-uppercase">
+                ${item.categoria}
+            </p>
+
+            <div class="border-0 p-3 mb-2 bg-dark bg-gradient rounded-3 shadow-sm">
+                <h6 class="text-white-50 small mb-1" style="font-size: 0.7rem;">Cambio por...</h6>
+                <p class="text-white fw-bold mb-0 small text-truncate">${item.cambio}</p>
+            </div>
+
+            <div class="border rounded-3 p-2 mb-3 bg-light-subtle ${esVendido ? 'disabled-interaction' : ''}">
+                <h6 class="text-muted mb-2" style="font-size: 0.7rem;">Subido por:</h6>
+                <div class="d-flex align-items-center mb-1" ${!esVendido ? `onclick="verOpiniones(${item.usuario_id})"` : ''} style="cursor:pointer;">
+                    <i class="fa fa-user-circle-o text-primary me-2" style="font-size: 1.2rem;"></i>
+                    <span class="small fw-semibold text-dark">Opiniones</span>
+                </div>
+                <p class="text-primary fw-bold mb-0 small">${item.nombre} <span class="ms-1">${estrellasHTML}</span></p>
+            </div> 
+
+            <button type="button" class="btn btn-primary w-100 py-2 fw-bold shadow-sm" 
+                    data-bs-toggle="modal" data-bs-target="#exampleModalArticulo${contador}">
+                ${esVendido ? 'Ver Archivo' : 'Ver artículo'}
+                ${badgeHtml}
+            </button>
         </div>
-        <p class="text-primary fw-bold mt-auto">${item.nombre}${estrellasHTML}</p>
-        </div> 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalArticulo${contador}">
-        Ver articulo
-        ${badgeHtml}
-        </button>
-        </div>
-        </div>
-        </div>`;
+    </div>
+</div>`;
         
         // --- PARTE B: EL MODAL ---
         
-        const modalHtml = `
-        <div class="modal fade" id="exampleModalArticulo${contador}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1055;">
-        <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">${item.titulo}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+ const modalHtml = `
+<div class="modal fade" id="exampleModalArticulo${contador}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1055;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            
+            <div class="modal-header border-0 pb-0">
+                <div class="d-flex flex-column">
+                    <small class="text-uppercase text-primary fw-bold mb-1" style="letter-spacing: 1px; font-size: 0.75rem;">Detalles del Artículo</small>
+                    <h4 class="modal-title fw-bolder text-dark" id="exampleModalLabel">${item.titulo}</h4>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-4">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="position-relative overflow-hidden rounded-4 shadow-sm bg-light h-100 d-flex align-items-center justify-content-center">
+                            <div class="position-absolute top-0 start-0 m-3">
+                                ${badgeHtml} </div>
+                            <img src="${imagen}" class="img-fluid rounded-4" alt="${item.titulo}" style="object-fit: cover; width: 100%; max-height: 400px;">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-4">
+                            <h6 class="text-muted fw-bold small text-uppercase mb-2">Descripción</h6>
+                            <p class="text-dark leading-relaxed">${item.descripcion}</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="bg-light p-3 rounded-3 border-start border-primary border-4 shadow-sm">
+                                    <h6 class="text-muted small mb-1">Categoría</h6>
+                                    <span class="text-dark fw-bold">${item.categoria}</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bg-light p-3 rounded-3 border-start border-info border-4 shadow-sm">
+                                    <h6 class="text-muted small mb-1">Publicado</h6>
+                                    <span class="text-dark fw-bold">${imprimir}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-top">
+                            <h6 class="text-muted fw-bold small text-uppercase mb-3">Ofertado por</h6>
+                            <div class="d-flex align-items-center bg-white p-2 rounded-pill border shadow-sm">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
+                                    <span class="fw-bold">${item.nombre.charAt(0)}</span>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-bold text-dark">${item.nombre}</p>
+                                    <div class="text-warning small">
+                                        ${estrellasHTML}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer border-0 p-4 pt-0">
+                <button type="button" class="btn btn-outline-secondary px-4 rounded-pill" data-bs-dismiss="modal">Cerrar</button>
+                ${botonMensajeHtml} </div>
         </div>
-        <div class="modal-body p-3">
-        ${badgeHtml}
-        <img src="${imagen}" class="card-img-top mb-3" alt="${item.titulo}">
-                        <div class="border p-3 m-2">
-                        <h6>Descripción del articulo</h6>
-                        <p class="card-text">${item.descripcion}</p>
-                        </div>
-                        <div class="border p-3 m-2">
-                        <h6>Categoría</h6>
-                        <p class="text-primary fw-bold mt-auto">${item.categoria}</p>
-                        </div>
-                        <div class="border p-3 m-2">
-                        
-                        <h6>Usuario</h6>
-                        <p class="text-primary fw-bold mt-auto">${item.nombre}${estrellasHTML}</p>
-                        </div> 
-                        <div class="border p-3 m-2">
-                        <h6>Fecha publicación</h6>
-                        <p class="text-primary fw-bold mt-auto">${imprimir}</p>
-                        </div>
-                        </div>
-                        
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        ${botonMensajeHtml}
-                        </div>
-                        </div>
-                        </div>
-                        </div>`;
+    </div>
+</div>`;
                         
                         // Insertamos cada parte en su contenedor correspondiente
                         contenedor.innerHTML += cardHtml;           // La tarjeta va al grid
@@ -1001,3 +1046,50 @@ datos.innerHTML = datosPerfil;
             }));
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const selectCategoria = document.getElementById('nav-categoria');
+    const seccionArticulos = document.getElementById('resultados');
+
+    if (selectCategoria) {
+        selectCategoria.addEventListener('change', function() {
+            const categoriaSeleccionada = this.value;
+            
+            // 1. Filtrar los datos globales (todosLosDatos ya debe estar cargado)
+            let filtrados = [];
+            
+            if (categoriaSeleccionada === "todas") {
+                filtrados = todosLosDatos;
+            } else {
+                filtrados = todosLosDatos.filter(item => item.categoria === categoriaSeleccionada);
+            }
+
+            // 2. Mostrar los resultados
+            // Nota: Aquí debes llamar a tu función que pinta los artículos en el DOM
+            mostrarResultadosFiltrados(filtrados);
+
+            // 3. Efecto profesional: Scroll suave a los resultados y ocultar carrusel
+            if (categoriaSeleccionada !== "todas") {
+                if (typeof transformarBuscador === "function") transformarBuscador(this);
+                
+                if (seccionArticulos) {
+                    seccionArticulos.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    }
+});
+
+// Función de ejemplo para renderizar (ajusta según tu código actual)
+function mostrarResultadosFiltrados(datos) {
+    const contenedor = document.getElementById('resultados'); // Tu div de productos
+    if (!contenedor) return;
+
+    if (datos.length === 0) {
+        contenedor.innerHTML = `<div class="col-12 text-center p-5">
+            <i class="fa fa-search-minus fa-3x text-muted mb-3"></i>
+            <p class="text-muted">No hay artículos en esta categoría.</p>
+        </div>`;
+    } else {
+      mostrarDatos(datos);
+    }
+}

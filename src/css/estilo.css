@@ -273,3 +273,161 @@ main, #resultados {
     }
 }
 
+/* Mejora de tu clase card-efecto */
+.card-efecto {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background-color: #ffffff;
+}
+
+.card-efecto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Suavizar tu clase bg-gradient cuando se usa con bg-dark */
+.bg-dark.bg-gradient {
+    background: linear-gradient(135deg, #212529 0%, #343a40 100%) !important;
+    border: none !important;
+}
+
+/* Ajuste para que el texto de categoría no quede pegado al borde */
+.text-primary.fw-bold.mt-auto {
+    font-size: 0.85rem;
+}
+
+/* Estilo para los bordes internos que usas */
+.card-body .border {
+    border-color: #edf2f7 !important;
+    background-color: #f8f9fa;
+}
+
+/* Ajuste del botón para que el badge no lo deforme */
+.btn-primary {
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+/* Contenedor relativo para que el sello se posicione bien */
+.card-vendido {
+    position: relative;
+    filter: grayscale(40%); /* Desatura un poco los colores */
+}
+
+/* Capa de sombreado */
+.card-vendido::before {
+    content: "CAMBIADO";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Sombreado oscuro */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    z-index: 10;
+    letter-spacing: 2px;
+    backdrop-filter: blur(1.5px); /* Efecto de desenfoque moderno */
+}
+
+/* Deshabilitar clics en elementos específicos si está vendido */
+.disabled-interaction {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Botón Principal de Subida */
+.btn-upload-item {
+    background: #ffffff;
+    border: 2px solid #0d6efd; /* Color corporativo TrueChange */
+    color: #0d6efd;
+    border-radius: 50px; /* Estilo píldora */
+    padding: 6px 20px 6px 8px; /* Espacio extra a la derecha */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Posicionamiento Central */
+.header-center-action {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+/* El Botón "TrueChange Main" */
+.btn-truechange-main {
+    background: linear-gradient(135deg, #0d6efd 0%, #0043a8 100%);
+    color: white;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
+/* Efecto de Brillo (Flare) */
+.flare {
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transition: 0.5s;
+    z-index: 1;
+}
+
+/* Interacciones (Hover) */
+.btn-truechange-main:hover {
+    transform: translateX(0) scale(1.05); /* El translate lo hereda del padre o se ajusta */
+    box-shadow: 0 12px 25px rgba(13, 110, 253, 0.5);
+    color: white;
+}
+
+.btn-truechange-main:hover .flare {
+    left: 150%;
+    transition: 0.7s;
+}
+
+/* Animación sutil para el icono de intercambio */
+.animate-spin-slow {
+    animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Ajuste para móviles */
+@media (max-width: 768px) {
+    .btn-truechange-main span {
+        display: none; /* Solo queda el icono en pantallas pequeñas */
+    }
+    .btn-truechange-main {
+        padding: 10px 15px;
+    }
+}
+.btn-upload-item {
+    animation: pulse-soft 2s infinite;
+}

@@ -187,30 +187,29 @@ header('Content-Type: text/html; charset=utf-8');
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-item nav-underline">
-                <li class="nav-item">
-                    <select class="form-select " name="categoria" id="campoCategoria" onclick="filtrarPorCategoria(event)">
-                        <option selected disabled>Categoría</option>
-                        <option value="Coches">Coches</option>
-                        <option value="Motos">Motos</option>
-                        <option value="Motor y accesorios">Motor y accesorios</option>
-                        <option value="Moda y accesorios">Moda y accesorios</option>
-                        <option value="inmobiliaria">Inmobiliaria</option>
-                        <option value="Tecnología y electrónica">Tecnología y electrónica</option>
-                        <option value="Deporte y ocio">Deporte y ocio</option>
-                        <option value="Bicicletas">Bicicletas</option>
-                        <option value="Hogar y jardín">Hogar y jardin</option>
-                        <option value="Electrodomésticos">Electrodomésticos</option>
-                        <option value="Cine libros y música">Cine libros y música</option>
-                        <option value="Niños y bebés">Niños y bebés</option>
-                        <option value="Coleccionismo">Coleccionismo</option>
-                        <option value="Construcción y reformas">Construccion y reformas</option>
-                        <option value="Industria  agricultura">Industria y agricultura</option>
-                        <option value="Empleo">Empleo</option>
-                        <option value="Servicios">Servicios</option>
-                        <option value="Otros">Otros...</option>
-                        
-                    </select>
-                </li>
+               <li class="nav-item">
+    <select class="form-select me-2 shadow-sm custom-nav-select" id="nav-categoria">
+        <option value="todas" selected>Todas las categorías</option>
+        <option value="Coches">Coches</option>
+        <option value="Motos">Motos</option>
+        <option value="Motor y accesorios">Motor y accesorios</option>
+        <option value="Moda y accesorios">Moda y accesorios</option>
+        <option value="inmobiliaria">Inmobiliaria</option>
+        <option value="Tecnología y electrónica">Tecnología y electrónica</option>
+        <option value="Deporte y ocio">Deporte y ocio</option>
+        <option value="Bicicletas">Bicicletas</option>
+        <option value="Hogar y jardín">Hogar y jardín</option>
+        <option value="Electrodomésticos">Electrodomésticos</option>
+        <option value="Cine libros y música">Cine libros y música</option>
+        <option value="Niños y bebés">Niños y bebés</option>
+        <option value="Coleccionismo">Coleccionismo</option>
+        <option value="Construcción y reformas">Construcción y reformas</option>
+        <option value="Industria agricultura">Industria y agricultura</option>
+        <option value="Empleo">Empleo</option>
+        <option value="Servicios">Servicios</option>
+        <option value="Otros">Otros...</option>
+    </select>
+</li>
                 
                 
                 <li class="nav-item ">
