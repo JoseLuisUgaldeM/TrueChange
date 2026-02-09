@@ -80,19 +80,19 @@ if ($_SESSION['inicioSesion'] == true) {
                     <div class="d-flex flex-wrap align-items-center justify-content-between">
                         <img src="../imagenes/icono_proyecto.png" alt="icono de la aplicacion" width="100" height="100">
 
-                       <div class="header-center-action">
-                    <button type="button"
-                        class="btn-truechange-main"
-                        data-bs-toggle="modal"
-                        data-bs-target="#subirModal">
-                        <div class="btn-content">
-                            <i class="fa fa-refresh me-2 animate-spin-slow"></i>
-                            <span class="text-uppercase fw-bold">Nuevo Intercambio</span>
+                        <div class="header-center-action">
+                            <button type="button"
+                                class="btn-truechange-main"
+                                data-bs-toggle="modal"
+                                data-bs-target="#subirModal">
+                                <div class="btn-content">
+                                    <i class="fa fa-refresh me-2 animate-spin-slow"></i>
+                                    <span class="text-uppercase fw-bold">Nuevo Intercambio</span>
+                                </div>
+                                <div class="flare"></div>
+                            </button>
                         </div>
-                        <div class="flare"></div>
-                    </button>
-                </div>
-                        
+
                         <div class="dropdown"> <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src=<?php print($_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
                                 <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
@@ -198,10 +198,24 @@ if ($_SESSION['inicioSesion'] == true) {
                                                 <label class="form-label fw-semibold text-secondary">Categoría</label>
                                                 <select class="form-select form-select-lg shadow-sm" name="categoria" required>
                                                     <option selected disabled value="">Elegir...</option>
-                                                    <option value="tecnologia y electronica">Tecnología</option>
-                                                    <option value="moda y accesorios">Moda</option>
-                                                    <option value="hogar y jardin">Hogar</option>
-                                                    <option value="otros">Otros...</option>
+                                                    <option value="Coches">Coches</option>
+                                                    <option value="Motos">Motos</option>
+                                                    <option value="Motor y accesorios">Motor y accesorios</option>
+                                                    <option value="Moda y accesorios">Moda y accesorios</option>
+                                                    <option value="inmobiliaria">Inmobiliaria</option>
+                                                    <option value="Tecnología y electrónica">Tecnología y electrónica</option>
+                                                    <option value="Deporte y ocio">Deporte y ocio</option>
+                                                    <option value="Bicicletas">Bicicletas</option>
+                                                    <option value="Hogar y jardín">Hogar y jardín</option>
+                                                    <option value="Electrodomésticos">Electrodomésticos</option>
+                                                    <option value="Cine libros y música">Cine libros y música</option>
+                                                    <option value="Niños y bebés">Niños y bebés</option>
+                                                    <option value="Coleccionismo">Coleccionismo</option>
+                                                    <option value="Construcción y reformas">Construcción y reformas</option>
+                                                    <option value="Industria agricultura">Industria y agricultura</option>
+                                                    <option value="Empleo">Empleo</option>
+                                                    <option value="Servicios">Servicios</option>
+                                                    <option value="Otros">Otros...</option>
                                                 </select>
                                             </div>
 
@@ -412,45 +426,74 @@ if ($_SESSION['inicioSesion'] == true) {
         </div>
 
 
+
         <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Editar Producto</h5>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow-lg rounded-4">
+
+                    <div class="modal-header bg-light border-0 py-3">
+                        <h5 class="modal-title fw-bold text-dark d-flex align-items-center">
+                            <i class="fa fa-pencil-square-o text-primary me-2"></i> Editar Artículo
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+
+                    <div class="modal-body p-4">
                         <form id="formEditarProducto">
                             <input type="hidden" id="edit_id">
-                            <div class="mb-3">
-                                <label class="form-label">Título</label>
-                                <input type="text" class="form-control" id="edit_titulo" required>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold text-secondary small text-uppercase">Título del anuncio</label>
+                                <input type="text" class="form-control form-control-lg shadow-sm border-2" id="edit_titulo" placeholder="Ej. Cámara Reflex Nikon" required>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Descripción</label>
-                                <textarea class="form-control" id="edit_descripcion" rows="3" required></textarea>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold text-secondary small text-uppercase">Descripción detallada</label>
+                                <textarea class="form-control shadow-sm border-2" id="edit_descripcion" rows="4" placeholder="Describe el estado actual..." required></textarea>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Categoría</label>
-                                <select class="form-select" id="edit_categoria">
-                                    <option value="tecnologia y electronica">Tecnología y Electrónica</option>
-                                    <option value="moda y accesorios">Moda y Accesorios</option>
-                                    <option value="hogar y jardin">Hogar y Jardín</option>
-                                    <option value="deportes y ocio">Deportes y Ocio</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Estado</label>
-                                <select class="form-select" id="edit_estado">
-                                    <option value="nuevo">Nuevo</option>
-                                    <option value="usado">Usado</option>
-                                </select>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold text-secondary small text-uppercase">Categoría</label>
+                                    <select class="form-select shadow-sm border-2" id="edit_categoria">
+                                        <option value="Coches">Coches</option>
+                                        <option value="Motos">Motos</option>
+                                        <option value="Motor y accesorios">Motor y accesorios</option>
+                                        <option value="Moda y accesorios">Moda y accesorios</option>
+                                        <option value="inmobiliaria">Inmobiliaria</option>
+                                        <option value="Tecnología y electrónica">Tecnología y electrónica</option>
+                                        <option value="Deporte y ocio">Deporte y ocio</option>
+                                        <option value="Bicicletas">Bicicletas</option>
+                                        <option value="Hogar y jardín">Hogar y jardín</option>
+                                        <option value="Electrodomésticos">Electrodomésticos</option>
+                                        <option value="Cine libros y música">Cine libros y música</option>
+                                        <option value="Niños y bebés">Niños y bebés</option>
+                                        <option value="Coleccionismo">Coleccionismo</option>
+                                        <option value="Construcción y reformas">Construcción y reformas</option>
+                                        <option value="Industria agricultura">Industria y agricultura</option>
+                                        <option value="Empleo">Empleo</option>
+                                        <option value="Servicios">Servicios</option>
+                                        <option value="Otros">Otros...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold text-secondary small text-uppercase">Estado actual</label>
+                                    <select class="form-select shadow-sm border-2" id="edit_estado">
+                                        <option value="nuevo">Nuevo</option>
+                                        <option value="como nuevo">Como nuevo</option>
+                                        <option value="usado">Usado</option>
+                                        <option value="deteriorado">Deteriorado</option>
+                                    </select>
+                                </div>
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="guardarCambios()">Guardar Cambios</button>
+
+                    <div class="modal-footer border-0 p-4 pt-0">
+                        <button type="button" class="btn btn-link text-muted text-decoration-none fw-semibold" data-bs-dismiss="modal">Descartar</button>
+                        <button type="button" class="btn btn-primary px-4 py-2 rounded-pill fw-bold shadow" onclick="guardarCambios()">
+                            Actualizar Artículo
+                        </button>
                     </div>
                 </div>
             </div>
@@ -578,6 +621,11 @@ if ($_SESSION['inicioSesion'] == true) {
                 </div>
             </div>
         </div>
+        <script>
+            // Pasamos el ID del usuario de la sesión PHP a una variable Global de JS
+            const usuarioLogueadoId = "<?php echo $_SESSION['id_usuario']; ?>";
+        </script>
+        <script src="../scripts/script.js"></script>
 
         <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -600,11 +648,6 @@ if ($_SESSION['inicioSesion'] == true) {
 
     </body>
 
-    <script>
-        // Pasamos el ID del usuario de la sesión PHP a una variable Global de JS
-        const usuarioLogueadoId = "<?php echo $_SESSION['id_usuario']; ?>";
-    </script>
-    <script src="../scripts/script.js"></script>
 
     </html>
 

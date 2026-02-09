@@ -1,0 +1,71 @@
+USE `bdtruechange`;
+
+/* Creamos 10 usuarios */
+
+INSERT INTO `usuarios` (`nombre`, `apellido1`, `apellido2`, `email`, `password`, `ciudad`, `avatar`) VALUES
+('Juan', 'Pérez', 'García', 'juan.perez@email.com', '123456', 'Madrid', 'imagenes/uploads/default.png'),
+('María', 'López', 'Martínez', 'maria.lopez@email.com', '123456', 'Barcelona', 'imagenes/uploads/default.png'),
+('Carlos', 'Ruiz', 'Sánchez', 'carlos.ruiz@email.com', '123456', 'Valencia', 'imagenes/uploads/default.png'),
+('Laura', 'Fernández', 'Gómez', 'laura.fernandez@email.com', '123456', 'Sevilla', 'imagenes/uploads/default.png'),
+('Pedro', 'González', 'Rodríguez', 'pedro.gonzalez@email.com', '123456', 'Bilbao', 'imagenes/uploads/default.png'),
+('Ana', 'Díaz', 'Moreno', 'ana.diaz@email.com', '123456', 'Zaragoza', 'imagenes/uploads/default.png'),
+('Javier', 'Romero', 'Muñoz', 'javier.romero@email.com', '123456', 'Málaga', 'imagenes/uploads/default.png'),
+('Sofía', 'Torres', 'Navarro', 'sofia.torres@email.com', '123456', 'Murcia', 'imagenes/uploads/default.png'),
+('Diego', 'Flores', 'Castillo', 'diego.flores@email.com', '123456', 'Logroño', 'imagenes/uploads/default.png'),
+('Lucía', 'Gil', 'Vázquez', 'lucia.gil@email.com', '123456', 'Vigo', 'imagenes/uploads/default.png');
+
+/* Creamos 5 artículos por cadaa usuario*/
+
+USE `bdtruechange`;
+
+INSERT INTO `articulos` (`usuario_id`, `titulo`, `descripcion`, `categoria`, `estado`, `cambio`) VALUES
+(1, 'Bicicleta de montaña', 'Descripción del artículo Bicicleta de montaña. Ideal para quien busque deporte a buen precio.', 'Deporte', 'deteriorado', 'Solo venta'),
+(1, 'Novela de misterio', 'Descripción del artículo Novela de misterio. Ideal para quien busque libros a buen precio.', 'Libros', 'usado', 'Escucho ofertas'),
+(1, 'Ratón inalámbrico', 'Descripción del artículo Ratón inalámbrico. Ideal para quien busque informática a buen precio.', 'Informática', 'deteriorado', 'Solo venta'),
+(1, 'Guitarra española', 'Descripción del artículo Guitarra española. Ideal para quien busque música a buen precio.', 'Música', 'como nuevo', 'Escucho ofertas'),
+(1, 'Bufanda de lana', 'Descripción del artículo Bufanda de lana. Ideal para quien busque moda a buen precio.', 'Moda', 'como nuevo', 'Solo venta'),
+(2, 'Juego de sábanas', 'Descripción del artículo Juego de sábanas. Ideal para quien busque hogar a buen precio.', 'Hogar', 'usado', 'Escucho ofertas'),
+(2, 'Bicicleta de montaña', 'Descripción del artículo Bicicleta de montaña. Ideal para quien busque deporte a buen precio.', 'Deporte', 'nuevo', 'Escucho ofertas'),
+(2, 'Cómic de superhéroes', 'Descripción del artículo Cómic de superhéroes. Ideal para quien busque libros a buen precio.', 'Libros', 'nuevo', 'Solo venta'),
+(2, 'Bufanda de lana', 'Descripción del artículo Bufanda de lana. Ideal para quien busque moda a buen precio.', 'Moda', 'deteriorado', 'Solo venta'),
+(2, 'Bolso de cuero', 'Descripción del artículo Bolso de cuero. Ideal para quien busque moda a buen precio.', 'Moda', 'nuevo', 'Solo venta'),
+(3, 'Enciclopedia antigua', 'Descripción del artículo Enciclopedia antigua. Ideal para quien busque libros a buen precio.', 'Libros', 'usado', 'Solo venta'),
+(3, 'Lámpara de mesa', 'Descripción del artículo Lámpara de mesa. Ideal para quien busque hogar a buen precio.', 'Hogar', 'usado', 'Escucho ofertas'),
+(3, 'Juego de sábanas', 'Descripción del artículo Juego de sábanas. Ideal para quien busque hogar a buen precio.', 'Hogar', 'deteriorado', 'Escucho ofertas'),
+(3, 'Enciclopedia antigua', 'Descripción del artículo Enciclopedia antigua. Ideal para quien busque libros a buen precio.', 'Libros', 'nuevo', 'Solo venta'),
+(3, 'Cómic de superhéroes', 'Descripción del artículo Cómic de superhéroes. Ideal para quien busque libros a buen precio.', 'Libros', 'como nuevo', 'Solo venta'),
+(4, 'Peluche gigante', 'Descripción del artículo Peluche gigante. Ideal para quien busque juguetes a buen precio.', 'Juguetes', 'deteriorado', 'Solo venta'),
+(4, 'Muñeca articulada', 'Descripción del artículo Muñeca articulada. Ideal para quien busque juguetes a buen precio.', 'Juguetes', 'como nuevo', 'Solo venta'),
+(4, 'Novela de misterio', 'Descripción del artículo Novela de misterio. Ideal para quien busque libros a buen precio.', 'Libros', 'usado', 'Escucho ofertas'),
+(4, 'Chaqueta vaquera', 'Descripción del artículo Chaqueta vaquera. Ideal para quien busque moda a buen precio.', 'Moda', 'deteriorado', 'Solo venta'),
+(4, 'Cafetera italiana', 'Descripción del artículo Cafetera italiana. Ideal para quien busque hogar a buen precio.', 'Hogar', 'usado', 'Escucho ofertas'),
+(5, 'Impresora láser', 'Descripción del artículo Impresora láser. Ideal para quien busque informática a buen precio.', 'Informática', 'como nuevo', 'Solo venta'),
+(5, 'Impresora láser', 'Descripción del artículo Impresora láser. Ideal para quien busque informática a buen precio.', 'Informática', 'deteriorado', 'Escucho ofertas'),
+(5, 'Juego de mesa', 'Descripción del artículo Juego de mesa. Ideal para quien busque juguetes a buen precio.', 'Juguetes', 'usado', 'Escucho ofertas'),
+(5, 'Cámara reflex', 'Descripción del artículo Cámara reflex. Ideal para quien busque electrónica a buen precio.', 'Electrónica', 'usado', 'Escucho ofertas'),
+(5, 'Flauta dulce', 'Descripción del artículo Flauta dulce. Ideal para quien busque música a buen precio.', 'Música', 'como nuevo', 'Escucho ofertas'),
+(6, 'Juego de mesa', 'Descripción del artículo Juego de mesa. Ideal para quien busque juguetes a buen precio.', 'Juguetes', 'deteriorado', 'Solo venta'),
+(6, 'Muñeca articulada', 'Descripción del artículo Muñeca articulada. Ideal para quien busque juguetes a buen precio.', 'Juguetes', 'deteriorado', 'Solo venta'),
+(6, 'Altavoz inteligente', 'Descripción del artículo Altavoz inteligente. Ideal para quien busque electrónica a buen precio.', 'Electrónica', 'como nuevo', 'Solo venta'),
+(6, 'Bolso de cuero', 'Descripción del artículo Bolso de cuero. Ideal para quien busque moda a buen precio.', 'Moda', 'usado', 'Solo venta'),
+(6, 'Bufanda de lana', 'Descripción del artículo Bufanda de lana. Ideal para quien busque moda a buen precio.', 'Moda', 'usado', 'Solo venta'),
+(7, 'Balón de fútbol', 'Descripción del artículo Balón de fútbol. Ideal para quien busque deporte a buen precio.', 'Deporte', 'como nuevo', 'Solo venta'),
+(7, 'Teclado mecánico', 'Descripción del artículo Teclado mecánico. Ideal para quien busque informática a buen precio.', 'Informática', 'deteriorado', 'Escucho ofertas'),
+(7, 'Juego de sábanas', 'Descripción del artículo Juego de sábanas. Ideal para quien busque hogar a buen precio.', 'Hogar', 'como nuevo', 'Escucho ofertas'),
+(7, 'Balón de fútbol', 'Descripción del artículo Balón de fútbol. Ideal para quien busque deporte a buen precio.', 'Deporte', 'nuevo', 'Escucho ofertas'),
+(7, 'Cómic de superhéroes', 'Descripción del artículo Cómic de superhéroes. Ideal para quien busque libros a buen precio.', 'Libros', 'deteriorado', 'Escucho ofertas'),
+(8, 'Vinilo clásico', 'Descripción del artículo Vinilo clásico. Ideal para quien busque música a buen precio.', 'Música', 'como nuevo', 'Solo venta'),
+(8, 'Guitarra española', 'Descripción del artículo Guitarra española. Ideal para quien busque música a buen precio.', 'Música', 'deteriorado', 'Escucho ofertas'),
+(8, 'Móvil antiguo', 'Descripción del artículo Móvil antiguo. Ideal para quien busque electrónica a buen precio.', 'Electrónica', 'nuevo', 'Escucho ofertas'),
+(8, 'Balón de fútbol', 'Descripción del artículo Balón de fútbol. Ideal para quien busque deporte a buen precio.', 'Deporte', 'deteriorado', 'Solo venta'),
+(8, 'Juego de sábanas', 'Descripción del artículo Juego de sábanas. Ideal para quien busque hogar a buen precio.', 'Hogar', 'nuevo', 'Escucho ofertas'),
+(9, 'Bicicleta de montaña', 'Descripción del artículo Bicicleta de montaña. Ideal para quien busque deporte a buen precio.', 'Deporte', 'como nuevo', 'Escucho ofertas'),
+(9, 'Lámpara de mesa', 'Descripción del artículo Lámpara de mesa. Ideal para quien busque hogar a buen precio.', 'Hogar', 'deteriorado', 'Solo venta'),
+(9, 'Pedal de efectos', 'Descripción del artículo Pedal de efectos. Ideal para quien busque música a buen precio.', 'Música', 'nuevo', 'Solo venta'),
+(9, 'Tablet básica', 'Descripción del artículo Tablet básica. Ideal para quien busque electrónica a buen precio.', 'Electrónica', 'nuevo', 'Solo venta'),
+(9, 'Pesas 5kg', 'Descripción del artículo Pesas 5kg. Ideal para quien busque deporte a buen precio.', 'Deporte', 'deteriorado', 'Solo venta'),
+(10, 'Bicicleta de montaña', 'Descripción del artículo Bicicleta de montaña. Ideal para quien busque deporte a buen precio.', 'Deporte', 'nuevo', 'Escucho ofertas'),
+(10, 'Enciclopedia antigua', 'Descripción del artículo Enciclopedia antigua. Ideal para quien busque libros a buen precio.', 'Libros', 'deteriorado', 'Solo venta'),
+(10, 'Móvil antiguo', 'Descripción del artículo Móvil antiguo. Ideal para quien busque electrónica a buen precio.', 'Electrónica', 'nuevo', 'Escucho ofertas'),
+(10, 'Peluche gigante', 'Descripción del artículo Peluche gigante. Ideal para quien busque juguetes a buen precio.', 'Juguetes', 'como nuevo', 'Escucho ofertas'),
+(10, 'Bolso de cuero', 'Descripción del artículo Bolso de cuero. Ideal para quien busque moda a buen precio.', 'Moda', 'nuevo', 'Escucho ofertas');

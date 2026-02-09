@@ -1,10 +1,12 @@
 <?php
+// Aseguramos que no haya salida previa
+ob_start();
 session_start();
 
-// Borrar todas las variables de sesión
+// Limpiar variables
 $_SESSION = array();
 
-// Si se desea destruir la sesión completamente, borre también la cookie de sesión.
+// Destruir cookie de sesión
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -13,10 +15,15 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// Finalmente, destruir la sesión.
+// Destruir sesión en servidor
 session_destroy();
 
-// Redirigir al inicio
+// Evitar que el navegador guarde en caché la página protegida
+header("Cache-Control: no-cache, must-revalidate"); 
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); 
+
+// Redirigir
 header("Location: ../../public/index.php");
+ob_end_flush();
 exit();
 ?>

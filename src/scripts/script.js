@@ -6,8 +6,8 @@ var contador = 0;
 // Variable para evitar notificaciones repetidas
 // Consultar cada 10 segundos
 if (usuarioLogueadoId !== null) {
-verificarNuevosMensajes();
-setInterval(verificarNuevosMensajes, 10000);
+    verificarNuevosMensajes();
+    setInterval(verificarNuevosMensajes, 10000);
 }
 let mensajesDetectados = 0;
 
@@ -121,7 +121,7 @@ function aplicarFiltro(event) {
         // Si no es un string ni un número (o si el campo no existe), no lo incluimos
         return false;
     });
-    
+
     // 2. Mostrar los resultados
     mostrarDatos(datosFiltrados, contenedorResultados, campoFiltro, valorFiltro);
 }
@@ -135,10 +135,10 @@ function mostrarTodos() {
 
 
 function mostrarDatos(datos, contenedor, campo = null, valor = null) {
-    
+
     // 1. Limpiar el contenedor de tarjetas
     contenedor.innerHTML = "";
-    
+
     // 2. Buscar o crear el contenedor EXCLUSIVO para los modales
     // Esto asegura que los modales vivan fuera de las cards y no se vean afectados por el 'transform'
     let contenedorModales = document.getElementById('contenedor-modales-dinamicos');
@@ -150,13 +150,13 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
         // Si ya existe, lo limpiamos para no acumular modales viejos de búsquedas anteriores
         contenedorModales.innerHTML = "";
     }
-    
+
     if (datos.length === 0) {
         console.error('No hay articulos que mostrar');
         contenedor.innerHTML = `<div class="alert alert-warning col-12" role="alert">No se encontraron artículos.</div>`;
         return;
     }
-    
+
     datos.forEach(item => {
         // --- Lógica de fechas ---
         const fechaInicio = new Date(item.fecha_publicacion);
@@ -167,21 +167,21 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
         const milisegundosEnUnDia = 1000 * 60 * 60 * 24;
         let imprimir = "Publicado hoy";
         let intervalo = Math.floor(diferenciaMilisegundos / milisegundosEnUnDia);
-        
+
         if (intervalo > 1) imprimir = `Publicado hace ${intervalo} dias `;
         if (intervalo == 1) imprimir = `Publicado hace ${intervalo} dia `;
-        
+
         // Dentro del bucle donde recorres los artículos (ej: items.forEach(item => { ... }))
-        
+
         // 1. Detectar si el artículo es del usuario logueado
         // Dentro de tu bucle de artículos en script.js
-        
+
         // 1. Solo comparamos si el usuarioLogueadoId no es nulo
         const esMio = (usuarioLogueadoId !== null) && (String(item.usuario_id) === String(usuarioLogueadoId));
-        
+
         // 2. Definimos el botón según el estado
         let botonMensajeHtml = "";
-        
+
         if (usuarioLogueadoId === null) {
             // CASO A: Nadie está logueado (Invitado en index.php)
             // Mostramos el botón pero que abra el modal de login
@@ -199,15 +199,15 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
             // CASO C: Estoy logueado y el anuncio es de otro
             botonMensajeHtml = `
             -    <button type="button" class="btn btn-primary btn-chat btn-enviar-id" data-id="${item.usuario_id}">Enviar mensaje</button>`
-            
+
         }
-        
-        
+
+
         const imagen = item.ruta_foto ? item.ruta_foto : '../imagenes/uploads/default.png';
         // --- PROCESAR EL ESTADO PARA DARLE ESTILO ---
         const estado = item.estadoArticulo || 'disponible'; // Valor por defecto
         let badgeHtml = '';
-        
+
         if (estado === 'vendido') {
             badgeHtml = `<span class="badge-estado badge-vendido position-absolute top-0 start-0 m-2">
             <i class="fa fa-handshake-o"></i> Vendido
@@ -221,15 +221,15 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
             <i class="fa fa-check-circle"></i> Disponible
             </span>`;
         }
-        
+
         const estrellasHTML = generarEstrellasHTML(item.valoracion_media);
         // --- PARTE A: SOLO LA TARJETA ---
         // Nota: Mantenemos 'card-efecto' aquí para la animación
-// Lógica para determinar si está vendido
-const esVendido = item.estadoArticulo === 'vendido'; 
-const claseVendido = esVendido ? 'card-vendido' : '';
+        // Lógica para determinar si está vendido
+        const esVendido = item.estadoArticulo === 'vendido';
+        const claseVendido = esVendido ? 'card-vendido' : '';
 
-const cardHtml = `
+        const cardHtml = `
 <div class="col-xl-2 col-lg-3 col-sm-12 col mb-4">
     <div class="card h-100 shadow-sm card-efecto border-0 ${claseVendido}">
         <div class="position-relative overflow-hidden">
@@ -266,10 +266,10 @@ const cardHtml = `
         </div>
     </div>
 </div>`;
-        
+
         // --- PARTE B: EL MODAL ---
-        
- const modalHtml = `
+
+        const modalHtml = `
 <div class="modal fade" id="exampleModalArticulo${contador}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1055;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 shadow-lg rounded-4">
@@ -337,13 +337,13 @@ const cardHtml = `
         </div>
     </div>
 </div>`;
-                        
-                        // Insertamos cada parte en su contenedor correspondiente
-                        contenedor.innerHTML += cardHtml;           // La tarjeta va al grid
-                        contenedorModales.innerHTML += modalHtml;   // El modal va al fondo del body
-                        contador++;
-                    });
-                    
+
+        // Insertamos cada parte en su contenedor correspondiente
+        contenedor.innerHTML += cardHtml;           // La tarjeta va al grid
+        contenedorModales.innerHTML += modalHtml;   // El modal va al fondo del body
+        contador++;
+    });
+
 }
 
 // Iniciar la carga de datos al cargar la página
@@ -426,10 +426,10 @@ async function cargarMisProductos() {
             const imagen = producto.ruta_foto ? producto.ruta_foto : '../imagenes/default.png';
             // Aseguramos que el estado exista
             const estado = producto.estadoArticulo || 'disponible';
-            
+
             // Preparamos datos para editar
             const datosProducto = JSON.stringify(producto).replace(/"/g, '&quot;');
-            
+
             // 1. GENERAR EL BADGE (Etiqueta superior izquierda)
             let badgeHtml = '';
             if (estado === 'vendido') {
@@ -442,7 +442,7 @@ async function cargarMisProductos() {
 
             // 2. GENERAR LOS BOTONES DE ESTADO (O EL CANDADO)
             let htmlBotonesEstado = '';
-            
+
             if (estado === 'vendido') {
                 // CASO A: Si está vendido, mostramos el candado y BLOQUEAMOS acciones
                 htmlBotonesEstado = `
@@ -497,7 +497,7 @@ async function cargarMisProductos() {
                         </div>
                     </div>
                 </div>`;
-            
+
             contenedor.innerHTML += cardHTML;
         });
 
@@ -507,7 +507,7 @@ async function cargarMisProductos() {
     }
 }
 // 3. FUNCIÓN PARA ABRIR EL MODAL Y RELLENAR DATOS
-var modalBootstrap; 
+var modalBootstrap;
 
 function abrirModalEditar(producto) {
     // Rellenamos los inputs con los datos actuales
@@ -542,48 +542,48 @@ function guardarCambios() {
         method: 'POST',
         body: formData
     })
-    .then(res => res.json())
-    .then(data => {
-        if(data.success) {
-            alert("Artículo actualizado correctamente.");
-            modalBootstrap.hide(); // Cerramos modal
-            cargarMisProductos(); // Recargamos lista
-        } else {
-            alert("Error al actualizar: " + (data.message || 'Error desconocido'));
-        }
-    });
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert("Artículo actualizado correctamente.");
+                modalBootstrap.hide(); // Cerramos modal
+                cargarMisProductos(); // Recargamos lista
+            } else {
+                alert("Error al actualizar: " + (data.message || 'Error desconocido'));
+            }
+        });
 }
 
 function eliminarProducto(id) {
-    if(!confirm("¿Estás seguro de que quieres eliminar este artículo?")) return;
+    if (!confirm("¿Estás seguro de que quieres eliminar este artículo?")) return;
 
     const formData = new FormData();
     formData.append('id', id);
 
-  
-    fetch('../php/eliminar_articulo.php', { 
+
+    fetch('../php/eliminar_articulo.php', {
         method: 'POST',
         body: formData
     })
-    .then(res => {
-        // Esto nos ayuda a ver si el archivo existe o da error 404/500
-        if (!res.ok) {
-            throw new Error("Error en la red: " + res.status + " " + res.statusText);
-        }
-        return res.json(); // Intentamos leer el JSON
-    })
-    .then(data => {
-        if(data.success) {
-            alert("Artículo eliminado correctamente.");
-            cargarMisProductos(); // Recargar la lista
-        } else {
-            alert("Error: " + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("Ocurrió un error al intentar borrar. Abre la consola (F12) para ver más detalles.");
-    });
+        .then(res => {
+            // Esto nos ayuda a ver si el archivo existe o da error 404/500
+            if (!res.ok) {
+                throw new Error("Error en la red: " + res.status + " " + res.statusText);
+            }
+            return res.json(); // Intentamos leer el JSON
+        })
+        .then(data => {
+            if (data.success) {
+                alert("Artículo eliminado correctamente.");
+                cargarMisProductos(); // Recargar la lista
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Ocurrió un error al intentar borrar. Abre la consola (F12) para ver más detalles.");
+        });
 }
 
 
@@ -601,8 +601,8 @@ function aplicarFiltros() {
     // A) FILTRO POR TÍTULO O DESCRIPCIÓN (Buscador General)
     if (inputGeneral && inputGeneral.value.trim() !== "") {
         const texto = inputGeneral.value.toLowerCase();
-        resultados = resultados.filter(item => 
-            item.titulo.toLowerCase().includes(texto) || 
+        resultados = resultados.filter(item =>
+            item.titulo.toLowerCase().includes(texto) ||
             item.descripcion.toLowerCase().includes(texto)
         );
     }
@@ -619,7 +619,7 @@ function aplicarFiltros() {
         });
     }
 
-       if (inputCiudad && inputCiudad.value.trim() !== "") {
+    if (inputCiudad && inputCiudad.value.trim() !== "") {
         const textoCiudad = inputCiudad.value.toLowerCase();
         resultados = resultados.filter(item => {
             const ciudad = item.ciudad.toLowerCase();
@@ -630,7 +630,7 @@ function aplicarFiltros() {
     // C) ORDENACIÓN
     if (selectOrden) {
         const criterio = selectOrden.value;
-        
+
         if (criterio === 'reciente') {
             resultados.sort((a, b) => new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion));
         } else if (criterio === 'antiguo') {
@@ -654,7 +654,7 @@ if (inputCiudad) inputCiudad.addEventListener('input', aplicarFiltros);
 if (selectOrden) selectOrden.addEventListener('change', aplicarFiltros);
 
 // Ejecutar filtro inicial al cargar (para que salga ordenado por reciente)
- setTimeout(() => { aplicarFiltros(); }, 500); // Pequeño retardo para asegurar que los datos cargaron
+setTimeout(() => { aplicarFiltros(); }, 500); // Pequeño retardo para asegurar que los datos cargaron
 
 // Variable global para saber qué artículo estamos puntuando
 let idArticuloParaReseña = null;
@@ -673,7 +673,7 @@ function cambiarEstadoArticulo(idArticulo, nuevoEstado) {
     } else {
         // Si es "reservado" o "disponible", lo hacemos directo como antes
         procesarCambioEstado(idArticulo, nuevoEstado, null);
-      
+
     }
 }
 
@@ -681,9 +681,9 @@ function cambiarEstadoArticulo(idArticulo, nuevoEstado) {
 function cargarPosiblesCompradores() {
     const select = document.getElementById('select-comprador');
     select.innerHTML = '<option disabled selected>Cargando...</option>';
-    
-    
-    fetch('../php/obtener_usuarios_chat.php') 
+
+
+    fetch('../php/obtener_usuarios_chat.php')
         .then(res => res.json())
         .then(usuarios => {
             console.log(usuarios);
@@ -697,7 +697,7 @@ function cargarPosiblesCompradores() {
 // 3. Función al pulsar "Confirmar intercambio" en el modal
 function confirmarVenta() {
     const compradorId = document.getElementById('select-comprador').value;
-    
+
     if (!compradorId) return alert("Debes seleccionar un usuario.");
 
     // Cerramos modal de comprador
@@ -719,33 +719,33 @@ function procesarCambioEstado(id, estado, compradorId) {
         method: 'POST',
         body: formData
     })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            if (estado === 'vendido') {
-                // Ahora sí, abrimos la reseña
-                idArticuloParaReseña = id; 
-                // Guardamos también el ID del comprador en una variable global por si la reseña lo necesita
-                receptorReseñaId = compradorId; 
-                
-                const modalResena = new bootstrap.Modal(document.getElementById('modalReseña'));
-                modalResena.show();
-            } else {
-                inicializarDatos();
-                cargarMisProductos();
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                if (estado === 'vendido') {
+                    // Ahora sí, abrimos la reseña
+                    idArticuloParaReseña = id;
+                    // Guardamos también el ID del comprador en una variable global por si la reseña lo necesita
+                    receptorReseñaId = compradorId;
+
+                    const modalResena = new bootstrap.Modal(document.getElementById('modalReseña'));
+                    modalResena.show();
+                } else {
+                    inicializarDatos();
+                    cargarMisProductos();
+                }
             }
-        }
-    });
+        });
 }
 
 // Lógica para pintar las estrellas al hacer clic
 document.querySelectorAll('.estrellas-rating i').forEach(estrella => {
-    estrella.addEventListener('click', function() {
+    estrella.addEventListener('click', function () {
         const valorSeleccionado = this.getAttribute('data-value');
-        
+
         // Guardamos el valor (ej: 4) en el input oculto
         document.getElementById('puntuacion-valor').value = valorSeleccionado;
-        
+
         // Recorremos todas las estrellas para pintarlas o despintarlas
         document.querySelectorAll('.estrellas-rating i').forEach(s => {
             if (s.getAttribute('data-value') <= valorSeleccionado) {
@@ -765,7 +765,7 @@ function enviarResena() {
     // 1. Capturamos los valores del Modal
     const puntuacionInput = document.getElementById('puntuacion-valor');
     const comentarioInput = document.getElementById('comentario-reseña');
-    
+
     const puntuacion = puntuacionInput.value;
     const comentario = comentarioInput.value.trim(); // .trim() quita espacios vacíos al inicio y final
 
@@ -778,7 +778,7 @@ function enviarResena() {
     // 3. Preparamos los datos para enviar (FormData)
     const formData = new FormData();
     // 'idArticuloEnProceso' es la variable global que guardamos cuando pulsaste "Vender"
-    formData.append('articulo_id', idArticuloEnProceso); 
+    formData.append('articulo_id', idArticuloEnProceso);
     formData.append('puntuacion', puntuacion);
     formData.append('comentario', comentario);
 
@@ -787,53 +787,53 @@ function enviarResena() {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // ÉXITO:
-            alert("¡Gracias! Tu valoración se ha guardado correctamente.");
-            
-            // Cerramos el modal limpiamente
-            const modalEl = document.getElementById('modalReseña');
-            const modalInstance = bootstrap.Modal.getInstance(modalEl);
-            if (modalInstance) modalInstance.hide();
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // ÉXITO:
+                alert("¡Gracias! Tu valoración se ha guardado correctamente.");
 
-            // Recargamos la página para ver los cambios (artículo vendido y reputación actualizada)
-            location.reload(); 
-        } else {
-            // ERROR:
-            alert("Hubo un error al guardar la reseña. Inténtalo de nuevo.");
-            console.error(data);
-        }
-    })
-    .catch(error => {
-        console.error('Error de conexión:', error);
-        alert("Error de conexión con el servidor.");
-    });
+                // Cerramos el modal limpiamente
+                const modalEl = document.getElementById('modalReseña');
+                const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                if (modalInstance) modalInstance.hide();
+
+                // Recargamos la página para ver los cambios (artículo vendido y reputación actualizada)
+                location.reload();
+            } else {
+                // ERROR:
+                alert("Hubo un error al guardar la reseña. Inténtalo de nuevo.");
+                console.error(data);
+            }
+        })
+        .catch(error => {
+            console.error('Error de conexión:', error);
+            alert("Error de conexión con el servidor.");
+        });
 }
 
 function generarEstrellasHTML(puntuacion) {
     let html = '<div class="text-warning" style="font-size: 0.8rem;">';
-    
+
     // Convertimos null o undefined a 0
-    let nota = parseFloat(puntuacion) || 0; 
-    
+    let nota = parseFloat(puntuacion) || 0;
+
     // Pintamos 5 estrellas
     for (let i = 1; i <= 5; i++) {
         if (nota >= i) {
             // Estrella llena
-            html += '<i class="fa fa-star"></i>'; 
+            html += '<i class="fa fa-star"></i>';
         } else if (nota >= i - 0.5) {
             // Media estrella
-            html += '<i class="fa fa-star-half-o"></i>'; 
+            html += '<i class="fa fa-star-half-o"></i>';
         } else {
             // Estrella vacía
-            html += '<i class="fa fa-star-o"></i>'; 
+            html += '<i class="fa fa-star-o"></i>';
         }
     }
-    
+
     // Añadimos el número en texto pequeño al lado (ej: 4.5)
-    if(nota > 0) {
+    if (nota > 0) {
         html += ` <span class="text-muted small">(${nota})</span>`;
     } else {
         html += ` <span class="text-muted small py-1" style="font-size:0.7rem">Nuevo</span>`;
@@ -882,17 +882,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btn.addEventListener('click', (e) => {
         e.preventDefault();
-         const miId = e.target.getAttribute('data-id');
+        const miId = e.target.getAttribute('data-id');
         verOpiniones(miId);
     });
 });
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const contenedor = document.getElementById('contenedor-busqueda');
     const carrusel = document.getElementById('carouselExampleInterval');
     const seccionArticulos = document.getElementById('articulos');
     const titulo = contenedor.querySelector('h3');
-    const campos = contenedor.querySelectorAll('.campo-busqueda'); 
-    
+    const campos = contenedor.querySelectorAll('.campo-busqueda');
+
     const inputGeneral = document.getElementById('buscador-general');
     const inputCambio = document.getElementById('buscador-cambio');
     const inputCiudad = document.getElementById('buscador-ciudad');
@@ -905,31 +905,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function transformarBuscador(inputActivo) {
         if (modoCompactoActivo) return;
-        
+
         // Guardamos la posición del cursor antes de mover el DOM
         const cursorStart = inputActivo.selectionStart;
 
-        
+
         if (carrusel) {
             carrusel.classList.add('d-none');
             carrusel.classList.remove('d-lg-block');
         }
         if (titulo) titulo.classList.add('d-none');
-        
+
         contenedor.classList.remove('col-lg-6');
         contenedor.classList.add('col-12', 'buscador-fijo', 'sticky-top', 'bg-white');
 
         // 2. Ajuste Responsive: col-md-3 para que los 4 campos quepan en una fila
         campos.forEach(div => {
-            div.classList.replace('col-12', 'col-md-3'); 
+            div.classList.replace('col-12', 'col-md-3');
             const label = div.querySelector('label');
-            if(label) label.classList.add('d-none');
+            if (label) label.classList.add('d-none');
         });
 
         // 3. Mover el buscador arriba de los artículos
         seccionArticulos.parentNode.insertBefore(contenedor, seccionArticulos);
 
-      
+
         setTimeout(() => {
             inputActivo.focus();
             if (cursorStart !== null) inputActivo.setSelectionRange(cursorStart, cursorStart);
@@ -945,7 +945,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         contenedor.classList.remove('col-12', 'buscador-fijo', 'sticky-top', 'bg-white');
         contenedor.classList.add('col-lg-6');
-        
+
         // Restauramos clases del carrusel
         if (carrusel) {
             carrusel.classList.remove('d-none');
@@ -956,7 +956,7 @@ document.addEventListener('DOMContentLoaded', function() {
         campos.forEach(div => {
             div.classList.replace('col-md-3', 'col-12');
             const label = div.querySelector('label');
-            if(label) label.classList.remove('d-none');
+            if (label) label.classList.remove('d-none');
         });
 
         modoCompactoActivo = false;
@@ -965,11 +965,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Eventos para todos los inputs de búsqueda
     [inputGeneral, inputCambio, inputCiudad].forEach(input => {
         if (input) {
-            input.addEventListener('input', function() {
+            input.addEventListener('input', function () {
                 // Comprobamos si alguno de los tres campos tiene texto
-                const tieneTexto = (inputGeneral.value.trim().length > 0) || 
-                                   (inputCambio.value.trim().length > 0) || 
-                                   (inputCiudad.value.trim().length > 0);
+                const tieneTexto = (inputGeneral.value.trim().length > 0) ||
+                    (inputCambio.value.trim().length > 0) ||
+                    (inputCiudad.value.trim().length > 0);
 
                 if (tieneTexto) {
                     transformarBuscador(this);
@@ -984,7 +984,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const $botonPerfil = document.getElementById('botonPerfil');
 
-$botonPerfil.addEventListener('click',  mostrarPerfil());
+$botonPerfil.addEventListener('click', mostrarPerfil());
 
 function mostrarPerfil() {
 
@@ -995,7 +995,7 @@ function mostrarPerfil() {
             datosObtenidos.forEach(element => {
 
 
-               const datosPerfil = `
+                const datosPerfil = `
 <div class="container-fluid">
     <div class="text-center mb-4">
         <div class="position-relative d-inline-block">
@@ -1033,30 +1033,30 @@ function mostrarPerfil() {
                     <i class="fa fa-calendar-check-o me-2 text-success"></i>Fecha de registro
                 </label>
                 <span class="text-dark fw-medium">
-                    ${new Date(element.fecha_registro).toLocaleDateString('es-ES', { 
-                        day: '2-digit', month: 'long', year: 'numeric' 
-                    })}
+                    ${new Date(element.fecha_registro).toLocaleDateString('es-ES', {
+                    day: '2-digit', month: 'long', year: 'numeric'
+                })}
                 </span>
             </div>
         </div>
     </div>
 </div>`;
 
-datos.innerHTML = datosPerfil;
+                datos.innerHTML = datosPerfil;
             }));
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const selectCategoria = document.getElementById('nav-categoria');
     const seccionArticulos = document.getElementById('resultados');
 
     if (selectCategoria) {
-        selectCategoria.addEventListener('change', function() {
+        selectCategoria.addEventListener('change', function () {
             const categoriaSeleccionada = this.value;
-            
+
             // 1. Filtrar los datos globales (todosLosDatos ya debe estar cargado)
             let filtrados = [];
-            
+
             if (categoriaSeleccionada === "todas") {
                 filtrados = todosLosDatos;
             } else {
@@ -1070,7 +1070,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 3. Efecto profesional: Scroll suave a los resultados y ocultar carrusel
             if (categoriaSeleccionada !== "todas") {
                 if (typeof transformarBuscador === "function") transformarBuscador(this);
-                
+
                 if (seccionArticulos) {
                     seccionArticulos.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
@@ -1090,6 +1090,6 @@ function mostrarResultadosFiltrados(datos) {
             <p class="text-muted">No hay artículos en esta categoría.</p>
         </div>`;
     } else {
-      mostrarDatos(datos);
+        mostrarDatos(datos);
     }
 }
