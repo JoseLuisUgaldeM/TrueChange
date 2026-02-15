@@ -282,36 +282,32 @@ if ($_SESSION['inicioSesion'] == true) {
                         aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-item nav-underline">
-                            <li class="nav-item">
-                                <select class="form-select " name="categoria" id="campoCategoria" onclick="filtrarPorCategoria(event)">
-                                    <option selected disabled>Categoría</option>
-                                    <option value="Coches">Coches</option>
-                                    <option value="Motos">Motos</option>
-                                    <option value="Motor y accesorios">Motor y accesorios</option>
-                                    <option value="Moda y accesorios">Moda y accesorios</option>
-                                    <option value="inmobiliaria">Inmobiliaria</option>
-                                    <option value="Tecnología y electrónica">Tecnología y electrónica</option>
-                                    <option value="Deporte y ocio">Deporte y ocio</option>
-                                    <option value="Bicicletas">Bicicletas</option>
-                                    <option value="Hogar y jardín">Hogar y jardin</option>
-                                    <option value="Electrodomésticos">Electrodomésticos</option>
-                                    <option value="Cine libros y música">Cine libros y música</option>
-                                    <option value="Niños y bebés">Niños y bebés</option>
-                                    <option value="Coleccionismo">Coleccionismo</option>
-                                    <option value="Construcción y reformas">Construccion y reformas</option>
-                                    <option value="Industria  agricultura">Industria y agricultura</option>
-                                    <option value="Empleo">Empleo</option>
-                                    <option value="Servicios">Servicios</option>
-                                    <option value="Otros">Otros...</option>
-
-                                </select>
-                            </li>
-
-
-
-                        </ul>
+       <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-item nav-underline">   
+                
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Electronica</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Informática</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hogar</a>
+                </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Coches</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Motos</a>
+                        </li>
+                    </ul>
+                </div>
+                   
                     </div>
 
                     <form class="d-flex col-lg-5 col-md-8 col-sm-8" role="search">
@@ -544,7 +540,7 @@ if ($_SESSION['inicioSesion'] == true) {
 
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
                         <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Ayuda</h5>
-                        <p><a href="#" class="text-white text-decoration-none">Cómo funciona</a></p>
+                        <p><a href="../../public/funcionamiento.html" class="text-white text-decoration-none">Cómo funciona</a></p>
                         <p><a href="../../public/normas.html" class="text-white text-decoration-none">Reglas y normas</a></p>
                         <p><a href="#" class="text-white text-decoration-none">Contacto</a></p>
                     </div>

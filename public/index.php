@@ -310,7 +310,7 @@ header('Content-Type: text/html; charset=utf-8');
                     
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
                         <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Ayuda</h5>
-                        <p><a href="#" class="text-white text-decoration-none">Cómo funciona</a></p>
+                        <p><a href="funcionamiento.html" class="text-white text-decoration-none">Cómo funciona</a></p>
                         <p><a href="normas.html" class="text-white text-decoration-none">Reglas y normas</a></p>
                         <p><a href="#" class="text-white text-decoration-none">Contacto</a></p>
                     </div>

@@ -431,3 +431,56 @@ main, #resultados {
 .btn-upload-item {
     animation: pulse-soft 2s infinite;
 }
+
+/* CONTENEDOR DE LOS BOTONES */
+.categorias-scroll {
+    display: flex;
+    flex-wrap: nowrap !important; /* IMPORTANTE: Evita que bajen de línea */
+    overflow-x: auto;             /* Habilita scroll horizontal */
+    gap: 10px;                    /* Espacio entre botones */
+    padding: 10px 0;              /* Espacio arriba/abajo */
+    width: 100%;                  /* Ocupa todo el ancho disponible */
+    
+    /* Scroll suave para móviles */
+    -webkit-overflow-scrolling: touch; 
+    /* Ocultar barra de scroll (estético) */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+
+/* Ocultar barra scroll en Chrome/Safari */
+.categorias-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* ESTILO DEL BOTÓN (Píldora) */
+.btn-cat {
+    /* Resetear estilos feos por defecto del navegador */
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    
+    /* Forma y texto */
+    border-radius: 50px;         /* Borde redondo completo */
+    padding: 6px 18px;           
+    color: #555;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;         /* CRUCIAL: El texto nunca se parte */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* HOVER (Al pasar el mouse) */
+.btn-cat:hover {
+    background-color: #f8f9fa;
+    border-color: #0d6efd;       /* Azul Bootstrap */
+    color: #0d6efd;
+}
+
+/* ACTIVE (Botón seleccionado) */
+.btn-cat.active {
+    background-color: #0d6efd;   /* Fondo azul */
+    color: #fff;                 /* Texto blanco */
+    border-color: #0d6efd;
+    box-shadow: 0 2px 5px rgba(13, 110, 253, 0.3);
+}

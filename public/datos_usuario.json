@@ -21,5 +21,28 @@
         "articulo_id": 250,
         "ruta_foto": "..\/imagenes\/uploads\/698a1a0bb959a.jpg",
         "valoracion_media": "0.0000"
+    },
+    {
+        "id": 85,
+        "nombre": "Jose Luis",
+        "apellido1": "Ugalde",
+        "apellido2": "Mora",
+        "email": "joselulrf@gmail.com",
+        "password": "$2y$10$yYm5KyaHtzQE1kzuH1rJdecyMcsGCOWSJK2XCGtLLl4a.dSjYZEI6",
+        "avatar": "..\/imagenes\/uploadsmoto.jpg",
+        "ciudad": "Logro\u00f1o",
+        "fecha_registro": "2026-02-09 18:19:28",
+        "usuario_id": 64,
+        "titulo": "Ordenador port\u00e1til",
+        "descripcion": "Ordenador port\u00e1til\r\n- Procesador i7\r\n- 32gb de ram\r\n- ssd de 1TB",
+        "categoria": "Tecnolog\u00eda y electr\u00f3nica",
+        "estado": "como nuevo",
+        "fecha_publicacion": "2026-02-14 18:08:38",
+        "estadoArticulo": "disponible",
+        "comprador_id": null,
+        "cambio": "Consola Play Station 5",
+        "articulo_id": 251,
+        "ruta_foto": "..\/imagenes\/uploads\/6990ac16838c6.jpg",
+        "valoracion_media": "0.0000"
     }
 ]

@@ -244,6 +244,10 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
                 ${item.categoria}
             </p>
 
+             <p class="text-primary fw-bold mt-auto mb-2 small text-uppercase">
+                ${item.estado}
+            </p>
+
             <div class="border-0 p-3 mb-2 bg-dark bg-gradient rounded-3 shadow-sm">
                 <h6 class="text-white-50 small mb-1" style="font-size: 0.7rem;">Cambio por...</h6>
                 <p class="text-white fw-bold mb-0 small text-truncate">${item.cambio}</p>
@@ -303,6 +307,10 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
                                 <div class="bg-light p-3 rounded-3 border-start border-primary border-4 shadow-sm">
                                     <h6 class="text-muted small mb-1">Categoría</h6>
                                     <span class="text-dark fw-bold">${item.categoria}</span>
+                                </div>
+                                   <div class="bg-light p-3 rounded-3 border-start border-primary border-4 shadow-sm">
+                                    <h6 class="text-muted small mb-1">Estado</h6>
+                                    <span class="text-primary fw-bold text-uppercase">${item.estado}</span>
                                 </div>
                             </div>
                             <div class="col-6">
