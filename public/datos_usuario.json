@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "id": 84,
         "nombre": "Jose Luis",
         "apellido1": "Ugalde",
@@ -43,6 +44,51 @@
         "cambio": "Consola Play Station 5",
         "articulo_id": 251,
         "ruta_foto": "..\/imagenes\/uploads\/6990ac16838c6.jpg",
+=======
+        "id": 86,
+        "nombre": "Jose",
+        "apellido1": "Ugalde",
+        "apellido2": "Martinez",
+        "email": "joselulrd@gmail.com",
+        "password": "$2y$10$u2F4o0mENScHO7dnUw1vY.dLt.X3h\/1FhQG71OqyJarZdpWEg3y7G",
+        "avatar": "\/TrueChange\/src\/imagenes\/uploads\/default.png",
+        "ciudad": "Logro\u00f1o",
+        "fecha_registro": "2026-02-18 15:55:17",
+        "usuario_id": 65,
+        "titulo": "Bicicleta",
+        "descripcion": "sadasda",
+        "categoria": "Coches",
+        "estado": "como nuevo",
+        "fecha_publicacion": "2026-02-18 16:13:12",
+        "estadoArticulo": "disponible",
+        "comprador_id": null,
+        "cambio": "asdasdasd",
+        "articulo_id": 254,
+        "ruta_foto": "http:\/\/localhost\/TrueChange\/src\/imagenes\/uploads\/6995d708ae4aa.jpg",
+        "valoracion_media": "0.0000"
+    },
+    {
+        "id": 87,
+        "nombre": "Jose",
+        "apellido1": "Ugalde",
+        "apellido2": "Martinez",
+        "email": "joselulrd@gmail.com",
+        "password": "$2y$10$u2F4o0mENScHO7dnUw1vY.dLt.X3h\/1FhQG71OqyJarZdpWEg3y7G",
+        "avatar": "\/TrueChange\/src\/imagenes\/uploads\/default.png",
+        "ciudad": "Logro\u00f1o",
+        "fecha_registro": "2026-02-18 15:55:17",
+        "usuario_id": 65,
+        "titulo": "Ordenador",
+        "descripcion": "Enmalas condiciones",
+        "categoria": "Tecnolog\u00eda y electr\u00f3nica",
+        "estado": "deteriorado",
+        "fecha_publicacion": "2026-02-18 17:10:47",
+        "estadoArticulo": "disponible",
+        "comprador_id": null,
+        "cambio": "asdasd",
+        "articulo_id": 255,
+        "ruta_foto": "..\/imagenes\/uploads\/6995e487a2014.jpg",
+>>>>>>> fb333be (v3.2)
         "valoracion_media": "0.0000"
     }
 ]
