@@ -6,7 +6,7 @@ if (isset($_POST["subirFotos"])) {
 
    
 
-    $target_dir = "TrueChange/src/imagenes/uploads";
+    $target_dir = "/TrueChange/src/imagenes/uploads";
 
     $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
     $uploadOk = 1;

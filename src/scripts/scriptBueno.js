@@ -22,7 +22,7 @@ function getFilename(ruta) {
 }
 
 function getFotoSrc(ruta_foto) {
-  const filename = getFilename(ruta_foto); // si en BD viene "nombre.jpg" => filename = "nombre.jpg"
+  const filename = getFilename(ruta_foto);
   const rel = filename ? (BASE_UPLOADS_REL + filename) : (BASE_UPLOADS_REL + 'default.png');
   // Convertimos esa ruta relativa a absoluta desde la página actual
   return new URL(rel, document.baseURI).href;
@@ -64,7 +64,7 @@ async function inicializarDatos() {
 
     try {
         contenedorResultados.innerHTML = `<p>Cargando datos...</p>`;
-        const respuesta = await fetch(DATOS_JSON_URL); // <<< CAMBIO MÍNIMO (antes: 'datos_usuario.json')
+        const respuesta = await fetch('datos_usuario.json');
 
         if (!respuesta.ok) {
             throw new Error(`Error HTTP: ${respuesta.status}`);
@@ -228,7 +228,7 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
         }
 
 
-        const imagen = getFotoSrc(item.ruta_foto); // <<< CAMBIO MÍNIMO (antes usaba item.ruta_foto directo)
+        const imagen = item.ruta_foto ? item.ruta_foto : '../imagenes/uploads/default.png';
         // --- PROCESAR EL ESTADO PARA DARLE ESTILO ---
         const estado = item.estadoArticulo || 'disponible'; // Valor por defecto
         let badgeHtml = '';
@@ -456,7 +456,7 @@ async function cargarMisProductos() {
         }
 
         misProductos.forEach(producto => {
-            const imagen = getFotoSrc(producto.ruta_foto); // <<< CAMBIO MÍNIMO (antes usaba ruta_foto directo)
+            const imagen = producto.ruta_foto ? producto.ruta_foto : '../imagenes/default.png';
             // Aseguramos que el estado exista
             const estado = producto.estadoArticulo || 'disponible';
 

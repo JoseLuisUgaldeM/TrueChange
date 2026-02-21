@@ -282,53 +282,49 @@ if ($_SESSION['inicioSesion'] == true) {
                         aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-       <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-item nav-underline">   
-                
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">Electronica</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Informática</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Hogar</a>
-                </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Coches</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Motos</a>
-                        </li>
-                    </ul>
-                </div>
-                   
+
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-item nav-underline">
+
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#">Electronica</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Informática</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Hogar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Coches</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Motos</a>
+                            </li>
+                        </ul>
                     </div>
 
+                    
                     <form class="d-flex col-lg-5 col-md-8 col-sm-8" role="search">
                         <input id="campoFiltro" class="form-control me-2 text-primary" type="search" placeholder="Ej: Iphone" aria-label="Search">
                         <button onclick="aplicarFiltro(event)" class="btn btn-outline-primary" type="submit">Buscar</button>
-
+                        
                     </form>
-
-
+                    
+                    
                     <div class="ms-2 p-3" style="position: relative; display: inline-block; min-width: 40px;">
                         <a class="nav-link" href="../../public/Chat/listado_chats.php" title="Mensajes">
                             <i class="fa fa-envelope-o" style="font-size: 1.5rem; color: #333;"></i>
                             <span id="notif-badge"
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                style="display: none; font-size: 0.7rem; padding: 0.35em 0.6em;">
-                                0
-                            </span>
-                        </a>
-                    </div>
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            style="display: none; font-size: 0.7rem; padding: 0.35em 0.6em;">
+                            0
+                        </span>
+                    </a>
                 </div>
-            </nav>
+                </div>
+        </div>
+        </nav>
 
         </div>
         </div>
