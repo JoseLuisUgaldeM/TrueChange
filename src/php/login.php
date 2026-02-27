@@ -33,7 +33,7 @@ if ($datos=  $usuario->login($nombre, $password)){
 
 
     echo "<script>alert('ERROR El usuario no existe. Registrese');
-     window.location.href = '../../public/index.php';
+     window.location.href = 'index.php';
      </script>";
 }
 

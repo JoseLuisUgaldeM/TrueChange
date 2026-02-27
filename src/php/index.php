@@ -2,11 +2,11 @@
 
 
 
-require_once "../src/clases/Usuario.php";
+require_once "../clases/Usuario.php";
 
-require_once "../src/clases/Articulos.php";
+require_once "../clases/Articulos.php";
 
-require_once "../src/php/crearFicheroJson.php";
+require_once "crearFicheroJson.php";
 
 session_start();
 
@@ -30,7 +30,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 <head>
 
-    <link rel="stylesheet" href="../src/css/estilo.css">
+    <link rel="stylesheet" href="../css/estilo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -62,7 +62,7 @@ header('Content-Type: text/html; charset=utf-8');
         <div class="px-2 py-1 bg-opacity-30 bg-info bg-gradient text-white contenedor">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-around">
-                    <img src="../src/imagenes/icono_proyecto.png" alt="icono de la aplicacion" width="100" height="100">
+                    <img src="../imagenes/icono_proyecto.png" alt="icono de la aplicacion" width="100" height="100">
 
 
                     <div class="botones">
@@ -89,7 +89,7 @@ header('Content-Type: text/html; charset=utf-8');
             </div>
 
             <div class="modal-body p-4">
-                <form class="row g-3" action="../src/php/registro.php" method="post">
+                <form class="row g-3" action="registro.php" method="post">
                     
                     <div class="col-md-6">
                         <label for="nombre" class="form-label fw-bold text-muted small">NOMBRE</label>
@@ -251,13 +251,13 @@ header('Content-Type: text/html; charset=utf-8');
         <div id="carouselExampleInterval" class="carousel slide d-flex flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12" data-bs-ride="carousel">
             <div class="carousel-inner text-center">
                 <div class="carousel-item active" data-bs-interval="10000">
-                    <img src="../src/imagenes/manos.jpg" class="d-block w-100 img-fluid " alt="Foto de ROMAN ODINTSOV: https://www.pexels.com/es-es/foto/manos-sujetando-cartulina-carton-12725405/">
+                    <img src="../imagenes/manos.jpg" class="d-block w-100 img-fluid " alt="Foto de ROMAN ODINTSOV: https://www.pexels.com/es-es/foto/manos-sujetando-cartulina-carton-12725405/">
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
-                    <img src="../src/imagenes/electronica.jpg" class="d-block w-100 img-fluid" alt="Foto de ATC Comm Photo: https://www.pexels.com/es-es/foto/primer-plano-de-la-camara-sobre-fondo-negro-306763/">
+                    <img src="../imagenes/electronica.jpg" class="d-block w-100 img-fluid" alt="Foto de ATC Comm Photo: https://www.pexels.com/es-es/foto/primer-plano-de-la-camara-sobre-fondo-negro-306763/">
                 </div>
                 <div class="carousel-item">
-                    <img src="../src/imagenes/moto.jpg" class="d-block w-100 img-fluid" alt="Foto de Pragyan Bezbaruah: https://www.pexels.com/es-es/foto/motocicleta-en-medio-de-la-carretera-1715193/">
+                    <img src="../imagenes/moto.jpg" class="d-block w-100 img-fluid" alt="Foto de Pragyan Bezbaruah: https://www.pexels.com/es-es/foto/motocicleta-en-medio-de-la-carretera-1715193/">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -303,9 +303,9 @@ header('Content-Type: text/html; charset=utf-8');
                     
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                         <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Explorar</h5>
-                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarTodos()">Todos los artículos</a></p>
-                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarFavoritos()">Mis Favoritos</a></p>
-                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarMisProductos()">Mis Publicaciones</a></p>
+                        <p><a href="#" class="text-white text-decoration-none">Todos los artículos</a></p>
+                        <p><a href="#" class="text-white text-decoration-none" >Mis Favoritos</a></p>
+                        <p><a href="#" class="text-white text-decoration-none" >Mis Publicaciones</a></p>
                     </div>
                     
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
@@ -334,7 +334,7 @@ header('Content-Type: text/html; charset=utf-8');
                     </div>
                     <div class="col-md-5 col-lg-4">
                         <div class="text-center text-md-end">
-                            <small class="text-muted">Desarrollado con <i class="fa fa-heart text-danger"></i> para un mundo sostenible.</small>
+                           <small>Desarrollado con <i class="fa fa-heart text-danger"></i> para un mundo sostenible.</small>
                         </div>
                     </div>
                 </div>
@@ -372,7 +372,7 @@ header('Content-Type: text/html; charset=utf-8');
             </div>
             
             <div class="modal-body p-4">
-                <form method="post" action="../src/php/login.php" class="row g-3">
+                <form method="post" action="login.php" class="row g-3">
                     
                     <div class="col-md-12">
                         <label for="usuario" class="form-label fw-bold text-muted small">USUARIO</label>
@@ -417,7 +417,7 @@ header('Content-Type: text/html; charset=utf-8');
     </div>
 </div>
 </div>
-<script src="../src/scripts/script.js"></script>
+<script src="../scripts/script.js"></script>
 </body>
 
 </html>

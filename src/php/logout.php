@@ -23,7 +23,7 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); 
 
 // Redirigir
-header("Location: ../../public/index.php");
+header("Location:index.php");
 ob_end_flush();
 exit();
 ?>

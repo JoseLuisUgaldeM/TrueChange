@@ -529,9 +529,9 @@ if ($_SESSION['inicioSesion'] == true) {
 
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                         <h5 class="text-uppercase mb-4 font-weight-bold text-primary">Explorar</h5>
-                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarTodos()">Todos los artículos</a></p>
-                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarFavoritos()">Mis Favoritos</a></p>
-                        <p><a href="#" class="text-white text-decoration-none" onclick="mostrarMisProductos()">Mis Publicaciones</a></p>
+                        <p><a href="#" class="text-white text-decoration-none" >Todos los artículos</a></p>
+                        <p><a href="#" class="text-white text-decoration-none" >Mis Favoritos</a></p>
+                        <p><a href="#" class="text-white text-decoration-none">Mis Publicaciones</a></p>
                     </div>
 
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">

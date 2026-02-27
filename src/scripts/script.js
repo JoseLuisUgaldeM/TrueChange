@@ -4,29 +4,6 @@ const contenedorResultados = document.getElementById('resultados');
 const contenedorResultadosFiltrados = document.getElementById('resultadosFiltrados');
 var contador = 0;
 
-// ===== RUTAS (mínimo necesario) =====
-const PAGINA_ACTUAL = window.location.pathname.split('/').pop();
-
-// Base RELATIVA según la página (lo que tú querías)
-const BASE_UPLOADS_REL = (PAGINA_ACTUAL === 'sesionIniciada.php')
-  ? '../imagenes/uploads/'
-  : '../src/imagenes/uploads/';
-
-// URL ABSOLUTA correcta al JSON (sin romper nada)
-const DATOS_JSON_URL = new URL('datos_usuario.json', document.baseURI).href;
-
-// Helpers
-function getFilename(ruta) {
-  if (!ruta) return null;
-  return ruta.split('/').pop().split('\\').pop();
-}
-
-function getFotoSrc(ruta_foto) {
-  const filename = getFilename(ruta_foto); // si en BD viene "nombre.jpg" => filename = "nombre.jpg"
-  const rel = filename ? (BASE_UPLOADS_REL + filename) : (BASE_UPLOADS_REL + 'default.png');
-  // Convertimos esa ruta relativa a absoluta desde la página actual
-  return new URL(rel, document.baseURI).href;
-}
 
 // Variable para evitar notificaciones repetidas
 // Consultar cada 10 segundos
@@ -64,7 +41,7 @@ async function inicializarDatos() {
 
     try {
         contenedorResultados.innerHTML = `<p>Cargando datos...</p>`;
-        const respuesta = await fetch(DATOS_JSON_URL); // <<< CAMBIO MÍNIMO (antes: 'datos_usuario.json')
+        const respuesta = await fetch('datos_usuario.json'); 
 
         if (!respuesta.ok) {
             throw new Error(`Error HTTP: ${respuesta.status}`);
@@ -177,7 +154,7 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
     }
 
     if (datos.length === 0) {
-        console.error('No hay articulos que mostrar');
+       
         contenedor.innerHTML = `<div class="alert alert-warning col-12" role="alert">No se encontraron artículos.</div>`;
         return;
     }
@@ -195,11 +172,6 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
 
         if (intervalo > 1) imprimir = `Publicado hace ${intervalo} dias `;
         if (intervalo == 1) imprimir = `Publicado hace ${intervalo} dia `;
-
-        // Dentro del bucle donde recorres los artículos (ej: items.forEach(item => { ... }))
-
-        // 1. Detectar si el artículo es del usuario logueado
-        // Dentro de tu bucle de artículos en script.js
 
         // 1. Solo comparamos si el usuarioLogueadoId no es nulo
         const esMio = (usuarioLogueadoId !== null) && (String(item.usuario_id) === String(usuarioLogueadoId));
@@ -227,8 +199,7 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
 
         }
 
-
-        const imagen = getFotoSrc(item.ruta_foto); // <<< CAMBIO MÍNIMO (antes usaba item.ruta_foto directo)
+        const imagen = item.ruta_foto ? item.ruta_foto : '../imagenes/uploads/default.png';
         // --- PROCESAR EL ESTADO PARA DARLE ESTILO ---
         const estado = item.estadoArticulo || 'disponible'; // Valor por defecto
         let badgeHtml = '';
@@ -424,7 +395,7 @@ document.addEventListener('click', function (e) {
             });
     }
 
-    fetch('../../public/Chat/verificar_notifications.php')
+   /* fetch('../../public/Chat/verificar_notifications.php')
         .then(res => res.json())
         .then(data => {
             if (data.count > 0) {
@@ -432,7 +403,7 @@ document.addEventListener('click', function (e) {
                 const toast = new bootstrap.Toast(document.getElementById('liveToast'));
                 toast.show();
             }
-        });
+        }); */
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -456,8 +427,7 @@ async function cargarMisProductos() {
         }
 
         misProductos.forEach(producto => {
-            const imagen = getFotoSrc(producto.ruta_foto); // <<< CAMBIO MÍNIMO (antes usaba ruta_foto directo)
-            // Aseguramos que el estado exista
+            const imagen = producto.ruta_foto;
             const estado = producto.estadoArticulo || 'disponible';
 
             // Preparamos datos para editar
