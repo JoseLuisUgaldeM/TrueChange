@@ -484,3 +484,54 @@ main, #resultados {
     border-color: #0d6efd;
     box-shadow: 0 2px 5px rgba(13, 110, 253, 0.3);
 }
+
+/* Estilo para la barra de búsqueda */
+.navbar {
+    padding: 0.8rem 0;
+    transition: all 0.3s ease;
+}
+
+.input-group .form-select:focus, 
+.input-group .form-control:focus {
+    box-shadow: none;
+    border-color: #0d6efd;
+    z-index: 3;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #0d6efd, #004db3);
+    border: none;
+}
+
+/* Ajuste responsive para el selector */
+@media (max-width: 576px) {
+    #searchCategory {
+        max-width: 100px;
+        font-size: 0.85rem;
+    }
+}
+/* Estilos para el buscador Pro */
+.buscador-pro {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Efecto al hacer clic dentro del buscador */
+.buscador-pro:focus-within {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15) !important;
+    border-color: #0d6efd !important;
+}
+
+/* Evitar bordes azules feos por defecto de bootstrap al seleccionar */
+.buscador-pro .form-control:focus,
+.buscador-pro .form-select:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+/* Ocultar el texto de categoría en móviles muy pequeños para dar espacio al input */
+@media (max-width: 576px) {
+    #searchCategory {
+        max-width: 120px !important;
+        font-size: 0.85rem;
+    }
+}

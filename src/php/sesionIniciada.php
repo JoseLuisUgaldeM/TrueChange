@@ -277,40 +277,47 @@ if ($_SESSION['inicioSesion'] == true) {
         <div class="barraNavegacion mx-auto sticky-top bg-white">
 
             <nav class="navbar navbar-expand-lg ">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-                        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <div class="collapse navbar-collapse" id="navbarSearch">
+                <form onsubmit="aplicarFiltroYcategoria(event)" class="d-flex w-100 mx-auto bg-white rounded-pill shadow-sm border border-primary-subtle p-1 buscador-pro" style="max-width: 800px;">
+                    <div class="input-group align-items-center">
 
-                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-item nav-underline">
+                        <select class="form-select border-0 bg-transparent fw-medium text-secondary" id="searchCategory" style="max-width: 200px; cursor: pointer; box-shadow: none;">
+                            <option value="todas" selected>Todas las categorías</option>
+                            <option value="Coches">Coches</option>
+                            <option value="Motos">Motos</option>
+                            <option value="Motor y accesorios">Motor y accesorios</option>
+                            <option value="Moda y accesorios">Moda y accesorios</option>
+                            <option value="inmobiliaria">Inmobiliaria</option>
+                            <option value="Tecnología y electrónica">Tecnología y electrónica</option>
+                            <option value="Deporte y ocio">Deporte y ocio</option>
+                            <option value="Bicicletas">Bicicletas</option>
+                            <option value="Hogar y jardín">Hogar y jardín</option>
+                            <option value="Electrodomésticos">Electrodomésticos</option>
+                            <option value="Cine libros y música">Cine libros y música</option>
+                            <option value="Niños y bebés">Niños y bebés</option>
+                            <option value="Coleccionismo">Coleccionismo</option>
+                            <option value="Construcción y reformas">Construcción y reformas</option>
+                            <option value="Industria agricultura">Industria y agricultura</option>
+                            <option value="Empleo">Empleo</option>
+                            <option value="Servicios">Servicios</option>
+                            <option value="Otros">Otros...</option>
+                        </select>
 
-                            <li class="nav-item ">
-                                <a class="nav-link" href="#">Electronica</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Informática</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Hogar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Coches</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Motos</a>
-                            </li>
-                        </ul>
+                        <div class="vr bg-secondary opacity-25" style="width: 2px; height: 25px; margin: 0 10px;"></div>
+
+                        <input id="campoFiltro" class="form-control border-0 bg-transparent text-dark" type="search" placeholder="¿Qué buscas? Ej: iPhone" aria-label="Search" style="box-shadow: none;">
+
+                        <button class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" type="submit" style="transition: all 0.2s;">
+                            <i class="fa fa-search me-1"></i> <span class="d-none d-sm-inline">Buscar</span>
+                        </button>
+
                     </div>
+                </form>
+            </div>
+
 
                     
-                    <form class="d-flex col-lg-5 col-md-8 col-sm-8" role="search">
-                        <input id="campoFiltro" class="form-control me-2 text-primary" type="search" placeholder="Ej: Iphone" aria-label="Search">
-                        <button onclick="aplicarFiltro(event)" class="btn btn-outline-primary" type="submit">Buscar</button>
-                        
-                    </form>
-                    
+                   
                     
                     <div class="ms-2 p-3" style="position: relative; display: inline-block; min-width: 40px;">
                         <a class="nav-link" href="../../public/Chat/listado_chats.php" title="Mensajes">
@@ -502,7 +509,7 @@ if ($_SESSION['inicioSesion'] == true) {
                         <p>Para cerrar el trato, indícanos quién fue el afortunado:</p>
 
                         <div class="mb-3">
-                            <label for="select-comprador" class="form-label fw-bold">Comprador:</label>
+                            <label for="select-comprador" class="form-label fw-bold">He hecho trato con:</label>
                             <select class="form-select" id="select-comprador">
                                 <option value="" selected disabled>Cargando usuarios...</option>
                             </select>
@@ -511,7 +518,7 @@ if ($_SESSION['inicioSesion'] == true) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-success" onclick="confirmarVenta()">Confirmar Venta</button>
+                        <button type="button" class="btn btn-success" onclick="confirmarVenta()">Confirmar trato</button>
                     </div>
                 </div>
             </div>
@@ -648,7 +655,7 @@ if ($_SESSION['inicioSesion'] == true) {
 
     echo "<script>
             alert('Regístrese para acceder.');
-            window.location.href = '../../public/index.php';
+            window.location.href = 'index.php';
           </script>";
     exit();
 }

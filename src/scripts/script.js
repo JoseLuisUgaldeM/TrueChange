@@ -46,10 +46,30 @@ async function inicializarDatos() {
         if (!respuesta.ok) {
             throw new Error(`Error HTTP: ${respuesta.status}`);
         }
+let datosObtenidos = await respuesta.json();
 
-        todosLosDatos = await respuesta.json();
+        // 1. Calculamos la fecha y hora exacta de hace 2 días
+        const limiteDosDias = new Date();
+        limiteDosDias.setDate(limiteDosDias.getDate() - 2);
 
-        // Muestra todos los datos al inicio
+        // 2. Filtramos el array antes de guardarlo en 'todosLosDatos'
+        todosLosDatos = datosObtenidos.filter(articulo => {
+            // Comprobamos si el artículo está vendido y si tiene registrada la fecha de cambio
+            if (articulo.estadoArticulo === 'vendido' && articulo.fecha_cambio) {
+                
+                // Convertimos la fecha_cambio de la BBDD (ej. "2026-03-05 10:00:00") a objeto Date
+                const fechaCambio = new Date(articulo.fecha_cambio);
+                
+                // Si la fecha en la que se cambió es más antigua que nuestro límite, lo ocultamos
+                if (fechaCambio < limiteDosDias) {
+                    return false; 
+                }
+            }
+            // Si está 'disponible', 'reservado' o fue vendido hace menos de 2 días, lo mostramos
+            return true; 
+        });
+
+        // 3. Muestra los datos filtrados al inicio
         mostrarDatos(todosLosDatos, contenedorResultados);
         aplicarFiltros();
     } catch (error) {
@@ -154,7 +174,7 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
     }
 
     if (datos.length === 0) {
-       
+
         contenedor.innerHTML = `<div class="alert alert-warning col-12" role="alert">No se encontraron artículos.</div>`;
         return;
     }
@@ -206,7 +226,7 @@ function mostrarDatos(datos, contenedor, campo = null, valor = null) {
 
         if (estado === 'vendido') {
             badgeHtml = `<span class="badge-estado badge-vendido position-absolute top-0 start-0 m-2">
-            <i class="fa fa-handshake-o"></i> Vendido
+            <i class="fa fa-handshake-o"></i> Cambiado
             </span>`;
         } else if (estado === 'reservado') {
             badgeHtml = `<span class="badge-estado badge-reservado position-absolute top-0 start-0 m-2">
@@ -436,7 +456,7 @@ async function cargarMisProductos() {
             // 1. GENERAR EL BADGE (Etiqueta superior izquierda)
             let badgeHtml = '';
             if (estado === 'vendido') {
-                badgeHtml = `<span class="badge-estado badge-vendido position-absolute top-0 start-0 m-2"><i class="fa fa-handshake-o"></i> Vendido</span>`;
+                badgeHtml = `<span class="badge-estado badge-vendido position-absolute top-0 start-0 m-2"><i class="fa fa-handshake-o"></i> Cambiado</span>`;
             } else if (estado === 'reservado') {
                 badgeHtml = `<span class="badge-estado badge-reservado position-absolute top-0 start-0 m-2"><i class="fa fa-clock-o"></i> Reservado</span>`;
             } else {
@@ -451,7 +471,7 @@ async function cargarMisProductos() {
                 htmlBotonesEstado = `
                 <div class="mt-2 text-center w-100">
                     <div class="alert alert-secondary mb-0 py-1 shadow-sm" style="font-size: 0.8rem;">
-                        <i class="fa fa-lock"></i> <strong>Venta Cerrada</strong>
+                        <i class="fa fa-lock"></i> <strong>Trato cerrado</strong>
                     </div>
                 </div>`;
             } else {
@@ -716,7 +736,7 @@ function procesarCambioEstado(id, estado, compradorId) {
     const formData = new FormData();
     formData.append('id', id);
     formData.append('estadoArticulo', estado);
-    if (compradorId) formData.append('comprador_id', compradorId);
+    if (compradorId) formData.append('receptor_id', compradorId);
 
     fetch('../php/cambiar_estado.php', {
         method: 'POST',
@@ -1049,50 +1069,50 @@ function mostrarPerfil() {
             }));
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const selectCategoria = document.getElementById('nav-categoria');
-    const seccionArticulos = document.getElementById('resultados');
-
-    if (selectCategoria) {
-        selectCategoria.addEventListener('change', function () {
-            const categoriaSeleccionada = this.value;
-
-            // 1. Filtrar los datos globales (todosLosDatos ya debe estar cargado)
-            let filtrados = [];
-
-            if (categoriaSeleccionada === "todas") {
-                filtrados = todosLosDatos;
-            } else {
-                filtrados = todosLosDatos.filter(item => item.categoria === categoriaSeleccionada);
-            }
-
-            // 2. Mostrar los resultados
-            // Nota: Aquí debes llamar a tu función que pinta los artículos en el DOM
-            mostrarResultadosFiltrados(filtrados);
-
-            // 3. Efecto profesional: Scroll suave a los resultados y ocultar carrusel
-            if (categoriaSeleccionada !== "todas") {
-                if (typeof transformarBuscador === "function") transformarBuscador(this);
-
-                if (seccionArticulos) {
-                    seccionArticulos.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
-        });
+function aplicarFiltroYcategoria(event) {
+    // 1. Evitar que la página recargue al darle al botón submit
+    if (event) {
+        event.preventDefault();
     }
-});
 
-// Función de ejemplo para renderizar (ajusta según tu código actual)
-function mostrarResultadosFiltrados(datos) {
-    const contenedor = document.getElementById('resultados'); // Tu div de productos
-    if (!contenedor) return;
+    // 2. Obtener los valores del select y del input
+    const categoria = document.getElementById('searchCategory').value;
+    const texto = document.getElementById('campoFiltro').value.toLowerCase().trim();
 
-    if (datos.length === 0) {
-        contenedor.innerHTML = `<div class="col-12 text-center p-5">
-            <i class="fa fa-search-minus fa-3x text-muted mb-3"></i>
-            <p class="text-muted">No hay artículos en esta categoría.</p>
-        </div>`;
-    } else {
-        mostrarDatos(datos);
+    // 3. Filtrar usando el array principal que tienes (todosLosDatos)
+    const resultadosFiltrados = todosLosDatos.filter(articulo => {
+        
+        // Condición 1: Comprobar la categoría
+        // Pasa si seleccionó "todas" o si la categoría del artículo es exactamente igual a la seleccionada
+        const coincideCategoria = (categoria === "todas" || articulo.categoria === categoria);
+
+        // Condición 2: Comprobar el texto
+        // Pasa si el nombre o la descripción contienen el texto escrito en el input
+        const coincideTexto = articulo.nombre.toLowerCase().includes(texto) || 
+                              articulo.descripcion.toLowerCase().includes(texto);
+
+        // Un artículo solo se muestra si cumple AMBAS condiciones
+        return coincideCategoria && coincideTexto;
+    });
+
+    // 4. Mostrar los resultados
+    const contenedor = document.getElementById('articulos'); // Ajusta esto a tu contenedor si se llama diferente
+    
+    if (contenedor) {
+        contenedor.innerHTML = ""; // Limpiamos la pantalla
+
+        if (resultadosFiltrados.length > 0) {
+            // Utilizamos tu función original que pinta los artículos
+            mostrarDatos(resultadosFiltrados, contenedor);
+        } else {
+            // Mensaje elegante si no hay coincidencias
+            contenedor.innerHTML = `
+                <div class="col-12 text-center my-5 py-5 w-100">
+                    <i class="fa fa-search fa-3x text-muted mb-3 opacity-25"></i>
+                    <h4 class="text-secondary fw-bold">No hemos encontrado nada</h4>
+                    <p class="text-muted">Prueba a buscar con otras palabras o cambia la categoría.</p>
+                </div>
+            `;
+        }
     }
 }
