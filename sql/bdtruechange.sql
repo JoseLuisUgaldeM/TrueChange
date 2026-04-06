@@ -31,17 +31,17 @@ CREATE TABLE IF NOT EXISTS `articulos` (
   `estadoArticulo` enum('disponible','reservado','vendido') DEFAULT 'disponible',
   `receptor_id` int(11) DEFAULT NULL,
   `cambio` varchar(100) DEFAULT 'Escucho posibles cambios',
+  `fecha_venta` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`),
   KEY `fk_receptor` (`receptor_id`),
   CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_receptor` FOREIGN KEY (`receptor_id`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla bdtruechange.articulos: ~2 rows (aproximadamente)
-INSERT INTO `articulos` (`id`, `usuario_id`, `titulo`, `descripcion`, `categoria`, `estado`, `fecha_publicacion`, `estadoArticulo`, `receptor_id`, `cambio`) VALUES
-	(99, 33, 'Coche todoterreno', 'Todo terreno en buen estado.\r\n112.000 kms\r\nRevisiones al dia. Duerme en garaje', 'coches', 'usado', '2026-01-17 09:14:38', 'disponible', NULL, 'Escucho posibles cambios'),
-	(101, 33, 'Ordena portátil', 'Ordenador portátil marca MSI\r\n32gb de Ram\r\nDisco duro de 1Tb solido.\r\n1 año de antiguedad', 'tecnologia y electronica', 'como nuevo', '2026-01-19 17:24:20', 'disponible', NULL, 'Guitarra eléctrica');
+-- Volcando datos para la tabla bdtruechange.articulos: ~1 rows (aproximadamente)
+INSERT INTO `articulos` (`id`, `usuario_id`, `titulo`, `descripcion`, `categoria`, `estado`, `fecha_publicacion`, `estadoArticulo`, `receptor_id`, `cambio`, `fecha_venta`) VALUES
+	(102, 33, 'Patinete eléctrico', 'Patinete eléctrico en muy buen estado.\r\n- Batería al 100% de capacidad.\r\n- Ruedas en buen estado.\r\n- Sin roces ni caídas.', 'Tecnología y electrónica', 'como nuevo', '2026-04-02 11:16:59', 'vendido', 35, 'Nintendo switch 2', '2026-04-04 10:01:42');
 
 -- Volcando estructura para tabla bdtruechange.articulos_fotos
 CREATE TABLE IF NOT EXISTS `articulos_fotos` (
@@ -51,12 +51,11 @@ CREATE TABLE IF NOT EXISTS `articulos_fotos` (
   PRIMARY KEY (`id`),
   KEY `articulos_fotos_ibfk_1` (`articulo_id`),
   CONSTRAINT `articulos_fotos_ibfk_1` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`) ON DELETE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla bdtruechange.articulos_fotos: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bdtruechange.articulos_fotos: ~0 rows (aproximadamente)
 INSERT INTO `articulos_fotos` (`id`, `articulo_id`, `ruta_foto`) VALUES
-	(84, 99, '../public/imagenes/uploads/696b52fecc346.jpg'),
-	(86, 101, '../public/imagenes/uploads/696e68c488018.jpg');
+	(87, 102, '../imagenes/uploads/69ce502bd4c4b.jpg');
 
 -- Volcando estructura para tabla bdtruechange.favoritos
 CREATE TABLE IF NOT EXISTS `favoritos` (
@@ -106,9 +105,15 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`),
   KEY `sender_id` (`sender_id`),
   KEY `receiver_id` (`receiver_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=265 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- -- Volcando estructura para tabla bdtruechange.reseñas
+-- Volcando datos para la tabla bdtruechange.messages: ~3 rows (aproximadamente)
+INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `message_text`, `timestamp`, `is_read`) VALUES
+	(262, 35, 33, 'Buenos días José Luis me interesaría el patinete que tienes anunciado.', '2026-04-04 11:28:42', 1),
+	(263, 35, 33, 'Lo cambiarías por una Nintendo Switch que tengo anunciada? Gracias. Un saludo.', '2026-04-04 11:29:56', 1),
+	(264, 33, 35, 'Hola Antonio. Si, genial!! Si quieres podemos quedar. Gracias', '2026-04-04 11:49:07', 1);
+
+-- Volcando estructura para tabla bdtruechange.reseñas
 CREATE TABLE IF NOT EXISTS `reseñas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `articulo_id` int(11) DEFAULT NULL,
@@ -124,9 +129,11 @@ CREATE TABLE IF NOT EXISTS `reseñas` (
   CONSTRAINT `reseñas_ibfk_1` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`),
   CONSTRAINT `reseñas_ibfk_2` FOREIGN KEY (`emisor_id`) REFERENCES `usuarios` (`id`),
   CONSTRAINT `reseñas_ibfk_3` FOREIGN KEY (`receptor_id`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla bdtruechange.reseñas: ~0 rows (aproximadamente)
+INSERT INTO `reseñas` (`id`, `articulo_id`, `emisor_id`, `receptor_id`, `puntuacion`, `comentario`, `fecha`) VALUES
+	(8, 102, 33, 35, 5, 'Todo perfecto. Muy recomendable. Puntual y honesto.', '2026-04-04 12:07:41');
 
 -- Volcando estructura para tabla bdtruechange.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -137,15 +144,18 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
   `avatar` varchar(255) NOT NULL DEFAULT 'imagenes/uploads/default.png',
-  `ciudad` varchar(255) DEFAULT NULL,
+  `ciudad` varchar(255) NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
+  `usuarioNombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `usuarioNombre` (`usuarioNombre`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla bdtruechange.usuarios: ~0 rows (aproximadamente)
-INSERT INTO `usuarios` (`id`, `nombre`, `apellido1`, `apellido2`, `email`, `password`, `avatar`, `ciudad`, `fecha_registro`) VALUES
-	(33, 'Jose Luis', 'Ugalde', 'Mora', 'joselulrd@gmail.com', '$2y$10$NcsAuHf755lj16kAG9Z8aOJ7BC02Tb1CyfP82S0pzm6yFa1DSXnsC', 'imagenes/uploads/default.png', 'Jose', '2026-01-17 09:07:00');
+-- Volcando datos para la tabla bdtruechange.usuarios: ~2 rows (aproximadamente)
+INSERT INTO `usuarios` (`id`, `nombre`, `apellido1`, `apellido2`, `email`, `password`, `avatar`, `ciudad`, `fecha_registro`, `usuarioNombre`) VALUES
+	(33, 'Jose Luis', 'Ugalde', 'Mora', 'joselulrd@gmail.com', '$2y$10$NcsAuHf755lj16kAG9Z8aOJ7BC02Tb1CyfP82S0pzm6yFa1DSXnsC', '../imagenes/uploadspexels-man-1281562_1920.jpg', 'Logroño', '2026-01-17 09:07:00', 'Jose1234'),
+	(35, 'Antonio', 'Ugalde', 'Mora', 'antoniod@gmail.com', '$2y$10$NcsAuHf755lj16kAG9Z8aOJ7BC02Tb1CyfP82S0pzm6yFa1DSXnsC', '../imagenes/uploads/default.png', 'Vitoria', '2026-01-17 09:07:00', 'Antonio1234');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

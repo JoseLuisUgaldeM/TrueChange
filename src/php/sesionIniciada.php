@@ -27,7 +27,7 @@ if ($_SESSION['inicioSesion'] == true) {
     $datosUsuario = $usuario->obtenerUsuarioPorId($id_usuario);
 
 
-    $nombreUsuario = $datosUsuario['nombre'];
+    $usuarioNombre = $datosUsuario['usuarioNombre'];
 
     creaYactualiza($usuario);
 
@@ -36,7 +36,7 @@ if ($_SESSION['inicioSesion'] == true) {
 
 
 
-    $_SESSION['usuarioNombre'] = $nombreUsuario;
+    $_SESSION['usuarioNombre'] = $usuarioNombre;
 
 
     $_SESSION['avatar'] =  $datosUsuario['avatar'];
@@ -94,7 +94,7 @@ if ($_SESSION['inicioSesion'] == true) {
                         </div>
 
                         <div class="dropdown"> <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src=<?php print($_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
+                                <img src=<?php echo( $_SESSION['avatar']) ?> alt="Foto de perfil " width="60" height="60" class="rounded-circle me-2">
                                 <strong> <?php print($_SESSION['usuarioNombre']) ?></strong> </a>
 
 
@@ -310,7 +310,9 @@ if ($_SESSION['inicioSesion'] == true) {
                         <button class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" type="submit" style="transition: all 0.2s;">
                             <i class="fa fa-search me-1"></i> <span class="d-none d-sm-inline">Buscar</span>
                         </button>
-
+                        <button class="btn btn-danger rounded-pill px-4 fw-bold shadow-sm" type="reset" style="transition: all 0.2s;">
+                            <i class="fa fa-trash me-1"></i> <span class="d-none d-sm-inline">Limpiar</span>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -322,9 +324,9 @@ if ($_SESSION['inicioSesion'] == true) {
                     <div class="ms-2 p-3" style="position: relative; display: inline-block; min-width: 40px;">
                         <a class="nav-link" href="../../public/Chat/listado_chats.php" title="Mensajes">
                             <i class="fa fa-envelope-o" style="font-size: 1.5rem; color: #333;"></i>
-                            <span id="notif-badge"
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            style="display: none; font-size: 0.7rem; padding: 0.35em 0.6em;">
+                           <span id="notif-badge"
+                            class="position-absolute top-0 end-100 badge rounded-pill bg-danger"
+                            style="display: none; font-size: 0.7rem; padding: 0.35em 0.6em; transform: translate(-15%, -10%);">
                             0
                         </span>
                     </a>

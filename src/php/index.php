@@ -260,13 +260,38 @@ header('Content-Type: text/html; charset=utf-8');
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary col-lg-6 col-sm-12">
+              <div class="d-flex flex-column justify-content-center p-4 p-lg-5 bg-body-tertiary col-lg-6 col-sm-12 h-100">
+                <span class="fs-3 fw-bold text-primary mb-2">
+                    <i class="fa fa-exchange me-2"></i>TRUECHANGE
+                </span>
+                <p class="fs-5 text-muted mb-4">
+                    La alternativa inteligente para renovar lo que necesitas.
+                </p>
 
-                <span class="fs-4 text-center">TRUECHANGE</span>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod vel veritatis a, ducimus provident officiis commodi odio at quia officia possimus assumenda architecto itaque unde dolor soluta tempora praesentium fuga!</p>
+                <p class="text-secondary mb-4" style="line-height: 1.7; text-align: justify;">
+                    Conectamos a personas para facilitar el intercambio directo de artículos. Diseñada bajo los principios de la economía circular, nuestra plataforma te permite darle una segunda vida a los objetos que ya no usas y conseguir lo que buscas de forma sostenible, local y segura.
+                </p>
 
-                <hr>
+                <ul class="list-unstyled text-secondary mb-4 text-start">
+                    <li class="mb-3">
+                        <i class="fa fa-leaf text-success me-2 fs-5 align-middle"></i>
+                        <strong>Sostenibilidad:</strong> Reduce el impacto ambiental alargando la vida útil de los productos.
+                    </li>
+                    <li class="mb-3">
+                        <i class="fa fa-users text-info me-2 fs-5 align-middle"></i>
+                        <strong>Comunidad:</strong> Conecta con usuarios dispuestos a intercambiar de forma justa.
+                    </li>
+                    <li class="mb-3">
+                        <i class="fa fa-piggy-bank text-warning me-2 fs-5 align-middle"></i>
+                        <strong>Ahorro:</strong> Adquiere nuevo equipamiento sin necesidad de transacciones económicas.
+                    </li>
+                </ul>
+
+                <div class="mt-auto text-center text-lg-start">
+                    <button type="button" class="btn btn-primary px-4 py-2 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Regístrate y empieza a intercambiar <i class="fa fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -372,7 +397,7 @@ header('Content-Type: text/html; charset=utf-8');
                                 <span class="input-group-text bg-light border-end-0 text-primary">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="text" name="usuario" class="form-control border-start-0 bg-light" id="usuario" placeholder="Nombre de usuario" pattern="^[a-zA-Z\s]+$" required>
+                                <input type="text" name="usuarioNombre" class="form-control border-start-0 bg-light" id="usuario" placeholder="Nombre de usuario" required>
                             </div>
                         </div>
 

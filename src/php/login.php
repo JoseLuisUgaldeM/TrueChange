@@ -13,13 +13,13 @@ $usuario = new Usuario($database);
 // Comprobamos si el usuario está logueado
  
 
-$nombre = $_POST['usuario'];
+$usuarioNombre = $_POST['usuarioNombre'];
 
 $password = $_POST['pass'];
 
 // Guardamos el id del usuario en la variable global session.
 
-if ($datos=  $usuario->login($nombre, $password)){
+if ($datos=  $usuario->login($usuarioNombre, $password)){
 
 
     $_SESSION['inicioSesion'] = true;

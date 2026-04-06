@@ -9,8 +9,8 @@ class Usuario {
         $this->db = $database->getConnection();
     }
 
-    public function crearUsuario($nombre, $apellido1, $apellido2, $email, $password, $ciudad) {
-        $sql = "INSERT INTO usuarios (nombre, apellido1, apellido2, email, password, ciudad) VALUES (:nombre, :apellido1, :apellido2, :email, :password, :ciudad)";
+    public function crearUsuario($nombre, $apellido1, $apellido2, $email, $password, $ciudad, $usuarioNombre) {
+        $sql = "INSERT INTO usuarios (nombre, apellido1, apellido2, email, password, ciudad, usuarioNombre) VALUES (:nombre, :apellido1, :apellido2, :email, :password, :ciudad, :usuarioNombre)";
         $stmt = $this->db->prepare($sql); 
         return $stmt->execute([
             ':nombre' => $nombre,
@@ -18,7 +18,8 @@ class Usuario {
             ':password' => password_hash($password, PASSWORD_BCRYPT),
             ':apellido1' => $apellido1,
             ':apellido2' => $apellido2,
-            ':ciudad' => $ciudad
+            ':ciudad' => $ciudad,
+            ':usuarioNombre' => $usuarioNombre
 
         ]);
     }
@@ -51,11 +52,11 @@ class Usuario {
         return $stmt->fetchAll();
     }
 
-     public function login($nombre, $password) {
+     public function login($usuarioNombre, $password) {
 
-        $sql = "SELECT id, nombre, password FROM usuarios WHERE nombre = :nombre LIMIT 1";
+        $sql = "SELECT id, nombre, password FROM usuarios WHERE usuarioNombre = :usuarioNombre LIMIT 1";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([":nombre" => $nombre]);
+        $stmt->execute([":usuarioNombre" => $usuarioNombre]);
         $usuario = $stmt->fetch();
 
         if ($usuario && password_verify($password, $usuario["password"])) {
